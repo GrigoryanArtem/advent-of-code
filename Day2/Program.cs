@@ -1,5 +1,5 @@
 ﻿const string INPUT = "input.txt";
-const string EXAMPLE = "example .txt";
+const string EXAMPLE = "example.txt";
 
 const string FILE = INPUT;
 
@@ -16,22 +16,24 @@ foreach (var line in File.ReadAllLines(FILE))
         .ToArray();
 
     var mat = CreateDiffMatrix(tokens, 2);
-    var success = IsPathExist(mat, tokens.Length - 1, 0);
 
-    p1Counter += success ? 1 : 0;
-    p2Counter += success || IsPathExist(mat, tokens.Length - 1, 1) ? 1 : 0;
+    var p1Success = IsPathExist(mat, tokens.Length - 1, 0);
+    var p2Success = p1Success || IsPathExist(mat, tokens.Length - 1, 1) ||
+        IsPathExist(mat, tokens.Length - 1, 0, 1) || IsPathExist(mat, tokens.Length - 2, 0);
+
+    p1Counter += p1Success ? 1 : 0;
+    p2Counter += p2Success ? 1 : 0;    
 }
 
 Console.WriteLine($"part 1: {p1Counter}");
 Console.WriteLine($"part 2: {p2Counter}");
 
-bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
+bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0, int direction = 0)
 {
     if (index >= mat.GetLength(0) || distance >= mat.GetLength(1))
         return false;
 
     var success = true;
-    var direction = 0;
 
     while (success)
     {
@@ -47,8 +49,8 @@ bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
 
         if(!safe)
         {
-            return mistakes > 0 && (IsPathExist(mat, index, mistakes - 1, distance + 1) || 
-                IsPathExist(mat, index + 1, mistakes - 1, distance + 1));
+            return mistakes > 0 && (IsPathExist(mat, index, mistakes - 1, distance + 1, direction) || 
+                IsPathExist(mat, index + 1, mistakes - 1, distance + 1, direction));
         }
 
         index -= (distance + 1);
