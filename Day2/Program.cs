@@ -45,21 +45,15 @@ bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
         var signCorrect = (direction == 0 || sign == direction);
         var safe = signCorrect && abs >= MIN && abs <= MAX;
 
-        if(!safe && mistakes > 0)
+        if(!safe)
         {
-            return IsPathExist(mat, index, mistakes - 1, distance + 1) || 
-                IsPathExist(mat, index + 1, mistakes - 1, distance + 1);
+            return mistakes > 0 && (IsPathExist(mat, index, mistakes - 1, distance + 1) || 
+                IsPathExist(mat, index + 1, mistakes - 1, distance + 1));
         }
-        else if(!safe)
-        {
-            success = false;
-        }
-        else
-        {
-            index -= (distance + 1);
-            distance = 0;
-            direction = sign;
-        }
+
+        index -= (distance + 1);
+        distance = 0;
+        direction = sign;
     }
 
     return success;
