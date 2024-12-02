@@ -6,54 +6,77 @@ const string FILE = INPUT;
 const int MIN = 1;
 const int MAX = 3;
 
-int counter = 0;
+int p1Counter = 0;
+int p2Counter = 0;
 foreach (var line in File.ReadAllLines(FILE))
 {
     var tokens = line.Split([' '], StringSplitOptions.RemoveEmptyEntries)
         .Select(t => Convert.ToInt32(t.Trim()))
         .ToArray();
 
-    int direction = 0;
-    int corrections = 1;
-    bool safe = true;
-    for (int i = 1; i < tokens.Length && safe;)
+    var mat = CreateDiffMatrix(tokens, 2);
+    var sucess = IsPathExist(mat, tokens.Length - 1, 1);
+
+    Console.WriteLine(String.Join("", tokens.Select(v => $"{v,4}")));
+
+    for (int i = 0; i < mat.GetLength(1); i++)
     {
-        (safe, i) = IsSafe(tokens, i, ref direction, ref corrections);
-    }
+        for(int k = 0; k < mat.GetLength(0); k++)
+            Console.Write($"{mat[k,i],4}");
 
-    if(safe)
-        counter++;
+        Console.WriteLine();
+    }
+    p2Counter += sucess ? 1 : 0;
 }
 
-Console.WriteLine($"answer: {counter}");
+Console.WriteLine(p2Counter);
 
-(bool, int) IsSafe(int[] tokens, int idx, ref int direction, ref int corrections)
-{  
-    var (safe, sign) = Check(tokens[idx - 1] - tokens[idx], direction);    
-    var next= idx + 1;
-
-    if (!safe && corrections > 0 && idx - 2 >= 0)
-    {        
-        (safe, sign) = Check(tokens[idx - 2] - tokens[idx], direction);     
-        if (safe) corrections--;
-    }
-
-    if (!safe && corrections > 0 && idx + 1 < tokens.Length)
-    {        
-        (safe, sign) = Check(tokens[idx - 1] - tokens[idx + 1], direction);
-        corrections--;
-        next = idx + 2;
-    }
-
-    direction = safe ? sign : direction;
-    return (safe, next);
-}
-
-(bool safe, int sign) Check(int diff, int direction)
+bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
 {
-    var (sign, abs) = (Math.Sign(diff), Math.Abs(diff));
-    var signCorrect = (direction == 0 || sign == direction);
-    var safe = signCorrect && abs >= MIN && abs <= MAX;
+    if (index >= mat.GetLength(0) || distance >= mat.GetLength(1))
+        return false;
 
-    return (safe, sign);
+    var sucess = true;
+    var direction = 0;
+
+    while (sucess)
+    {
+        var diff = mat[index, distance];
+
+        if (!diff.HasValue)
+            break;
+
+        var (sign, abs) = (Math.Sign(diff.Value), Math.Abs(diff.Value));
+
+        var signCorrect = (direction == 0 || sign == direction);
+        var safe = signCorrect && abs >= MIN && abs <= MAX;
+
+        if(!safe && mistakes > 0)
+        {
+            return IsPathExist(mat, index, mistakes - 1, distance + 1) || IsPathExist(mat, index + 1, mistakes - 1, distance + 1);
+        }
+        else if(!safe)
+        {
+            sucess = false;
+        }
+        else
+        {
+            index -= (distance + 1);
+            distance = 0;
+            direction = sign;
+        }
+    }
+
+    return sucess;
+}
+
+int?[,] CreateDiffMatrix(int[] nums, int distance)
+{
+    int?[,] result = new int?[nums.Length, distance];
+
+    for(int i = 1; i < nums.Length; i++)
+        for (int k = 0; k < distance; k++)
+            result[i, k] = i - (k + 1) >= 0 ? nums[i] - nums[i - (k + 1)] : null;
+
+    return result;
 }
