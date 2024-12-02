@@ -8,6 +8,7 @@ const int MAX = 3;
 
 int p1Counter = 0;
 int p2Counter = 0;
+
 foreach (var line in File.ReadAllLines(FILE))
 {
     var tokens = line.Split([' '], StringSplitOptions.RemoveEmptyEntries)
@@ -15,31 +16,24 @@ foreach (var line in File.ReadAllLines(FILE))
         .ToArray();
 
     var mat = CreateDiffMatrix(tokens, 2);
-    var sucess = IsPathExist(mat, tokens.Length - 1, 1);
+    var success = IsPathExist(mat, tokens.Length - 1, 0);
 
-    Console.WriteLine(String.Join("", tokens.Select(v => $"{v,4}")));
-
-    for (int i = 0; i < mat.GetLength(1); i++)
-    {
-        for(int k = 0; k < mat.GetLength(0); k++)
-            Console.Write($"{mat[k,i],4}");
-
-        Console.WriteLine();
-    }
-    p2Counter += sucess ? 1 : 0;
+    p1Counter += success ? 1 : 0;
+    p2Counter += success || IsPathExist(mat, tokens.Length - 1, 1) ? 1 : 0;
 }
 
-Console.WriteLine(p2Counter);
+Console.WriteLine($"part 1: {p1Counter}");
+Console.WriteLine($"part 2: {p2Counter}");
 
 bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
 {
     if (index >= mat.GetLength(0) || distance >= mat.GetLength(1))
         return false;
 
-    var sucess = true;
+    var success = true;
     var direction = 0;
 
-    while (sucess)
+    while (success)
     {
         var diff = mat[index, distance];
 
@@ -53,11 +47,12 @@ bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
 
         if(!safe && mistakes > 0)
         {
-            return IsPathExist(mat, index, mistakes - 1, distance + 1) || IsPathExist(mat, index + 1, mistakes - 1, distance + 1);
+            return IsPathExist(mat, index, mistakes - 1, distance + 1) || 
+                IsPathExist(mat, index + 1, mistakes - 1, distance + 1);
         }
         else if(!safe)
         {
-            sucess = false;
+            success = false;
         }
         else
         {
@@ -67,7 +62,7 @@ bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0)
         }
     }
 
-    return sucess;
+    return success;
 }
 
 int?[,] CreateDiffMatrix(int[] nums, int distance)
