@@ -46,7 +46,7 @@ public partial class Day2(ILinesInputReader input) : IPuzzleSolver
 
     #region Additional
 
-    private bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0, int direction = 0)
+    private static bool IsPathExist(int?[,] mat, int index, int mistakes, int distance = 0, int direction = 0)
     {
         if (index >= mat.GetLength(0) || distance >= mat.GetLength(1))
             return false;
@@ -79,7 +79,7 @@ public partial class Day2(ILinesInputReader input) : IPuzzleSolver
         return success;
     }
 
-    private int?[,] CreateDiffMatrix(int[] nums, int distance)
+    private static int?[,] CreateDiffMatrix(int[] nums, int distance)
     {
         int?[,] result = new int?[nums.Length, distance];
 
