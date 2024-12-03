@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "Examples": {
+      "commandName": "Project",
+      "commandLineArgs": "-e"
+    },
+    "Input": {
+      "commandName": "Project"
+    }
+  }
+}
