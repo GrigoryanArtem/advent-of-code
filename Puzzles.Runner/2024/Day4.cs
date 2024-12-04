@@ -12,7 +12,7 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
     private readonly char[] XMAS = ['X', 'M', 'A', 'S'];
     private readonly char[] MAS = ['M', 'A', 'S'];
 
-    private readonly Point2D[][] _xmasCheck =
+    private readonly Point2D[][] XMAS_CHECK =
     [
         [new (-0, +0), new (-1, +1), new (-2, +2), new (-3, +3)], // TR
         [new (-0, +0), new (+1, +0), new (+2, +0), new (+3, +0)], //  R
@@ -20,12 +20,12 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
         [new (-0, +0), new (-0, +1), new (-0, +2), new (-0, +3)], //  B
     ];
 
-    private readonly Point2D[][] _x_masCheck =
+    private readonly Point2D[][] MAS_CHEK_TOP =
     [
         [new (-0, +0), new (+1, +1), new (+2, +2)],
     ];
 
-    private readonly Point2D[][] _x_masCheck2 =
+    private readonly Point2D[][] MAS_CHECK_BOTTOM =
     [
         [new (+0, +2), new (+1, +1), new (+2, +0)],
     ];
@@ -42,11 +42,11 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => _text.Select((_, i) => i).Sum(idx => Check(_xmasCheck, idx / _size.x, idx % _size.x, XMAS)).ToString();
+        => _text.Select((_, i) => i).Sum(idx => Check(XMAS_CHECK, idx / _size.x, idx % _size.x, XMAS)).ToString();
 
     public string SolvePart2()
-        => _text.Select((_, i) => i).Count(idx => Check(_x_masCheck, idx / _size.x, idx % _size.x, MAS) > 0 && 
-            Check(_x_masCheck2, idx / _size.x, idx % _size.x, MAS) > 0).ToString();
+        => _text.Select((_, i) => i).Count(idx => Check(MAS_CHEK_TOP, idx / _size.x, idx % _size.x, MAS) > 0 && 
+            Check(MAS_CHECK_BOTTOM, idx / _size.x, idx % _size.x, MAS) > 0).ToString();
 
     #region Additional 
 
