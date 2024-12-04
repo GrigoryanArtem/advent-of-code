@@ -7,7 +7,7 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
 {
     #region Constants
 
-    private record Point2D(int x, int y);
+    private record Point2D(int X, int Y);
 
     private readonly char[] XMAS = ['X', 'M', 'A', 'S'];
     private readonly char[] MAS = ['M', 'A', 'S'];
@@ -33,7 +33,7 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
     #endregion
 
     private readonly char[] _text = [.. NewLineRegex().Replace(input.Text, string.Empty)];
-    private Point2D _size;
+    private Point2D _size = new (0, 0);
 
     public void Init()
     {
@@ -42,22 +42,22 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => _text.Select((_, i) => i).Sum(idx => Check(XMAS_CHECK, idx / _size.x, idx % _size.x, XMAS)).ToString();
+        => _text.Select((_, i) => i).Sum(idx => Check(XMAS_CHECK, idx / _size.X, idx % _size.X, XMAS)).ToString();
 
     public string SolvePart2()
-        => _text.Select((_, i) => i).Count(idx => Check(MAS_CHEK_TOP, idx / _size.x, idx % _size.x, MAS) > 0 && 
-            Check(MAS_CHECK_BOTTOM, idx / _size.x, idx % _size.x, MAS) > 0).ToString();
+        => _text.Select((_, i) => i).Count(idx => Check(MAS_CHEK_TOP, idx / _size.X, idx % _size.X, MAS) > 0 && 
+            Check(MAS_CHECK_BOTTOM, idx / _size.X, idx % _size.X, MAS) > 0).ToString();
 
     #region Additional 
 
     private int Check(Point2D[][] source, int x, int y, char[] template)
     {
         var straight = source.Count(check => check
-                .Select((charIdx, templateIdx) => (x: charIdx.x + x, y: charIdx.y + y, templateIdx))
+                .Select((charIdx, templateIdx) => (x: charIdx.X + x, y: charIdx.Y + y, templateIdx))
                 .All(d => TryGetSymbol(d.x, d.y, out var symbol) && symbol == template[d.templateIdx]));
 
         var reverse = source.Count(check => check
-                .Select((charIdx, templateIdx) => (x: charIdx.x + x, y: charIdx.y + y, templateIdx: template.Length - templateIdx - 1))
+                .Select((charIdx, templateIdx) => (x: charIdx.X + x, y: charIdx.Y + y, templateIdx: template.Length - templateIdx - 1))
                 .All(d => TryGetSymbol(d.x, d.y, out var symbol) && symbol == template[d.templateIdx]));
 
         return straight + reverse;
@@ -66,13 +66,13 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
     private bool TryGetSymbol(int x, int y, out char symbol)
     {
         symbol = default;
-        var rowCheck = y >= 0 && y < _size.y;
-        var columnCheck = x >= 0 && x < _size.x;
+        var rowCheck = y >= 0 && y < _size.Y;
+        var columnCheck = x >= 0 && x < _size.X;
 
         if (!rowCheck || !columnCheck)
             return false;
 
-        symbol = _text[y * _size.x + x];
+        symbol = _text[y * _size.X + x];
         return true;
     }
 
