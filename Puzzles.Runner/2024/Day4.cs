@@ -32,7 +32,7 @@ public partial class Day3(IFullInputReader input) : IPuzzleSolver
 
     #endregion
 
-    private char[] _text = [.. NewLineRegex().Replace(input.Text, string.Empty)];
+    private readonly char[] _text = [.. NewLineRegex().Replace(input.Text, string.Empty)];
     private Point2D _size;
 
     public void Init()
