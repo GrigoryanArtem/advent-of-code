@@ -9,6 +9,16 @@ To run on a specific day and year, use:
 To run on examples, use:
 > aoc.exe  --examples
 
+### Input
+
+Place your input to  
+`<year>/input/<day>.in`   
+`./2024/input/3.in`
+
+Place your examples to  
+`<year>/examples/<day>.in`    
+`./2024/examples/3.in`
+
 ### 2024
 * [Day-01](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day1.cs)
 * [Day-02](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day2.cs)
