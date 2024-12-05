@@ -89,6 +89,35 @@ public partial class Day5(ILinesInputReader input) : IPuzzleSolver
             .ToString();
     }
 
+    public string SolvePart2()
+    {
+        return _printOrders.Where(po => !IsOrderCorrect(po))
+            .Select(Sort)
+            .Select(po => po[po.Length / 2])
+            .Sum()
+            .ToString();
+    }
+
     private bool IsOrderCorrect(int[] order)
         => order.Zip(order.Skip(1), (p, c) => !_rules[c].Contains(p)).All(s => s);
+
+    public int[] Sort(int[] order)
+    {
+        bool changed;
+        do
+        {
+            changed = false;
+
+            for (int i = 1; i < order.Length; i++)
+            {
+                if (_rules[order[i]].Contains(order[i - 1]))
+                {
+                    (order[i], order[i - 1]) = (order[i - 1], order[i]);
+                    changed = true;
+                }
+            }
+        } while (changed);
+
+        return order;
+    }
 }
