@@ -39,20 +39,20 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         _map = new byte[_sx * sy];
 
         for (int x = 0; x < _sx; x++)
-            _map[Mat2Arr(x, 0)] = _map[Mat2Arr(x, sy - 1)] = BORDER;
+            _map[Mat2Vec(x, 0)] = _map[Mat2Vec(x, sy - 1)] = BORDER;
 
         for (int y = 0; y < sy; y++)
-            _map[Mat2Arr(0, y)] = _map[Mat2Arr(_sx - 1, y)] = BORDER;
+            _map[Mat2Vec(0, y)] = _map[Mat2Vec(_sx - 1, y)] = BORDER;
 
         for (int y = 0; y < input.Lines.Length; y++)
         {
             for (int x = 0; x < input.Lines[y].Length; x++)
             {
                 if (input.Lines[y][x] == OBSTRUCTION_SYMBOL)
-                    _map[Mat2Arr(x + 1, y + 1)] = OBSTRUCTION;
+                    _map[Mat2Vec(x + 1, y + 1)] = OBSTRUCTION;
 
                 if (input.Lines[y][x] == GUARD_SYMBOL)
-                    _location = Mat2Arr(x + 1, y + 1);
+                    _location = Mat2Vec(x + 1, y + 1);
             }
         }
 
@@ -150,7 +150,7 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     private static byte Dir2Flg(int direction)
         => (byte)(1 << direction);
 
-    private int Mat2Arr(int x, int y)
+    private int Mat2Vec(int x, int y)
         => y * _sx + x;
 
     #endregion

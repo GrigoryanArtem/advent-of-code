@@ -32,16 +32,16 @@ internal class Program
         var p2 = solver.SolvePart2();
         sw2.Stop();
 
-        Console.WriteLine($"Init time: {swi.ElapsedMilliseconds} ms.");
+        Console.WriteLine($"Init time: {swi.Elapsed.TotalMilliseconds} ms.");
         Console.WriteLine();
 
         Console.WriteLine("Part 1:");
-        Console.WriteLine($"Time: {sw1.ElapsedMilliseconds} ms.");
+        Console.WriteLine($"Time: {sw1.Elapsed.TotalMilliseconds} ms.");
         Console.WriteLine($"> Answer: {p1}");
         Console.WriteLine();
 
         Console.WriteLine("Part 2:");
-        Console.WriteLine($"Time: {sw2.ElapsedMilliseconds} ms.");
+        Console.WriteLine($"Time: {sw2.Elapsed.TotalMilliseconds} ms.");
         Console.WriteLine($"> Answer: {p2}");
     }
 
