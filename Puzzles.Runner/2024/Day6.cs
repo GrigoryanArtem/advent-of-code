@@ -27,6 +27,8 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     private int _location = 0;
     private int _sx = 0;
 
+    private byte[][] _buffers = [];
+
     #endregion
 
     public void Init()
@@ -55,16 +57,20 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         }
 
         _directions = [-sy, 1, sy, -1];
+
+        _buffers = new byte[NUMBER_OF_TASKS][];
+        for (int i = 0; i < NUMBER_OF_TASKS; i++)
+            _buffers[i] = new byte[_map.Length];        
     }
 
     public string SolvePart1()
-        => FindPath(_location, START_DIRECTION, new byte[_map.Length]).ToString();
+        => FindPath(_location, START_DIRECTION, _buffers[0]).ToString();
 
     public string SolvePart2()
     {
         var chunkSize = _map.Length / NUMBER_OF_TASKS;
         var tasks = Enumerable.Range(0, NUMBER_OF_TASKS)
-            .Select(i => BrutForceAsync(i * chunkSize, chunkSize))
+            .Select(i => BrutForceAsync(i * chunkSize, chunkSize, _buffers[i]))
             .ToArray();
 
         Task.WaitAll(tasks);
@@ -74,27 +80,51 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     #region Private methods
 
-    private Task<int> BrutForceAsync(int start, int count)
-        => Task.Run(() => BruteForce(start, count));
+    private Task<int> BrutForceAsync(int start, int count, byte[] buffer)
+        => Task.Run(() => BruteForce(start, count, buffer));
 
-    private int BruteForce(int start, int count)
+    private int BruteForce(int start, int count, byte[] buffer)
     {
-        var buffer = new byte[_map.Length];
-        var end = start + count;
-
+        var end = Math.Min(start + count, _map.Length);
         int sum = 0;
-        for (int i = start; i < end && i < _map.Length; i++)
-        {
-            Array.Clear(buffer);
-            if (_map[i] == EMPTY && FindPath(_location, START_DIRECTION, buffer, i) == HAS_LOOP)
+
+        for (int i = start; i < end; i++)        
+            if (_map[i] == EMPTY && FindLoop(_location, START_DIRECTION, buffer, i))
                 sum++;
-        }
 
         return sum;
     }
 
-    private int FindPath(int location, int direction, byte[] buffer, int? obstructionLocation = null)
+    private bool FindLoop(int location, int direction, byte[] buffer, int obstructionLocation)
     {
+        Array.Clear(buffer);
+
+        while (_map[location] != BORDER)
+        {
+            var de = Dir2Flg(direction);
+            if ((buffer[location] & de) == de)
+                return true;
+
+            buffer[location] |= de;
+
+            var next = location + _directions[direction];
+            if (_map[next] == OBSTRUCTION || next == obstructionLocation)
+            {
+                direction = (direction + 1) % _directions.Length;
+            }
+            else
+            {
+                location = next;
+            }
+        }
+
+        return false;
+    }
+
+    private int FindPath(int location, int direction, byte[] buffer)
+    {
+        Array.Clear(buffer);
+
         while (_map[location] != BORDER)
         {
             var de = Dir2Flg(direction);
@@ -104,7 +134,7 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
             buffer[location] |= de;
 
             var next = location + _directions[direction];
-            if (_map[next] == OBSTRUCTION || next == obstructionLocation)
+            if (_map[next] == OBSTRUCTION)
             {
                 direction = (direction + 1) % _directions.Length;
             }
