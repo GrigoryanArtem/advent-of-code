@@ -8,92 +8,85 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     private const int START_DIRECTION = 0;
     private const int HAS_LOOP = -1;
 
-    #endregion
+    private const byte EMPTY = 0;
+    private const byte OBSTRUCTION = 1;
+    private const byte BORDER = 2;
 
-    private record DirectedPoint2D(Point2D Point, int Direction);
-    private record Point2D(int X, int Y)
-    {
-        public static Point2D operator +(Point2D a, Point2D b)
-            => new(a.X + b.X, a.Y + b.Y);
-    }
+    private const char OBSTRUCTION_SYMBOL = '#';
+    private const char GUARD_SYMBOL = '^';
 
-    private readonly Point2D[] _directions =
-    [
-        new(0,  -1),
-        new(1,  0),
-        new(0,  1),
-        new(-1, 0),
-    ];
+    #endregion  
 
-    private Point2D _size = new (0, 0);
-    private Point2D _location = new(0, 0);
+    private int[] _directions = [];
+    private byte[] _map = [];
+    
+    private int _location = 0;    
 
-    private readonly HashSet<Point2D> _obstructions = [];
-
+    private int _sx = 0;    
 
     public void Init()
     {
-        _obstructions.Clear();
-        _size = new(input.Lines.Length, input.Lines.First().Length);
+        _sx = input.Lines.Length + 2;
+        var sy = input.Lines.First().Length + 2;
 
-        foreach (var (line, line_idx) in input.Lines.Select((ob, i) => (ob, i)))
+        _map = new byte[_sx * sy];
+
+        for (int x = 0; x < _sx; x++)
+            _map[M2A(x, 0)] = _map[M2A(x, sy - 1)] = BORDER;
+
+        for (int y = 0; y < sy; y++)
+            _map[M2A(0, y)] = _map[M2A(_sx - 1, y)] = BORDER;
+
+        for (int y = 0; y < input.Lines.Length; y++)
         {
-            foreach(var (item, idx) in line.Select((ch, i) => (ch, i)))
+            for (int x = 0; x < input.Lines[y].Length; x++)
             {
-                if (item == '#')
-                    _obstructions.Add(new(idx, line_idx));
+                if (input.Lines[y][x] == OBSTRUCTION_SYMBOL)
+                    _map[M2A(x + 1, y + 1)] = OBSTRUCTION;
 
-                if (item == '^')
-                    _location = new(idx, line_idx);
+                if (input.Lines[y][x] == GUARD_SYMBOL)
+                    _location = M2A(x + 1, y + 1);
             }
         }
+
+        _directions = [-sy, 1, sy, -1];
     }
 
     public string SolvePart1()
-        => StartMove(_location with { }, START_DIRECTION).ToString();
+        => FindPath(_location, START_DIRECTION).ToString();
 
     public string SolvePart2()
     {
-        var sum = 0;
-        for(int x = 0; x < _size.X; x++)
-        {
-            for(int y = 0; y < _size.Y; y++)
-            {
-                var obstruction = new Point2D(x, y);
-                if (_obstructions.Contains(obstruction))
-                    continue;
+        int sum = 0;
 
-                _obstructions.Add(obstruction);
-
-                var count = StartMove(_location, START_DIRECTION);
-                if (count == HAS_LOOP)
-                    sum++;
-
-                _obstructions.Remove(obstruction);
-            }
-        }
+        for(int i = 0; i < _map.Length; i++)        
+            if(_map[i] == EMPTY && FindPath(_location, START_DIRECTION, i) == HAS_LOOP)
+                sum++;
+        
 
         return sum.ToString();
     }
 
-    private int StartMove(Point2D location, int direction)
+    //public string SolvePart2()
+    //    => Enumerable.Range(0, _map.Length).Count(i => _map[i] == EMPTY && 
+    //        FindPath(_location, START_DIRECTION, i) == HAS_LOOP).ToString();
+
+    private int FindPath(int location, int direction, int? obstructionLocation = null)
     {
-        HashSet<DirectedPoint2D> visited = [];
+        HashSet<(int location, int direction)> visited = [];
 
-        while ((location.X >= 0 && location.X < _size.X) &&
-            (location.Y >= 0 && location.Y < _size.Y))
+        while (_map[location] != BORDER)
         {
-            var next = location + _directions[direction];
-            var directidLocation = new DirectedPoint2D(location, direction);
-
-            if (visited.Contains(directidLocation))
+            var dl = (location, direction);
+            if (visited.Contains(dl))
                 return HAS_LOOP;
 
-            visited.Add(directidLocation);
+            visited.Add(dl);
 
-            if (_obstructions.Contains(next))
+            var next = location + _directions[direction];   
+            if (_map[next] == OBSTRUCTION || next == obstructionLocation)
             {
-                Rotate(ref direction);
+                direction = (direction + 1) % _directions.Length;
             }
             else
             {
@@ -101,9 +94,9 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
             }
         }
 
-        return visited.Select(v => v.point).Distinct().Count();
+        return visited.DistinctBy(v => v.location).Count();
     }
 
-    private void Rotate(ref int direction)
-        => direction = (direction + 1) % _directions.Length;
+    private int M2A(int x, int y)
+        => y * _sx + x;
 }
