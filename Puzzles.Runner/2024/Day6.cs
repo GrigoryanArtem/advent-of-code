@@ -15,14 +15,19 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     private const char OBSTRUCTION_SYMBOL = '#';
     private const char GUARD_SYMBOL = '^';
 
-    #endregion  
+    private const int NUMBER_OF_TASKS = 128;
+
+    #endregion
+
+    #region Members
 
     private int[] _directions = [];
     private byte[] _map = [];
-    
-    private int _location = 0;    
 
-    private int _sx = 0;    
+    private int _location = 0;
+    private int _sx = 0;
+
+    #endregion
 
     public void Init()
     {
@@ -32,20 +37,20 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         _map = new byte[_sx * sy];
 
         for (int x = 0; x < _sx; x++)
-            _map[M2A(x, 0)] = _map[M2A(x, sy - 1)] = BORDER;
+            _map[Mat2Arr(x, 0)] = _map[Mat2Arr(x, sy - 1)] = BORDER;
 
         for (int y = 0; y < sy; y++)
-            _map[M2A(0, y)] = _map[M2A(_sx - 1, y)] = BORDER;
+            _map[Mat2Arr(0, y)] = _map[Mat2Arr(_sx - 1, y)] = BORDER;
 
         for (int y = 0; y < input.Lines.Length; y++)
         {
             for (int x = 0; x < input.Lines[y].Length; x++)
             {
                 if (input.Lines[y][x] == OBSTRUCTION_SYMBOL)
-                    _map[M2A(x + 1, y + 1)] = OBSTRUCTION;
+                    _map[Mat2Arr(x + 1, y + 1)] = OBSTRUCTION;
 
                 if (input.Lines[y][x] == GUARD_SYMBOL)
-                    _location = M2A(x + 1, y + 1);
+                    _location = Mat2Arr(x + 1, y + 1);
             }
         }
 
@@ -53,37 +58,52 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => FindPath(_location, START_DIRECTION).ToString();
+        => FindPath(_location, START_DIRECTION, new byte[_map.Length]).ToString();
 
     public string SolvePart2()
     {
-        int sum = 0;
+        var chunkSize = _map.Length / NUMBER_OF_TASKS;
+        var tasks = Enumerable.Range(0, NUMBER_OF_TASKS)
+            .Select(i => BrutForceAsync(i * chunkSize, chunkSize))
+            .ToArray();
 
-        for(int i = 0; i < _map.Length; i++)        
-            if(_map[i] == EMPTY && FindPath(_location, START_DIRECTION, i) == HAS_LOOP)
-                sum++;
-        
+        Task.WaitAll(tasks);
 
-        return sum.ToString();
+        return tasks.Sum(t => t.Result).ToString();
     }
 
-    //public string SolvePart2()
-    //    => Enumerable.Range(0, _map.Length).Count(i => _map[i] == EMPTY && 
-    //        FindPath(_location, START_DIRECTION, i) == HAS_LOOP).ToString();
+    #region Private methods
 
-    private int FindPath(int location, int direction, int? obstructionLocation = null)
+    private Task<int> BrutForceAsync(int start, int count)
+        => Task.Run(() => BruteForce(start, count));
+
+    private int BruteForce(int start, int count)
     {
-        HashSet<(int location, int direction)> visited = [];
+        var buffer = new byte[_map.Length];
+        var end = start + count;
 
+        int sum = 0;
+        for (int i = start; i < end && i < _map.Length; i++)
+        {
+            Array.Clear(buffer);
+            if (_map[i] == EMPTY && FindPath(_location, START_DIRECTION, buffer, i) == HAS_LOOP)
+                sum++;
+        }
+
+        return sum;
+    }
+
+    private int FindPath(int location, int direction, byte[] buffer, int? obstructionLocation = null)
+    {
         while (_map[location] != BORDER)
         {
-            var dl = (location, direction);
-            if (visited.Contains(dl))
+            var de = Dir2Flg(direction);
+            if ((buffer[location] & de) == de)
                 return HAS_LOOP;
 
-            visited.Add(dl);
+            buffer[location] |= de;
 
-            var next = location + _directions[direction];   
+            var next = location + _directions[direction];
             if (_map[next] == OBSTRUCTION || next == obstructionLocation)
             {
                 direction = (direction + 1) % _directions.Length;
@@ -94,9 +114,14 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
             }
         }
 
-        return visited.DistinctBy(v => v.location).Count();
+        return buffer.Count(d => d > 0);
     }
 
-    private int M2A(int x, int y)
+    private static byte Dir2Flg(int direction)
+        => (byte)(1 << direction);
+
+    private int Mat2Arr(int x, int y)
         => y * _sx + x;
+
+    #endregion
 }
