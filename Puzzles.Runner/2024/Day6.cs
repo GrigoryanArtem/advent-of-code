@@ -3,6 +3,14 @@
 [Puzzle("Guard Gallivant", 6, 2024)]
 public class Day6(ILinesInputReader input) : IPuzzleSolver
 {
+    #region Constants
+
+    private const int START_DIRECTION = 0;
+    private const int HAS_LOOP = -1;
+
+    #endregion
+
+    private record DirectedPoint2D(Point2D point, int direction);
     private record Point2D(int X, int Y)
     {
         public static Point2D operator +(Point2D a, Point2D b)
@@ -43,29 +51,60 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-    {        
-        HashSet<Point2D> visited = [];
+        => StartMove(_location with { }, START_DIRECTION).ToString();
 
-        while((_location.X >= 0 && _location.X < _size.X) &&
-            (_location.Y >= 0 && _location.Y < _size.Y))
+    public string SolvePart2()
+    {
+        var sum = 0;
+        for(int x = 0; x < _size.X; x++)
         {
-            var next = _location + _directions[_direction];
-            visited.Add(_location);
-
-            if (_obstructions.Contains(next))
+            for(int y = 0; y < _size.Y; y++)
             {
-                Rotate();
-            }
-            else
-            {                
-                _location = next;
+                var obstruction = new Point2D(x, y);
+                if (_obstructions.Contains(obstruction))
+                    continue;
+
+                _obstructions.Add(obstruction);
+
+                var count = StartMove(_location, START_DIRECTION);
+                if (count == HAS_LOOP)
+                    sum++;
+
+                _obstructions.Remove(obstruction);
             }
         }
 
-        return visited.Count.ToString();
+        return sum.ToString();
     }
 
-    private void Rotate()
-        => _direction = (_direction + 1) % _directions.Length;
+    private int StartMove(Point2D location, int direction)
+    {
+        HashSet<DirectedPoint2D> visited = [];
 
+        while ((location.X >= 0 && location.X < _size.X) &&
+            (location.Y >= 0 && location.Y < _size.Y))
+        {
+            var next = location + _directions[direction];
+            var directidLocation = new DirectedPoint2D(location, direction);
+
+            if (visited.Contains(directidLocation))
+                return HAS_LOOP;
+
+            visited.Add(directidLocation);
+
+            if (_obstructions.Contains(next))
+            {
+                Rotate(ref direction);
+            }
+            else
+            {
+                location = next;
+            }
+        }
+
+        return visited.Select(v => v.point).Distinct().Count();
+    }
+
+    private void Rotate(ref int direction)
+        => direction = (direction + 1) % _directions.Length;
 }
