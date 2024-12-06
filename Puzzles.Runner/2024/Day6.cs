@@ -17,9 +17,9 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         new(-1, 0),
     ];
 
-    private Point2D _size;
-    private Point2D _location;
-    private int _direction;
+    private Point2D _size = new (0, 0);
+    private Point2D _location = new(0, 0);
+    private int _direction = 0;
 
     private readonly HashSet<Point2D> _obstructions = [];
 
@@ -44,12 +44,13 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart1()
     {        
-        HashSet<Point2D> _visited = [];
+        HashSet<Point2D> visited = [];
 
         while((_location.X >= 0 && _location.X < _size.X) &&
             (_location.Y >= 0 && _location.Y < _size.Y))
         {
             var next = _location + _directions[_direction];
+            visited.Add(_location);
 
             if (_obstructions.Contains(next))
             {
@@ -58,11 +59,10 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
             else
             {                
                 _location = next;
-                _visited.Add(next);
             }
         }
 
-        return (_visited.Count - 1).ToString();
+        return visited.Count.ToString();
     }
 
     private void Rotate()
