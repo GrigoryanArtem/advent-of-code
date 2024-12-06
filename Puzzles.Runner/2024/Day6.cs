@@ -10,7 +10,7 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     #endregion
 
-    private record DirectedPoint2D(Point2D point, int direction);
+    private record DirectedPoint2D(Point2D Point, int Direction);
     private record Point2D(int X, int Y)
     {
         public static Point2D operator +(Point2D a, Point2D b)
@@ -27,7 +27,6 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     private Point2D _size = new (0, 0);
     private Point2D _location = new(0, 0);
-    private int _direction = 0;
 
     private readonly HashSet<Point2D> _obstructions = [];
 
