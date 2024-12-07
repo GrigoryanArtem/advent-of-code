@@ -68,7 +68,7 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart2()
     {
-        var chunkSize = _map.Length / NUMBER_OF_TASKS;
+        var chunkSize = (int)Math.Ceiling((double)_map.Length / NUMBER_OF_TASKS);
         var tasks = Enumerable.Range(0, NUMBER_OF_TASKS)
             .Select(i => BrutForceAsync(i * chunkSize, chunkSize, _buffers[i]))
             .ToArray();

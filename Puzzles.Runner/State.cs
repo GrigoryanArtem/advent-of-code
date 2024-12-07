@@ -4,14 +4,16 @@ public class State
     public enum StateMode
     {
         Input,
-        Examples
+        Examples,
+        Custom
     }
 
     public int Year { get; set; }
     public int Day { get; set; }    
 
     public StateMode Mode { get; set; }
-    public string InputPath => @$"{Year}/{ModeToPath()}/{Day}.in";
+    public string? CustomPath { get; set; }
+    public string InputPath => Mode == StateMode.Custom ? CustomPath! : @$"{Year}/{ModeToPath()}/{Day}.in";
 
     private string ModeToPath() => Mode switch
     {

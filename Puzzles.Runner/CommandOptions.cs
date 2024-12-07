@@ -11,4 +11,7 @@ public class CommandOptions
 
     [Option('d', "day")]
     public int? Day { get; set; }
+
+    [Option('i', "input")]
+    public string? Input { get; set; }
 }

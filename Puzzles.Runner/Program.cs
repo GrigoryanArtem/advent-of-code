@@ -94,7 +94,8 @@ internal class Program
                 {
                     Day = co.Day ?? now.Day,
                     Year = co.Year ?? now.Year,
-                    Mode = co.Examples ? State.StateMode.Examples : State.StateMode.Input
+                    CustomPath = co.Input,
+                    Mode = !String.IsNullOrEmpty(co.Input) ? State.StateMode.Custom : co.Examples ? State.StateMode.Examples : State.StateMode.Input
                 };
             })
             .WithNotParsed(_ => throw new ArgumentException());
