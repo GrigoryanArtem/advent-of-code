@@ -28,7 +28,8 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
         foreach(var (input, index) in _input.WithIndex())
         {
             var answer = _answers[index];
-            if (Find2(input, 1, input[0], answer, Add) || Find2(input, 1, input[0], answer, Mult))
+            if (Find2(input, 1, input[0], answer, Add) || 
+                Find2(input, 1, input[0], answer, Mult))
                 sum += answer;
         }
 
@@ -53,6 +54,9 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
 
     public static bool Find2(ulong[] arr, int index, ulong acc, ulong answer, Func<ulong, ulong, ulong> operation)
     {
+        if (acc > answer)
+            return false;
+
         if (index >= arr.Length)
             return acc == answer;
 
@@ -64,6 +68,9 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
 
     public static bool Find3(ulong[] arr, int index, ulong acc, ulong answer, Func<ulong, ulong, ulong> operation)
     {
+        if (acc > answer)
+            return false;
+
         if(index >= arr.Length)
             return acc == answer;
 
@@ -81,5 +88,6 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
         => a + b;
 
     public static ulong Concat(ulong a, ulong b)
-        => Convert.ToUInt64(a.ToString() + b.ToString());    
+        => a * (ulong)Math.Pow(10, (ulong)Math.Log10(b) + 1UL) + b;
+    
 }
