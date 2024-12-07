@@ -33,8 +33,8 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     public void Init()
     {
-        _sx = input.Lines.Length + 2;
-        var sy = input.Lines.First().Length + 2;
+        _sx = input.Lines.First().Length + 2;
+        var sy = input.Lines.Length + 2;
 
         _map = new byte[_sx * sy];
 
