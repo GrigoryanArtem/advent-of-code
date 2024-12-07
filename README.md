@@ -9,6 +9,9 @@ To run on a specific day and year, use:
 To run on examples, use:
 > aoc.exe  --examples
 
+To use custom input:
+> aoc.exe  --input "C:\input.txt"
+
 ### Input
 
 Place your input to  
