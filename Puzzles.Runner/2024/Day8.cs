@@ -1,27 +1,13 @@
-﻿namespace Puzzles.Runner._2024;
+﻿using Puzzles.Base.Entites;
+
+namespace Puzzles.Runner._2024;
 
 
 [Puzzle("Bridge Repair", 8, 2024)]
 public class Day8(ILinesInputReader input) : IPuzzleSolver
-{
-    private record Point2D(int X, int Y)
-    {
-        public static Point2D operator +(Point2D a, Point2D b)
-            => new(a.X + b.X, a.Y + b.Y);
-
-        public static Point2D operator -(Point2D a, Point2D b)
-            => new(a.X - b.X, a.Y - b.Y);
-
-        public void Deconstruct(out int x, out int y)
-        {
-            x = X;
-            y = Y;
-        }
-    }
-
+{  
     private const char EMPTY_CELL = '.';
-
-    private Dictionary<char, List<Point2D>> _antennas = [];
+    private readonly Dictionary<char, List<Point2>> _antennas = [];
 
     private int SizeY { get; set; }
     private int SizeX { get; set; }
@@ -33,42 +19,80 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
         SizeY = input.Lines.Length;
         SizeX = input.Lines[0].Length;
 
-        foreach (var (line, y) in input.Lines.WithIndex())
-        {
-            foreach(var (ch, x) in line.WithIndex().Where(c => c.Item1 != EMPTY_CELL))
-            {
-                _antennas.TryAdd(ch, []);
-                _antennas[ch].Add(new(x, y));
-            }
-        }
+        input.Lines.WithIndex()
+            .ForEach(line => line.item.WithIndex()
+                .Where(c => c.item != EMPTY_CELL)
+                .ForEach(ch => 
+                {
+                    _antennas.TryAdd(ch.item, []);
+                    _antennas[ch.item].Add(new(ch.index, line.index));
+                }));
     }
 
     public string SolvePart1()
-    {
-        HashSet<Point2D> antinodes = [];
+        => GetCount().ToString();
 
-        foreach(var (antenna, positions) in _antennas)
+    public string SolvePart2()
+        => GetCount2().ToString();
+
+    public int GetCount() 
+    {
+        HashSet<Point2> antinodes = [];
+
+        foreach (var (_, positions) in _antennas)
         {
-            for(int i = 0; i < positions.Count; i++)
+            for (int i = 0; i < positions.Count; i++)
             {
-                for (int k = i + 1; k < positions.Count; k++) 
-                { 
+                for (int k = i + 1; k < positions.Count; k++)
+                {
                     var d = positions[i] - positions[k];
 
-                    var a1 = positions[i] + d;
-                    var a2 = positions[k] - d;
-
-                    if (a1.Y >= 0 && a1.X >=0
-                        && a1.Y < SizeY && a1.X < SizeX)
-                        antinodes.Add(a1);
-
-                    if ( a2.Y >= 0 && a2.X >= 0
-                        && a2.Y < SizeY && a2.X < SizeX)
-                        antinodes.Add(a2);
+                    AddAntinode(antinodes, positions[i] + d) ;
+                    AddAntinode(antinodes, positions[k] - d); 
                 }
-            }            
+            }
         }
 
-        return antinodes.Count.ToString();
+        return antinodes.Count;
+    }
+
+    public int GetCount2()
+    {
+        HashSet<Point2> antinodes = [];
+
+        foreach (var (_, positions) in _antennas)
+        {
+            for (int i = 0; i < positions.Count; i++)
+            {
+                for (int k = i + 1; k < positions.Count; k++)
+                {
+                    antinodes.Add(positions[i]);
+                    antinodes.Add(positions[k]);
+
+                    var d = positions[i] - positions[k];
+
+                    bool added = true;
+                    for (int t = 1; added; t++)
+                    {
+                        var a1 = AddAntinode(antinodes, positions[i] + (d * t));
+                        var a2 = AddAntinode(antinodes, positions[k] - (d * t));
+                        added =  a1 | a2;
+                    }
+                }
+            }
+        }
+
+        return antinodes.Count;
+    }
+
+    private bool AddAntinode(HashSet<Point2> hashSet, Point2 point)
+    {
+        if (point.Y >= 0 && point.X >= 0 && point.Y < SizeY && point.X < SizeX)
+        {
+            hashSet.Add(point);
+            return true;
+        }
+
+        return false;
     }
 }
