@@ -1,11 +1,11 @@
 ﻿namespace Puzzles.Runner._2024;
 
-using OpFunc = Func<ulong, ulong, ulong>;
-
 [Puzzle("Bridge Repair", 7, 2024)]
 public class Day7(ILinesInputReader input) : IPuzzleSolver
 {
-    private const int NUMBER_OF_TASKS = 128;
+    private const int NUMBER_OF_TASKS = 64;
+
+    private delegate bool OpFunc(ulong a, ulong b, out ulong result);
 
     ulong[] _answers = [];
     ulong[][] _input = [];
@@ -27,10 +27,10 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => CalculateSum([Add, Mult]).ToString();
+        => CalculateSum([Div, Sub]).ToString();
 
     public string SolvePart2()
-        => CalculateSum([Add, Mult, Concat]).ToString();
+        => CalculateSum([Split, Div, Sub]).ToString();
 
     #region Private methods
 
@@ -58,40 +58,56 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
         for (int i = start; i < end; i++)
         {
             var answer = _answers[i];
-            if (Find(_input[i], operations, 0, 0, answer, Add))
+            if (CheckOperations(_input[i], operations, _input[i].Length - 1, answer))
                 sum += answer;
         }
 
         return sum;
     }
 
-    private static bool Find(ulong[] arr, OpFunc[] operations, int index, ulong acc, ulong answer, OpFunc operation)
+    private static bool BackFind(ulong[] arr, OpFunc[] operations, int index, ulong acc, OpFunc operation)
     {
-        if (acc > answer)
+        if(index == 0)
+            return acc == arr[0];
+
+        var success = operation(acc, arr[index], out var value);
+
+        if (!success)
             return false;
 
-        if (index >= arr.Length)
-            return acc == answer;
+        return CheckOperations(arr, operations, index - 1, value);
+    }
 
-        var value = operation(acc, arr[index]);
-
+    private static bool CheckOperations(ulong[] arr, OpFunc[] operations, int index, ulong acc)
+    {
         var result = false;
         for (int i = 0; !result && i < operations.Length; i++)
-            result |= Find(arr, operations, index + 1, value, answer, operations[i]);
+            result |= BackFind(arr, operations, index, acc, operations[i]);
 
         return result;
     }
 
     #region Operations
 
-    private static ulong Mult(ulong a, ulong b)
-        => a * b;
+    private static bool Div(ulong a, ulong b, out ulong result)
+    {
+        result = a / b;
+        return a % b == 0;
+    }        
 
-    private static ulong Add(ulong a, ulong b)
-        => a + b;
+    private static bool Sub(ulong a, ulong b, out ulong result)
+    {
+        result = a - b;
+        return result > 0;
+    }
 
-    private static ulong Concat(ulong a, ulong b)
-        => a * (ulong)Math.Pow(10, (ulong)Math.Log10(b) + 1UL) + b;
+    private static bool Split(ulong a, ulong b, out ulong result)
+    {        
+        var div = (ulong)Math.Pow(10, (ulong)Math.Log10(b) + 1UL);
+
+        result = a / div;
+        return a % div == b;
+    }
 
     #endregion
     #endregion
