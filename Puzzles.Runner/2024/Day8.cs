@@ -29,27 +29,12 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-    {
-        HashSet<Point2> antinodes = [];
-
-        foreach (var positions in _antennas.Values)
-        {
-            for (int i = 0; i < positions.Count; i++)
-            {
-                for (int k = i + 1; k < positions.Count; k++)
-                {
-                    var d = positions[i] - positions[k];
-
-                    AddAntinode(antinodes, positions[i] + d);
-                    AddAntinode(antinodes, positions[k] - d);
-                }
-            }
-        }
-
-        return antinodes.Count.ToString();
-    }
+        => CountAntinodes(infinite: false).ToString();
 
     public string SolvePart2()
+        => CountAntinodes().ToString();
+
+    private int CountAntinodes(bool infinite = true )
     {
         HashSet<Point2> antinodes = [];
 
@@ -59,33 +44,25 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
             {
                 for (int k = i + 1; k < positions.Count; k++)
                 {
-                    antinodes.Add(positions[i]);
-                    antinodes.Add(positions[k]);
-
-                    var d = positions[i] - positions[k];
-
-                    bool added = true;
-                    for (int t = 1; added; t++)
+                    var d = positions[i] - positions[k];                   
+                    for (var (added, t) = (true, infinite ? 0 : 1); added; t++)
                     {
                         var a1 = AddAntinode(antinodes, positions[i] + (d * t));
                         var a2 = AddAntinode(antinodes, positions[k] - (d * t));
-                        added = a1 | a2;
+                        added = infinite && (a1 | a2);
                     }
                 }
             }
         }
 
-        return antinodes.Count.ToString();
+        return antinodes.Count;
     }
 
     private bool AddAntinode(HashSet<Point2> hashSet, Point2 point)
     {
-        if (point.Y >= 0 && point.X >= 0 && point.Y < SizeY && point.X < SizeX)
-        {
-            hashSet.Add(point);
-            return true;
-        }
+        var canAdd = point.Y >= 0 && point.X >= 0 && point.Y < SizeY && point.X < SizeX;        
+        var _ = canAdd && hashSet.Add(point);
 
-        return false;
+        return canAdd;
     }
 }
