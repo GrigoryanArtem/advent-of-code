@@ -6,7 +6,7 @@ namespace Puzzles.Runner._2024;
 public class Day8(ILinesInputReader input) : IPuzzleSolver
 {  
     private const char EMPTY_CELL = '.';
-    private readonly Dictionary<char, List<Point2>> _antennas = [];
+    private readonly Dictionary<char, List<Point>> _antennas = [];
 
     private int SizeY { get; set; }
     private int SizeX { get; set; }
@@ -34,9 +34,9 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart2()
         => CountAntinodes().ToString();
 
-    private int CountAntinodes(bool infinite = true )
+    private int CountAntinodes(bool infinite = true)
     {
-        HashSet<Point2> antinodes = [];
+        HashSet<Point> antinodes = [];
 
         foreach (var positions in _antennas.Values)
         {
@@ -58,7 +58,7 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
         return antinodes.Count;
     }
 
-    private bool AddAntinode(HashSet<Point2> hashSet, Point2 point)
+    private bool AddAntinode(HashSet<Point> hashSet, Point point)
     {
         var canAdd = point.Y >= 0 && point.X >= 0 && point.Y < SizeY && point.X < SizeX;        
         var _ = canAdd && hashSet.Add(point);
