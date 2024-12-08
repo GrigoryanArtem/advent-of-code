@@ -3,12 +3,12 @@
 [Puzzle("Bridge Repair", 7, 2024)]
 public class Day7(ILinesInputReader input) : IPuzzleSolver
 {
-    private const int NUMBER_OF_TASKS = 64;
+    private const int NUMBER_OF_TASKS = 128;
 
-    private delegate bool OpFunc(ulong a, ulong b, out ulong result);
+    private delegate bool Operation(ulong a, ulong b, out ulong result);
 
-    ulong[] _answers = [];
-    ulong[][] _input = [];
+    private ulong[] _answers = [];
+    private ulong[][] _input = [];
 
     public void Init()
     {
@@ -34,7 +34,7 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
 
     #region Private methods
 
-    private ulong CalculateSum(OpFunc[] operations)
+    private ulong CalculateSum(Operation[] operations)
     {
         var chunkSize = (int)Math.Ceiling((double)_input.Length / NUMBER_OF_TASKS);
         var tasks = Enumerable.Range(0, NUMBER_OF_TASKS)
@@ -42,49 +42,47 @@ public class Day7(ILinesInputReader input) : IPuzzleSolver
             .ToArray();
 
         Task.WaitAll(tasks);
-        var sum = tasks.Aggregate(0UL, (acc, t) => acc += t.Result);
-
-        return sum;
+        return tasks.Aggregate(0UL, (acc, t) => acc += t.Result);
     }
 
-    private Task<ulong> CalculateSumAsync(OpFunc[] operations, int start, int count)
+    private Task<ulong> CalculateSumAsync(Operation[] operations, int start, int count)
         => Task.Run(() => CalculateSum(operations, start, count));
 
-    private ulong CalculateSum(OpFunc[] operations, int start, int count)
+    private ulong CalculateSum(Operation[] operations, int start, int count)
     {
-        ulong sum = 0;
         var end = Math.Min(start + count, _input.Length);
+        var sum = 0UL;
 
         for (int i = start; i < end; i++)
-        {
-            var answer = _answers[i];
-            if (CheckOperations(_input[i], operations, _input[i].Length - 1, answer))
-                sum += answer;
-        }
+            if (BackFind(_input[i], operations, _answers[i]))
+                sum += _answers[i];
 
         return sum;
     }
 
-    private static bool BackFind(ulong[] arr, OpFunc[] operations, int index, ulong acc, OpFunc operation)
+    private static bool BackFind(ulong[] arr, Operation[] operations, ulong result)
     {
-        if(index == 0)
-            return acc == arr[0];
+        var stack = new Stack<(int index, ulong acc)>();
+        stack.Push((arr.Length - 1, result));
 
-        var success = operation(acc, arr[index], out var value);
+        while (stack.Count > 0)
+        {
+            var (index, acc) = stack.Pop();
 
-        if (!success)
-            return false;
+            if (index == 0)
+            {
+                if (acc == arr[0])
+                    return true;
 
-        return CheckOperations(arr, operations, index - 1, value);
-    }
+                continue;
+            }
 
-    private static bool CheckOperations(ulong[] arr, OpFunc[] operations, int index, ulong acc)
-    {
-        var result = false;
-        for (int i = 0; !result && i < operations.Length; i++)
-            result |= BackFind(arr, operations, index, acc, operations[i]);
+            for (int i = 0; i < operations.Length; i++)
+                if (operations[i](acc, arr[index], out var value))
+                    stack.Push((index - 1, value));
+        }
 
-        return result;
+        return false;
     }
 
     #region Operations
