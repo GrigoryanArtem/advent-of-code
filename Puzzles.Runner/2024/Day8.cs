@@ -2,7 +2,6 @@
 
 namespace Puzzles.Runner._2024;
 
-
 [Puzzle("Bridge Repair", 8, 2024)]
 public class Day8(ILinesInputReader input) : IPuzzleSolver
 {  
@@ -30,16 +29,10 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => GetCount().ToString();
-
-    public string SolvePart2()
-        => GetCount2().ToString();
-
-    public int GetCount() 
     {
         HashSet<Point2> antinodes = [];
 
-        foreach (var (_, positions) in _antennas)
+        foreach (var positions in _antennas.Values)
         {
             for (int i = 0; i < positions.Count; i++)
             {
@@ -47,20 +40,20 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
                 {
                     var d = positions[i] - positions[k];
 
-                    AddAntinode(antinodes, positions[i] + d) ;
-                    AddAntinode(antinodes, positions[k] - d); 
+                    AddAntinode(antinodes, positions[i] + d);
+                    AddAntinode(antinodes, positions[k] - d);
                 }
             }
         }
 
-        return antinodes.Count;
+        return antinodes.Count.ToString();
     }
 
-    public int GetCount2()
+    public string SolvePart2()
     {
         HashSet<Point2> antinodes = [];
 
-        foreach (var (_, positions) in _antennas)
+        foreach (var positions in _antennas.Values)
         {
             for (int i = 0; i < positions.Count; i++)
             {
@@ -76,13 +69,13 @@ public class Day8(ILinesInputReader input) : IPuzzleSolver
                     {
                         var a1 = AddAntinode(antinodes, positions[i] + (d * t));
                         var a2 = AddAntinode(antinodes, positions[k] - (d * t));
-                        added =  a1 | a2;
+                        added = a1 | a2;
                     }
                 }
             }
         }
 
-        return antinodes.Count;
+        return antinodes.Count.ToString();
     }
 
     private bool AddAntinode(HashSet<Point2> hashSet, Point2 point)
