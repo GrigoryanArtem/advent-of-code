@@ -1,60 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Puzzles.Runner._2024;
+﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Disk Fragmenter", 9, 2024)]
 public class Day9(IFullInputReader input) : IPuzzleSolver
 {
-    public record DiskBlock(int Start, int Count, int Value);
+    public record DiskBlock(int Count, int Value);
     private const int EMPTY = -1;
 
-    private int[] _disk = [];
+    private DiskBlock[] _blocks = [];
+    private DiskBlock[] _buffer = [];
 
     public void Init()
     {
-        List<int> disk = [];
         List<DiskBlock> blocks = [];
 
         var free = false;
         var id = 0;
-        foreach(var num in input.Text)
+        var index = 0;
+        foreach(var digit in input.Text)
         {
-            disk.AddRange(Enumerable.Repeat(free ? EMPTY : id++, num - '0'));
+            var num = digit - '0';
+            blocks.Add(new(num, free ? EMPTY : id++));
+            index += num;
             free = !free;
         }
 
-        _disk = [.. disk];
+        _blocks = [.. blocks];
+        _buffer = new DiskBlock[_blocks.Length];
     }
 
     public string SolvePart1()
     {
-        var (left, right) = (0, _disk.Length - 1);
+        Array.Copy(_blocks, _buffer, _blocks.Length);
 
-        while (left < right)
+        List<DiskBlock> defragmented = [];
+        var (left, right) = (0, _buffer.Length - 1);
+
+        while (left <= right)
         {
-            if (_disk[left] != EMPTY)
+            if (_buffer[left].Value != EMPTY)
             {
+                defragmented.Add(_buffer[left]);
                 left++;
             }
-            else if (_disk[right] == EMPTY)
+            else if (_buffer[right].Value == EMPTY)
             {
                 right--;
             }
             else
             {
-                (_disk[left], _disk[right]) = (_disk[right], _disk[left]);
+                var count = Math.Min(_buffer[left].Count, _buffer[right].Count);
+                defragmented.Add(new(count, _buffer[right].Value));
 
-                left++;
-                right--;
+                if (_buffer[left].Count == count)
+                {
+                    left++;
+                }
+                else
+                {
+                    _buffer[left] = new(_buffer[left].Count - count, _buffer[left].Value);
+                }
+
+                if (_buffer[right].Count == count)
+                {
+                    right--;
+                }
+                else
+                {
+                    _buffer[right] = new(_buffer[right].Count - count, _buffer[right].Value);
+                }
             }
         }
-        
-        return _disk.TakeWhile(v => v != EMPTY)
-            .WithIndex()
-            .Aggregate(0UL, (acc, val) => acc + (ulong)(val.index * val.item)).ToString();
+
+        return CheckSum(defragmented).ToString();
     }
+
+    public string SolvePart2()
+    {
+        var buffer = new List<DiskBlock>(_blocks);
+
+        for(int tail = buffer.Count - 1; tail >= 0; tail--)
+        {
+            for(int head = 0; head < tail; head++)
+            {
+                if (buffer[head].Value == EMPTY && buffer[tail].Value >= 0 
+                    && buffer[head].Count >= buffer[tail].Count)
+                {
+                    var count = buffer[tail].Count;
+                    var diff = buffer[head].Count - count;
+
+                    buffer[head] = new(count, buffer[tail].Value);
+                    buffer[tail] = new(count, EMPTY);
+
+                    if (diff > 0)
+                    {
+                        buffer.Insert(head + 1, new(diff, EMPTY));
+                        tail++;
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        return CheckSum(buffer).ToString();
+    }
+
+    private static ulong CheckSum(IEnumerable<DiskBlock> disk)
+        => disk.Aggregate((sum: 0UL, index: 0), (acc, b) =>
+            (acc.sum + CheckSum(b, acc.index), acc.index + b.Count)).sum;
+
+    private static ulong CheckSum(DiskBlock block, int index)
+        => block.Value == EMPTY ? 0UL : (ulong)((index + (index + block.Count - 1)) * block.Count) / 2UL * (ulong)block.Value;
 }
