@@ -1,4 +1,6 @@
-﻿namespace Puzzles.Runner._2024;
+﻿using System.Text;
+
+namespace Puzzles.Runner._2024;
 
 [Puzzle("Guard Gallivant", 6, 2024)]
 public class Day6(ILinesInputReader input) : IPuzzleSolver
@@ -7,6 +9,9 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     private const int START_DIRECTION = 0;
     private const int HAS_LOOP = -1;
+
+    private const int NO_JUMP = -1;
+    private const int NO_OBSTRUCTION = -1;
 
     private const byte EMPTY = 0;
     private const byte OBSTRUCTION = 1;
@@ -27,7 +32,10 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     private int _location = 0;
     private int _sx = 0;
 
-    private byte[][] _buffers = [];
+    private int[] _jumps = [];
+
+    private bool[][] _pathBuffers = [];    
+    private int[][] _jumpsBuffers = [];    
 
     #endregion
 
@@ -57,20 +65,79 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         }
 
         _directions = [-sy, 1, sy, -1];
+        CalculateJumps(); 
 
-        _buffers = new byte[NUMBER_OF_TASKS][];
+        _pathBuffers = new bool[NUMBER_OF_TASKS][];
+        _jumpsBuffers = new int[NUMBER_OF_TASKS][];
+
         for (int i = 0; i < NUMBER_OF_TASKS; i++)
-            _buffers[i] = new byte[_map.Length];        
+        {
+            _pathBuffers[i] = new bool[_jumps.Length];
+            _jumpsBuffers[i] = new int[_jumps.Length];
+
+            Array.Copy(_jumps, _jumpsBuffers[i], _jumps.Length);
+        }
+    }
+
+   
+
+    private void RecalculateJumps(int[] buffer, int loc, int obstruction)
+    {
+        if (_map[loc] == BORDER)
+            return;
+
+        for (int d = 0; d < _directions.Length; d++){
+            CalculateJumps(buffer, loc + _directions[d], obstruction);
+        }
+    }
+
+    private void CalculateJumps(int[] buffer, int loc, int obstruction)
+    {
+        if (_map[loc] == BORDER)
+            return;
+
+        for (int d = 0; d < _directions.Length; d++)
+        {
+            var next = loc + _directions[d];
+            var jmp = Loc2Jmp(loc, d);
+
+            if (next == obstruction)
+            {
+                buffer[jmp] = Loc2Jmp(loc, (d + 1) % _directions.Length);
+                continue;
+            }
+
+            buffer[jmp] = _map[next] switch
+            {
+                EMPTY => Loc2Jmp(next, d),
+                OBSTRUCTION => Loc2Jmp(loc, (d + 1) % _directions.Length),
+                _ => NO_JUMP
+            };
+        }
+    }
+
+    private void CalculateJumps()
+    {
+        _jumps = new int[_map.Length * _directions.Length];
+        Array.Fill(_jumps, NO_JUMP);
+
+        for(int loc = _sx; loc < _map.Length; loc++)
+            CalculateJumps(_jumps, loc, NO_OBSTRUCTION);            
     }
 
     public string SolvePart1()
-        => FindPath(_location, START_DIRECTION, _buffers[0]).ToString();
+    {
+        var buffer = _pathBuffers.First();
+        FindLoop(_location, buffer, _jumpsBuffers[0]).ToString();
+
+        return buffer.Count(d => d).ToString();
+    }
 
     public string SolvePart2()
     {
         var chunkSize = (int)Math.Ceiling((double)_map.Length / NUMBER_OF_TASKS);
         var tasks = Enumerable.Range(0, NUMBER_OF_TASKS)
-            .Select(i => BrutForceAsync(i * chunkSize, chunkSize, _buffers[i]))
+            .Select(i => BrutForceAsync(i * chunkSize, chunkSize, _pathBuffers[i], _jumpsBuffers[i]))
             .ToArray();
 
         Task.WaitAll(tasks);
@@ -80,78 +147,51 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     #region Private methods
 
-    private Task<int> BrutForceAsync(int start, int count, byte[] buffer)
-        => Task.Run(() => BruteForce(start, count, buffer));
+    private Task<int> BrutForceAsync(int start, int count, bool[] pathBuffer, int[] jumpsBuffer)
+        => Task.Run(() => BruteForce(start, count, pathBuffer, jumpsBuffer));
 
-    private int BruteForce(int start, int count, byte[] buffer)
+    private int BruteForce(int start, int count, bool[] pathBuffer, int[] jumpsBuffer)
     {
         var end = Math.Min(start + count, _map.Length);
-        int sum = 0;
+        int sum = 0;        
 
-        for (int i = start; i < end; i++)        
-            if (_map[i] == EMPTY && FindLoop(_location, START_DIRECTION, buffer, i))
-                sum++;
+        for (int i = start; i < end; i++)
+        {
+            if (_map[i] == EMPTY)
+            {
+                RecalculateJumps(jumpsBuffer, i, i);
+
+                sum += FindLoop(_location, pathBuffer, jumpsBuffer) ? 1 : 0;
+
+                RecalculateJumps(jumpsBuffer, i, NO_OBSTRUCTION);
+            }                
+        }
 
         return sum;
     }
 
-    private bool FindLoop(int location, int direction, byte[] buffer, int obstructionLocation)
+    private bool FindLoop(int location, bool[] pathBuffer, int[] jumpsBuffer)
     {
-        Array.Clear(buffer);
+        Array.Clear(pathBuffer);
 
-        while (_map[location] != BORDER)
+        var jmp = location * _directions.Length;
+        while (jumpsBuffer[jmp] != NO_JUMP)
         {
-            var de = Dir2Flg(direction);
-            if ((buffer[location] & de) == de)
+            if (pathBuffer[jmp])
                 return true;
 
-            buffer[location] |= de;
-
-            var next = location + _directions[direction];
-            if (_map[next] == OBSTRUCTION || next == obstructionLocation)
-            {
-                direction = (direction + 1) % _directions.Length;
-            }
-            else
-            {
-                location = next;
-            }
+            pathBuffer[jmp] = true;            
+            jmp = jumpsBuffer[jmp];
         }
 
         return false;
     }
 
-    private int FindPath(int location, int direction, byte[] buffer)
-    {
-        Array.Clear(buffer);
-
-        while (_map[location] != BORDER)
-        {
-            var de = Dir2Flg(direction);
-            if ((buffer[location] & de) == de)
-                return HAS_LOOP;
-
-            buffer[location] |= de;
-
-            var next = location + _directions[direction];
-            if (_map[next] == OBSTRUCTION)
-            {
-                direction = (direction + 1) % _directions.Length;
-            }
-            else
-            {
-                location = next;
-            }
-        }
-
-        return buffer.Count(d => d > 0);
-    }
-
-    private static byte Dir2Flg(int direction)
-        => (byte)(1 << direction);
-
     private int Mat2Vec(int x, int y)
         => y * _sx + x;
+
+    private int Loc2Jmp(int location, int direction)
+        => _directions.Length * location + direction;
 
     #endregion
 }
