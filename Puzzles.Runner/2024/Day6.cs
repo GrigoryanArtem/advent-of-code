@@ -24,7 +24,7 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
     private int[] _directions = [];
     private byte[] _map = [];
 
-    private int _location = 0;
+    private int _startLocation = 0;
     private int _sx = 0;
 
     private int[] _jumps = [];
@@ -36,48 +36,15 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     public void Init()
     {
-        _sx = input.Lines.First().Length + 2;
-        var sy = input.Lines.Length + 2;
-
-        _map = new byte[_sx * sy];
-
-        for (int x = 0; x < _sx; x++)
-            _map[Mat2Vec(x, 0)] = _map[Mat2Vec(x, sy - 1)] = BORDER;
-
-        for (int y = 0; y < sy; y++)
-            _map[Mat2Vec(0, y)] = _map[Mat2Vec(_sx - 1, y)] = BORDER;
-
-        for (int y = 0; y < input.Lines.Length; y++)
-        {
-            for (int x = 0; x < input.Lines[y].Length; x++)
-            {
-                if (input.Lines[y][x] == OBSTRUCTION_SYMBOL)
-                    _map[Mat2Vec(x + 1, y + 1)] = OBSTRUCTION;
-
-                if (input.Lines[y][x] == GUARD_SYMBOL)
-                    _location = Mat2Vec(x + 1, y + 1);
-            }
-        }
-
-        _directions = [-sy, 1, sy, -1];
-        CalculateJumps(); 
-
-        _pathBuffers = new bool[NUMBER_OF_TASKS][];
-        _jumpsBuffers = new int[NUMBER_OF_TASKS][];
-
-        for (int i = 0; i < NUMBER_OF_TASKS; i++)
-        {
-            _pathBuffers[i] = new bool[_jumps.Length];
-            _jumpsBuffers[i] = new int[_jumps.Length];
-
-            Array.Copy(_jumps, _jumpsBuffers[i], _jumps.Length);
-        }
+        InitMap();
+        CalculateJumps();
+        InitBuffers();
     }
 
     public string SolvePart1()
     {
         var buffer = _pathBuffers.First();
-        FindLoop(_location, buffer, _jumpsBuffers[0]).ToString();
+        HasLoop(buffer, _jumpsBuffers[0]).ToString();
 
         var sum = 1;
         for (var (i, success) = (0, false); i < buffer.Length; i += 4, success = false) 
@@ -120,7 +87,7 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
             {
                 RecalculateJumps(jumpsBuffer, i, i);
 
-                sum += FindLoop(_location, pathBuffer, jumpsBuffer) ? 1 : 0;
+                sum += HasLoop(pathBuffer, jumpsBuffer) ? 1 : 0;
 
                 RecalculateJumps(jumpsBuffer, i, NO_OBSTRUCTION);
             }                
@@ -129,12 +96,12 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         return sum;
     }
 
-    private bool FindLoop(int location, bool[] pathBuffer, int[] jumpsBuffer)
+    private bool HasLoop(bool[] pathBuffer, int[] jumpsBuffer)
     {
         Array.Clear(pathBuffer);
 
-        var jmp = location * _directions.Length;
-        while (jumpsBuffer[jmp] != NO_JUMP)
+        var jmp = _startLocation * _directions.Length;
+        while (jumpsBuffer[jmp] >= 0)
         {
             if (pathBuffer[jmp])
                 return true;
@@ -193,7 +160,49 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
         for (int loc = _sx; loc < _map.Length; loc++)
             CalculateJumps(_jumps, loc, NO_OBSTRUCTION);
-    } 
+    }
+
+    private void InitBuffers()
+    {
+        _pathBuffers = new bool[NUMBER_OF_TASKS][];
+        _jumpsBuffers = new int[NUMBER_OF_TASKS][];
+
+        for (int i = 0; i < NUMBER_OF_TASKS; i++)
+        {
+            _pathBuffers[i] = new bool[_jumps.Length];
+            _jumpsBuffers[i] = new int[_jumps.Length];
+
+            Array.Copy(_jumps, _jumpsBuffers[i], _jumps.Length);
+        }
+    }
+
+    private void InitMap()
+    {
+        _sx = input.Lines.First().Length + 2;
+        var sy = input.Lines.Length + 2;
+
+        _map = new byte[_sx * sy];
+
+        for (int x = 0; x < _sx; x++)
+            _map[Mat2Vec(x, 0)] = _map[Mat2Vec(x, sy - 1)] = BORDER;
+
+        for (int y = 0; y < sy; y++)
+            _map[Mat2Vec(0, y)] = _map[Mat2Vec(_sx - 1, y)] = BORDER;
+
+        for (int y = 0; y < input.Lines.Length; y++)
+        {
+            for (int x = 0; x < input.Lines[y].Length; x++)
+            {
+                if (input.Lines[y][x] == OBSTRUCTION_SYMBOL)
+                    _map[Mat2Vec(x + 1, y + 1)] = OBSTRUCTION;
+
+                if (input.Lines[y][x] == GUARD_SYMBOL)
+                    _startLocation = Mat2Vec(x + 1, y + 1);
+            }
+        }
+
+        _directions = [-sy, 1, sy, -1];
+    }
 
     #endregion
 }
