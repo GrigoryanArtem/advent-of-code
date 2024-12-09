@@ -80,10 +80,12 @@ public class Day9(IFullInputReader input) : IPuzzleSolver
 
         for(int tail = buffer.Count - 1; tail >= 0; tail--)
         {
+            if (buffer[tail].Value == EMPTY)
+                continue;
+
             for(int head = 0; head < tail; head++)
             {
-                if (buffer[head].Value == EMPTY && buffer[tail].Value >= 0 
-                    && buffer[head].Count >= buffer[tail].Count)
+                if (buffer[head].Value == EMPTY && buffer[head].Count >= buffer[tail].Count)
                 {
                     var count = buffer[tail].Count;
                     var diff = buffer[head].Count - count;
