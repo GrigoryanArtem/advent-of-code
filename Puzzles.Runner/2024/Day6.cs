@@ -1,14 +1,9 @@
-﻿using System.Text;
-
-namespace Puzzles.Runner._2024;
+﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Guard Gallivant", 6, 2024)]
 public class Day6(ILinesInputReader input) : IPuzzleSolver
 {
     #region Constants
-
-    private const int START_DIRECTION = 0;
-    private const int HAS_LOOP = -1;
 
     private const int NO_JUMP = -1;
     private const int NO_OBSTRUCTION = -1;
@@ -79,58 +74,22 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
         }
     }
 
-   
-
-    private void RecalculateJumps(int[] buffer, int loc, int obstruction)
-    {
-        if (_map[loc] == BORDER)
-            return;
-
-        for (int d = 0; d < _directions.Length; d++){
-            CalculateJumps(buffer, loc + _directions[d], obstruction);
-        }
-    }
-
-    private void CalculateJumps(int[] buffer, int loc, int obstruction)
-    {
-        if (_map[loc] == BORDER)
-            return;
-
-        for (int d = 0; d < _directions.Length; d++)
-        {
-            var next = loc + _directions[d];
-            var jmp = Loc2Jmp(loc, d);
-
-            if (next == obstruction)
-            {
-                buffer[jmp] = Loc2Jmp(loc, (d + 1) % _directions.Length);
-                continue;
-            }
-
-            buffer[jmp] = _map[next] switch
-            {
-                EMPTY => Loc2Jmp(next, d),
-                OBSTRUCTION => Loc2Jmp(loc, (d + 1) % _directions.Length),
-                _ => NO_JUMP
-            };
-        }
-    }
-
-    private void CalculateJumps()
-    {
-        _jumps = new int[_map.Length * _directions.Length];
-        Array.Fill(_jumps, NO_JUMP);
-
-        for(int loc = _sx; loc < _map.Length; loc++)
-            CalculateJumps(_jumps, loc, NO_OBSTRUCTION);            
-    }
-
     public string SolvePart1()
     {
         var buffer = _pathBuffers.First();
         FindLoop(_location, buffer, _jumpsBuffers[0]).ToString();
 
-        return buffer.Count(d => d).ToString();
+        var sum = 1;
+        for (var (i, success) = (0, false); i < buffer.Length; i += 4, success = false) 
+        {
+            for (int d = 0; d < _directions.Length && !success; d++)
+                success |= buffer[i + d];
+
+            if(success)
+                sum++;
+        }
+
+        return sum.ToString();
     }
 
     public string SolvePart2()
@@ -192,6 +151,49 @@ public class Day6(ILinesInputReader input) : IPuzzleSolver
 
     private int Loc2Jmp(int location, int direction)
         => _directions.Length * location + direction;
+
+    private void RecalculateJumps(int[] buffer, int loc, int obstruction)
+    {
+        if (_map[loc] == BORDER)
+            return;
+
+        for (int d = 0; d < _directions.Length; d++)
+            CalculateJumps(buffer, loc + _directions[d], obstruction);
+    }
+
+    private void CalculateJumps(int[] buffer, int loc, int obstruction)
+    {
+        if (_map[loc] == BORDER)
+            return;
+
+        for (int d = 0; d < _directions.Length; d++)
+        {
+            var next = loc + _directions[d];
+            var jmp = Loc2Jmp(loc, d);
+
+            if (next == obstruction)
+            {
+                buffer[jmp] = Loc2Jmp(loc, (d + 1) % _directions.Length);
+                continue;
+            }
+
+            buffer[jmp] = _map[next] switch
+            {
+                EMPTY => Loc2Jmp(next, d),
+                OBSTRUCTION => Loc2Jmp(loc, (d + 1) % _directions.Length),
+                _ => NO_JUMP
+            };
+        }
+    }
+
+    private void CalculateJumps()
+    {
+        _jumps = new int[_map.Length * _directions.Length];
+        Array.Fill(_jumps, NO_JUMP);
+
+        for (int loc = _sx; loc < _map.Length; loc++)
+            CalculateJumps(_jumps, loc, NO_OBSTRUCTION);
+    } 
 
     #endregion
 }
