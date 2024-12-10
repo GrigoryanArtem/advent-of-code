@@ -24,15 +24,15 @@ Place your examples to
 
 ### 2024
 
-|  Day | Problem                                                      | Benchmark (i9-13900K) | Code                                                                                                   |
-| ---: | ------------------------------------------------------------ | --------------------: | ------------------------------------------------------------------------------------------------------ |
-|   01 | [Historian Hysteria](https://adventofcode.com/2024/day/1)    |      1.5 ms / 0.35 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day3.cs)  |
-|   02 | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)     |      0.7 ms / 0.40 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day2.cs)  |
-|   03 | [Mull It Over](https://adventofcode.com/2024/day/3)          |        8 ms / 1.25 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day1.cs)  |
-|   04 | [Ceres Search](https://adventofcode.com/2024/day/4)          |         32 ms / 10 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day4.cs)  |
-|   05 | [Print Queue](https://adventofcode.com/2024/day/5)           |       2.5 ms / 1.2 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day5.cs)  |
-|   06 | [Guard Gallivant](https://adventofcode.com/2024/day/6)       |        0.8 ms / 16 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day6.cs)  |
-|   07 | [Bridge Repair](https://adventofcode.com/2024/day/7)         |       3.7 ms / 1.9 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day7.cs)  |
-|   08 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) |       0.8 ms / 0.2 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day8.cs)  |
-|   09 | [Disk Fragmenter](https://adventofcode.com/2024/day/9)       |        2.4 ms / 40 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day9.cs)  |
-|   10 | [Hoof It](https://adventofcode.com/2024/day/10)              |       1.6 ms / 0.8 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day10.cs) |
+|  Day | Problem                                                      | Benchmark (i9-13900K), ms. | Code                                                                                                   |
+| ---: | ------------------------------------------------------------ | -------------------------: | ------------------------------------------------------------------------------------------------------ |
+|   01 | [Historian Hysteria](https://adventofcode.com/2024/day/1)    |                0.07 / 0.04 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day3.cs)  |
+|   02 | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)     |                0.17 / 0.17 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day2.cs)  |
+|   03 | [Mull It Over](https://adventofcode.com/2024/day/3)          |                0.20 / 0.25 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day1.cs)  |
+|   04 | [Ceres Search](https://adventofcode.com/2024/day/4)          |                  5.4 / 2.5 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day4.cs)  |
+|   05 | [Print Queue](https://adventofcode.com/2024/day/5)           |                0.10 / 0.25 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day5.cs)  |
+|   06 | [Guard Gallivant](https://adventofcode.com/2024/day/6)       |                 0.05 / 7.0 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day6.cs)  |
+|   07 | [Bridge Repair](https://adventofcode.com/2024/day/7)         |                0.22 / 0.39 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day7.cs)  |
+|   08 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) |                0.03 / 0.08 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day8.cs)  |
+|   09 | [Disk Fragmenter](https://adventofcode.com/2024/day/9)       |                  0.31 / 56 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day9.cs)  |
+|   10 | [Hoof It](https://adventofcode.com/2024/day/10)              |                0.47 / 0.13 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day10.cs) |
