@@ -35,4 +35,4 @@ Place your examples to
 |   07 | [Bridge Repair](https://adventofcode.com/2024/day/7)         |       3.7 ms / 1.9 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day7.cs)  |
 |   08 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) |       0.8 ms / 0.2 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day8.cs)  |
 |   09 | [Disk Fragmenter](https://adventofcode.com/2024/day/9)       |        2.4 ms / 40 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day9.cs)  |
-|   10 | [Hoof It](https://adventofcode.com/2024/day/10)              |           1 ms / 1 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day10.cs) |
+|   10 | [Hoof It](https://adventofcode.com/2024/day/10)              |       1.6 ms / 0.8 ms | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day10.cs) |

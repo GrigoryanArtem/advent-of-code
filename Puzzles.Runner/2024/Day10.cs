@@ -7,7 +7,7 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
 
     private const byte BORDER = byte.MaxValue;
     private const byte START = 0;
-    private const byte TRAILHEAD = 9;
+    private const byte TRAILHEAD = 9;    
 
     #endregion
 
@@ -17,51 +17,51 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
     private int[] _starts = [];
     private int _sizeX = 0;
 
+    private Queue<int> _queue = [];
+    private readonly HashSet<int> _path = new(10);
+
     public void Init()
         => InitMap();    
 
     public string SolvePart1()
-        => _starts.Sum(i => GetTrailsCount(i, [])).ToString();
+        => _starts.Sum(i => GetTrails(i)).ToString();
 
     public string SolvePart2()
-        => _starts.Sum(i => GetStartRating(i, [])).ToString();
+        => _starts.Sum(i => GetTrails(i, rating: true)).ToString();
 
     #region Private methods
 
-    private int GetTrailsCount(int location, HashSet<int> path)
+    private int GetTrails(int location, bool rating = false)
     {
-        if (_map[location] == BORDER || path.Contains(location))
-            return 0;
+        _queue.Clear();
+        _path.Clear();
+        
+        _queue.Enqueue(location);
 
-        path.Add(location);
+        var sum = 0;
 
-        if (_map[location] == TRAILHEAD)
-            return 1;
-
-        return _directions.Sum(d =>
+        while(_queue.Count > 0)
         {
-            var diff = _map[location + d] - _map[location];
-            return diff == 1 ? GetTrailsCount(location + d, path) : 0;
-        });
-    }
+            var current = _queue.Dequeue();
 
-    private int GetStartRating(int location, HashSet<int> path)
-    {
-        if (_map[location] == BORDER || path.Contains(location))
-            return 0;
+            if (_map[current] == BORDER || _path.Contains(current))
+                continue;
 
-        if (_map[location] == TRAILHEAD)
-            return 1;
+            if (_map[current] == TRAILHEAD)
+            {                
+                if(!rating) 
+                    _path.Add(current);
 
-        path.Add(location);
+                sum++;
+                continue;
+            }
 
-        var sum = _directions.Sum(d =>
-        {
-            var diff = _map[location + d] - _map[location];
-            return diff == 1 ? GetStartRating(location + d, path) : 0;
-        });
-
-        path.Remove(location);
+            Array.ForEach(_directions, d =>
+            {
+                if (_map[current + d] - _map[current] == 1)
+                    _queue.Enqueue(current + d);
+            });
+        }
 
         return sum;
     }
@@ -88,6 +88,8 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
             .Where(m => m.item == START)
             .Select(m => m.index)
             .ToArray();
+
+        _queue = new Queue<int>(_map.Length);
     }
 
     private int Mat2Vec(int x, int y)
