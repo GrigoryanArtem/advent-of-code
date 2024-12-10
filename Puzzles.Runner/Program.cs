@@ -15,34 +15,45 @@ internal class Program
     {
         ParseArgs(args);
         Init();
-        Run(App.Services.GetRequiredService<IPuzzleSolver>());
+        Run(App.Services.GetRequiredService<IPuzzleSolver>(), State.PerformanceMode ? 1000 : 1);        
     }
 
-    private static void Run(IPuzzleSolver solver)
+    private static void Run(IPuzzleSolver solver, int count)
     {
-        var swi = Stopwatch.StartNew();
+        var initTime = Stopwatch.StartNew();
         solver.Init();
-        swi.Stop();
+        initTime.Stop();
 
-        var sw1 = Stopwatch.StartNew();
-        var p1 = solver.SolvePart1();
-        sw1.Stop();
-
-        var sw2 = Stopwatch.StartNew();
-        var p2 = solver.SolvePart2();
-        sw2.Stop();
-
-        Console.WriteLine($"Init time: {swi.Elapsed.TotalMilliseconds} ms.");
+        Console.WriteLine($"Init time: {initTime.Elapsed.TotalMilliseconds} ms.");
         Console.WriteLine();
 
+        if (count > 1)
+        {
+            Console.WriteLine($"Number of iterations: {count}");
+            Console.WriteLine();
+        }
+
+        var part1 = RunWithTime(solver.SolvePart1, count);
         Console.WriteLine("Part 1:");
-        Console.WriteLine($"Time: {sw1.Elapsed.TotalMilliseconds} ms.");
-        Console.WriteLine($"> Answer: {p1}");
+        Console.WriteLine($"Time: {part1.timeMs:f3} ms.");
+        Console.WriteLine($"> Answer: {part1.result}");
         Console.WriteLine();
 
+        var part2 = RunWithTime(solver.SolvePart2, count);
         Console.WriteLine("Part 2:");
-        Console.WriteLine($"Time: {sw2.Elapsed.TotalMilliseconds} ms.");
-        Console.WriteLine($"> Answer: {p2}");
+        Console.WriteLine($"Time: {part2.timeMs:f3} ms.");
+        Console.WriteLine($"> Answer: {part2.result}");
+    }
+
+    public static (double timeMs, T result) RunWithTime<T>(Func<T> func, int count)
+    {
+        Stopwatch sw = Stopwatch.StartNew();
+        T result = default!;
+
+        for (int i = 0; i < count; i++)
+            result = func();
+
+        return (sw.Elapsed.TotalMilliseconds / count, result);
     }
 
     private static void Init()
@@ -56,7 +67,7 @@ internal class Program
 
         Console.WriteLine($"=== {State.Year} Day-{State.Day}: {name} ===");
         Console.WriteLine();
-        Console.WriteLine($"Mode: {State.Mode}");
+        Console.WriteLine($"Mode: {State.Input}");
         Console.WriteLine($"Input: {Path.GetFullPath(State.InputPath)}");
         Console.WriteLine();
 
@@ -95,7 +106,8 @@ internal class Program
                     Day = co.Day ?? now.Day,
                     Year = co.Year ?? now.Year,
                     CustomPath = co.Input,
-                    Mode = !String.IsNullOrEmpty(co.Input) ? State.StateMode.Custom : co.Examples ? State.StateMode.Examples : State.StateMode.Input
+                    PerformanceMode = co.Performance,
+                    Input = !String.IsNullOrEmpty(co.Input) ? State.InputMode.Custom : co.Examples ? State.InputMode.Examples : State.InputMode.Input
                 };
             })
             .WithNotParsed(_ => throw new ArgumentException());

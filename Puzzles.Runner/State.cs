@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner;
 public class State
 {
-    public enum StateMode
+    public enum InputMode
     {
         Input,
         Examples,
@@ -11,14 +11,17 @@ public class State
     public int Year { get; set; }
     public int Day { get; set; }    
 
-    public StateMode Mode { get; set; }
-    public string? CustomPath { get; set; }
-    public string InputPath => Mode == StateMode.Custom ? CustomPath! : @$"{Year}/{ModeToPath()}/{Day}.in";
+    public bool PerformanceMode { get; set; }
 
-    private string ModeToPath() => Mode switch
+    public InputMode Input { get; set; }
+
+    public string? CustomPath { get; set; }
+    public string InputPath => Input == InputMode.Custom ? CustomPath! : @$"{Year}/{ModeToPath()}/{Day}.in";
+
+    private string ModeToPath() => Input switch
     {
-        StateMode.Input => "input",
-        StateMode.Examples => "examples",
+        InputMode.Input => "input",
+        InputMode.Examples => "examples",
         _ => throw new NotImplementedException("Mode not implemented")
     };
 }
