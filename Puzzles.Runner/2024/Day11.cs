@@ -23,34 +23,30 @@ public class Day11(ILinesInputReader input) : IPuzzleSolver
 
     private ulong Blink(ulong num, int count)
     {
-        if (_cache.ContainsKey((num, count)))
-            return _cache[(num, count)];
+        var tuple = (num, count);
 
-        ulong result;
+        if (_cache.TryGetValue(tuple, out ulong value))
+            return value;
 
-        if (count == 0)
+        var result = tuple switch
         {
-            result = 1;
-        }
-        else if (num == 0)
-        {
-            result = Blink(1, count - 1);
-        }
-        else
-        {
-            var digits = (ulong)(Math.Log10(num) + 1);
-            if (digits % 2 == 0)
-            {
-                var div = (ulong)Math.Pow(10, digits / 2);
-                result = Blink(num / div, count - 1) + Blink(num % div, count - 1);
-            }
-            else
-            {
-                result = Blink(num * 2024, count - 1);
-            }
-        }
+            (_, 0) => 1UL,
+            (0, _) => Blink(1, count - 1),
+            _ => Rule3(num, count)
+        };
 
-        _cache.Add((num, count), result);
+        _cache.Add(tuple, result);
         return result;
+    }
+
+    private ulong Rule3(ulong num, int count)
+    {
+        var digits = AOC.GetDigits(num);
+
+        if (digits % 2 != 0)        
+            return Blink(num * 2024, count - 1);
+
+        var (left, right) = AOC.SplitUInt64(num, digits / 2);
+        return Blink(left, count - 1) + Blink(right, count - 1);
     }
 }

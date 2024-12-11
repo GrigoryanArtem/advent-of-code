@@ -38,3 +38,4 @@ Time was measured by running each part n times and finding the average result. T
 |   08 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) |             0.03 |             0.08 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day8.cs)  |
 |   09 | [Disk Fragmenter](https://adventofcode.com/2024/day/9)       |             0.31 |               56 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day9.cs)  |
 |   10 | [Hoof It](https://adventofcode.com/2024/day/10)              |             0.47 |             0.13 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day10.cs) |
+|   10 | [Plutonian Pebbles](https://adventofcode.com/2024/day/11)    |             0.21 |              5.4 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day11.cs) |
