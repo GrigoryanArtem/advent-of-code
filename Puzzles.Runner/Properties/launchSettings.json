@@ -10,6 +10,10 @@
     },
     "Input": {
       "commandName": "Project"
+    },
+    "Performance": {
+      "commandName": "Project",
+      "commandLineArgs": "-p"
     }
   }
 }

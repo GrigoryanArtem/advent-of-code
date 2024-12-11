@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Puzzles.Runner._2024;
+﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Plutonian Pebbles", 11, 2024)]
 public class Day11(ILinesInputReader input) : IPuzzleSolver
 {
-    private const int BUFFER_SIZE = 1 << 25;
-    
     private ulong[] _numbers = [];
-
     private readonly Dictionary<(ulong, int), ulong> _cache = [];
 
     public void Init()
-    {
-        _numbers = input.GetTokens(" ", Convert.ToUInt64).First();
-    }
+        =>_numbers = input.GetTokens(" ", Convert.ToUInt64).First();
 
     public string SolvePart1()
-        => _numbers.Aggregate(0UL, (acc, n) => acc + Blink(n, 25)).ToString();
-
+    { 
+        _cache.Clear();
+        return _numbers.UInt64Sum(n => Blink(n, 25)).ToString();
+    }
 
     public string SolvePart2()
-        => _numbers.Aggregate(0UL, (acc, n) => acc + Blink(n, 75)).ToString();
+    {
+        _cache.Clear();
+        return _numbers.UInt64Sum(n => Blink(n, 75)).ToString();
+    }
 
     private ulong Blink(ulong num, int count)
     {
