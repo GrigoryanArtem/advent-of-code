@@ -7,7 +7,7 @@ public class Day11(ILinesInputReader input) : IPuzzleSolver
     private readonly Dictionary<(ulong, int), ulong> _cache = [];
 
     public void Init()
-        =>_numbers = input.GetTokens(" ", Convert.ToUInt64).First();
+        => _numbers = input.GetTokens(" ", Convert.ToUInt64).First();
 
     public string SolvePart1()
     { 
@@ -28,15 +28,12 @@ public class Day11(ILinesInputReader input) : IPuzzleSolver
         if (_cache.TryGetValue(tuple, out ulong value))
             return value;
 
-        var result = tuple switch
+        return _cache.AddAndReturn(tuple, tuple switch
         {
             (_, 0) => 1UL,
             (0, _) => Blink(1, count - 1),
             _ => Rule3(num, count)
-        };
-
-        _cache.Add(tuple, result);
-        return result;
+        });
     }
 
     private ulong Rule3(ulong num, int count)
