@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Guard Gallivant", 6, 2024)]
-public class Day6(ILinesInputReader input) : IPuzzleSolver
+public class Day06(ILinesInputReader input) : IPuzzleSolver
 {
     #region Constants
 

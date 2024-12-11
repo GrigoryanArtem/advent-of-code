@@ -3,7 +3,7 @@
 namespace Puzzles._2024;
 
 [Puzzle("Mull It Over", 3, 2024)]
-public partial class Day3(IFullInputReader input) : IPuzzleSolver
+public partial class Day03(IFullInputReader input) : IPuzzleSolver
 {
     public string SolvePart1()
     {

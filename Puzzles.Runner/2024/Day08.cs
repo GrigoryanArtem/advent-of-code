@@ -3,7 +3,7 @@
 namespace Puzzles.Runner._2024;
 
 [Puzzle("Bridge Repair", 8, 2024)]
-public class Day8(ILinesInputReader input) : IPuzzleSolver
+public class Day08(ILinesInputReader input) : IPuzzleSolver
 {  
     private const char EMPTY_CELL = '.';
     private readonly Dictionary<char, List<Point>> _antennas = [];

@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Historian Hysteria", 1, 2024)]
-public partial class Day1(ILinesInputReader input) : IPuzzleSolver
+public partial class Day01(ILinesInputReader input) : IPuzzleSolver
 {
     private readonly List<int> first = [];
     private readonly List<int> second = [];

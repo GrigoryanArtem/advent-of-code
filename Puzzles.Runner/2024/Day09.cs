@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Disk Fragmenter", 9, 2024)]
-public class Day9(IFullInputReader input) : IPuzzleSolver
+public class Day09(IFullInputReader input) : IPuzzleSolver
 {
     public record DiskBlock(int Count, int Value);
     private const int EMPTY = -1;

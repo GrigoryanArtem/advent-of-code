@@ -3,7 +3,7 @@
 namespace Puzzles.Runner._2024;
 
 [Puzzle("Ceres Search", 4, 2024)]
-public partial class Day3(IFullInputReader input) : IPuzzleSolver
+public partial class Day04(IFullInputReader input) : IPuzzleSolver
 {
     #region Constants
 

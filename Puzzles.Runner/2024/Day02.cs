@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Red-Nosed Reports", 2, 2024)]
-public partial class Day2(ILinesInputReader input) : IPuzzleSolver
+public partial class Day02(ILinesInputReader input) : IPuzzleSolver
 {
     private const int MIN = 1;
     private const int MAX = 3;

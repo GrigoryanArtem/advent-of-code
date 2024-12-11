@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Print Queue", 5, 2024)]
-public class Day5(ILinesInputReader input) : IPuzzleSolver
+public class Day05(ILinesInputReader input) : IPuzzleSolver
 {   
     private readonly Dictionary<int, List<int>> _rules = [];
     private readonly List<int[]> _print = [];

@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Bridge Repair", 7, 2024)]
-public class Day7(ILinesInputReader input) : IPuzzleSolver
+public class Day07(ILinesInputReader input) : IPuzzleSolver
 {
     private const int NUMBER_OF_TASKS = 128;
 
