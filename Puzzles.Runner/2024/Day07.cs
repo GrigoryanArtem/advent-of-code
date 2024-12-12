@@ -3,7 +3,7 @@
 [Puzzle("Bridge Repair", 7, 2024)]
 public class Day07(ILinesInputReader input) : IPuzzleSolver
 {
-    private const int NUMBER_OF_TASKS = 128;
+    private const int NUMBER_OF_TASKS = 32;
 
     private delegate bool Operation(ulong a, ulong b, out ulong result);
 
@@ -62,7 +62,7 @@ public class Day07(ILinesInputReader input) : IPuzzleSolver
 
     private static bool BackFind(ulong[] arr, Operation[] operations, ulong result)
     {
-        var stack = new Stack<(int index, ulong acc)>();
+        var stack = new Stack<(int index, ulong acc)>(arr.Length);
         stack.Push((arr.Length - 1, result));
 
         while (stack.Count > 0)
@@ -100,11 +100,9 @@ public class Day07(ILinesInputReader input) : IPuzzleSolver
     }
 
     private static bool Split(ulong a, ulong b, out ulong result)
-    {        
-        var div = (ulong)Math.Pow(10, (ulong)Math.Log10(b) + 1UL);
-
-        result = a / div;
-        return a % div == b;
+    {
+        (result, ulong right) = AOC.SplitUInt64(a, AOC.GetDigits(b));
+        return right == b;
     }
 
     #endregion
