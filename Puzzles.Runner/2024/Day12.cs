@@ -1,0 +1,109 @@
+﻿namespace Puzzles.Runner._2024;
+
+[Puzzle("Garden Groups", 12, 2024)]
+public class Day12(ILinesInputReader input) : IPuzzleSolver
+{
+    private const char BORDER = char.MinValue;
+
+    private const int NO_ID = -1;
+    public const int TOP = 0;
+    public const int LEFT = 3;
+
+    private int[] _directions = [];
+
+    private char[] _map = [];
+    private int[] _ids = [];
+
+    private int _sizeX = 0;
+
+    public void Init()
+    {
+        InitMap();
+        CalculateIds();
+    }
+
+    public string SolvePart1()
+    {
+        Dictionary<int, int> p = [];
+        Dictionary<int, int> a = [];
+        Dictionary<char, HashSet<int>> groups = [];
+
+        for (int i = _sizeX; i < _map.Length - _sizeX; i++)
+        {
+            if (_map[i] == BORDER)
+                continue;
+
+            var id = _ids[i];
+            var val = _map[i];
+
+            a.TryAdd(id, 0);
+            a[id]++;
+
+            p.TryAdd(id, 0);
+            for (int d = 0; d < _directions.Length; d++)
+                if (id != _ids[i + _directions[d]])
+                    p[id]++;
+
+            groups.TryAdd(val, []);
+            groups[val].Add(id);
+        }
+
+        return groups.Sum(kv => kv.Value.Sum(i => p[i] * a[i])).ToString();
+    }
+
+    private void InitMap()
+    {
+        _sizeX = input.Lines.First().Length + 2;
+        var sy = input.Lines.Length + 2;
+
+        _map = new char[_sizeX * sy];
+
+        for (int x = 0; x < _sizeX; x++)
+            _map[Mat2Vec(x, 0)] = _map[Mat2Vec(x, sy - 1)] = BORDER;
+
+        for (int y = 0; y < sy; y++)
+            _map[Mat2Vec(0, y)] = _map[Mat2Vec(_sizeX - 1, y)] = BORDER;
+
+        for (int y = 0; y < input.Lines.Length; y++)
+            for (int x = 0; x < input.Lines[y].Length; x++)
+                _map[Mat2Vec(x + 1, y + 1)] = input.Lines[y][x];
+
+        _directions = [-sy, 1, sy, -1];
+    }
+
+    private Queue<int> _queue = [];
+    private void CalculateIds()
+    {
+        _queue = new Queue<int>(_map.Length);
+        _ids = new int[_map.Length];
+        Array.Fill(_ids, NO_ID);
+
+        for(int i = _sizeX, id = 0; i < _ids.Length - _sizeX; i++, id++)
+        {
+            if (_map[i] == BORDER || _ids[i] != NO_ID)
+                continue;
+
+            _ids[i] = id;
+
+            _queue.Clear();
+            _queue.Enqueue(i);
+
+            while (_queue.Count > 0)
+            {
+                var current = _queue.Dequeue();
+
+                Array.ForEach(_directions, d =>
+                {
+                    if (_map[current + d] != BORDER && _ids[current + d] == NO_ID && _map[current] == _map[current + d])
+                    {
+                        _ids[current + d] = id;
+                        _queue.Enqueue(current + d);
+                    }
+                });
+            }
+        }
+    }
+
+    private int Mat2Vec(int x, int y)
+        => y * _sizeX + x;
+}
