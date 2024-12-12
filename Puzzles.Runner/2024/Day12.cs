@@ -3,79 +3,82 @@
 [Puzzle("Garden Groups", 12, 2024)]
 public class Day12(ILinesInputReader input) : IPuzzleSolver
 {
+    private delegate void RefFunc(int location, ref int accumulator);
+
+    #region Constants 
+
     private const char BORDER = char.MinValue;
-
     private const int NO_ID = -1;
-    public const int TOP = 0;
-    public const int LEFT = 3;
 
-    private int[] _directions = [];
+    #endregion
 
-    private char[] _map = [];
-    private int[] _ids = [];
-
-    private int _idCount;
+    #region Members
 
     private int _sizeX = 0;
-    private Queue<int> _queue = [];
+    private char[] _map = [];
+    private int[] _directions = [];
+
+    private int _idCount;
+    private int[] _ids = [];
+
+    private Queue<int> _bfsQ = [];
+
+    #endregion
 
     public void Init()
     {
         InitMap();
         CalculateIds();
     }
-   
+
     public string SolvePart1()
-    {
-        var p = new int[_idCount];
-        var a = new int[_idCount];
-
-        for (int i = _sizeX; i < _map.Length - _sizeX; i++)
-        {
-            if (_map[i] == BORDER)
-                continue;
-
-            var (id, val) = (_ids[i], _map[i]);
-            a[id]++;
-
-            for (int d = 0; d < _directions.Length; d++)
-                if (id != _ids[i + _directions[d]])
-                    p[id]++;
-        }
-
-        return p.Zip(a, (pv, av) => pv * av).Sum().ToString();
-    }
+        => CalculatePrice(Perimeter).ToString();
 
     public string SolvePart2()
+        => CalculatePrice(Corners).ToString();
+
+    #region Private methods
+
+    private int CalculatePrice(RefFunc func)
     {
-        var p = new int[_idCount];
-        var a = new int[_idCount];
+        var accumulator = new int[_idCount];
+        var area = new int[_idCount];
 
         for (int i = _sizeX; i < _map.Length - _sizeX; i++)
         {
             if (_map[i] == BORDER)
                 continue;
 
-            var (id, val) = (_ids[i], _map[i]);            
-            a[id]++;            
-            
-            for (int d = 0; d < _directions.Length; d++)
-            {
-                var d1 = _directions[d];
-                var d2 = _directions[(d + 1) % _directions.Length];
-
-                if (id != _ids[i + d1] && id != _ids[i + d2])
-                    p[id]++;
-
-                if (id == _ids[i + d1] && id == _ids[i + d2] && id != _ids[i + d1 + d2])
-                    p[id]++;
-            }
+            area[_ids[i]]++;
+            func(i, ref accumulator[_ids[i]]);
         }
 
-        return p.Zip(a, (pv, av) => pv * av).Sum().ToString();
+        return accumulator.Zip(area, (pv, av) => pv * av).Sum();
     }
 
-    #region Private methods
+    private void Perimeter(int location, ref int p)
+    {
+        for (int d = 0; d < _directions.Length; d++)
+            if (_ids[location] != _ids[location + _directions[d]])
+                p++;
+    }
+
+    private void Corners(int location, ref int c)
+    {
+        var id = _ids[location];
+
+        for (int d = 0; d < _directions.Length; d++)
+        {
+            var d1 = _directions[d];
+            var d2 = _directions[(d + 1) % _directions.Length];
+
+            if (id != _ids[location + d1] && id != _ids[location + d2])
+                c++;
+
+            if (id == _ids[location + d1] && id == _ids[location + d2] && id != _ids[location + d1 + d2])
+                c++;
+        }
+    }
 
     private void InitMap()
     {
@@ -95,7 +98,7 @@ public class Day12(ILinesInputReader input) : IPuzzleSolver
                 _map[Mat2Vec(x + 1, y + 1)] = input.Lines[y][x];
 
         _directions = [-sy, 1, sy, -1];
-        _queue = new Queue<int>(_map.Length);
+        _bfsQ = new Queue<int>(_map.Length);
     }
 
 
@@ -112,19 +115,19 @@ public class Day12(ILinesInputReader input) : IPuzzleSolver
 
             _ids[i] = _idCount;
 
-            _queue.Clear();
-            _queue.Enqueue(i);
+            _bfsQ.Clear();
+            _bfsQ.Enqueue(i);
 
-            while (_queue.Count > 0)
+            while (_bfsQ.Count > 0)
             {
-                var current = _queue.Dequeue();
+                var current = _bfsQ.Dequeue();
 
                 Array.ForEach(_directions, d =>
                 {
                     if (_map[current + d] != BORDER && _ids[current + d] == NO_ID && _map[current] == _map[current + d])
                     {
                         _ids[current + d] = _idCount;
-                        _queue.Enqueue(current + d);
+                        _bfsQ.Enqueue(current + d);
                     }
                 });
             }
