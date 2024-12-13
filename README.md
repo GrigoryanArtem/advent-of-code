@@ -40,4 +40,4 @@ Time was measured by running each part n times and finding the average result. T
 |   10 | [Hoof It](https://adventofcode.com/2024/day/10)              |             0.47 |             0.13 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day10.cs) |
 |   11 | [Plutonian Pebbles](https://adventofcode.com/2024/day/11)    |             0.21 |              5.4 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day11.cs) |
 |   12 | [Garden Groups](https://adventofcode.com/2024/day/12)        |             0.47 |             0.31 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day12.cs) |
-|   13 | [Claw Contraption](https://adventofcode.com/2024/day/13)        |             0.14 |             0.18 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day13.cs) |
+|   13 | [Claw Contraption](https://adventofcode.com/2024/day/13)     |             0.01 |             0.01 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day13.cs) |
