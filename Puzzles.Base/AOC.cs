@@ -12,6 +12,9 @@ public static class AOC
     public static (ulong left, ulong right) SplitUInt64(ulong number, int size)
         => (number / digitsDividers[size], number % digitsDividers[size]);
 
+    public static int Mod(int n, int m)
+        => ((n % m) + m) % m;
+
     #region Private methods
 
     private static ulong[] InitDividers()
