@@ -15,6 +15,21 @@ public static class AOC
     public static int Mod(int n, int m)
         => ((n % m) + m) % m;
 
+    public static int ModInv(int n, int m)
+    {
+        int t = 0, nt = 1;
+        int r = m, nr = n;
+
+        while (nr != 0)
+        {
+            int q = r / nr;
+            (r, nr) = (nr, r - q * nr);
+            (t, nt) = (nt, t - q * nt);
+        }
+
+        return Mod(t, m);
+    }
+
     #region Private methods
 
     private static ulong[] InitDividers()

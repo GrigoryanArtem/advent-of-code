@@ -35,40 +35,46 @@ public partial class Day14(IFullInputReader input) : IPuzzleSolver
         };
 
         Predict(size, 100, _predictionBuffer);
-
         return blocks.Select(b => _predictionBuffer.Count(p => 
-                p.X >= b.Start.X && p.X < b.End.X &&
-                p.Y >= b.Start.Y && p.Y < b.End.Y
-            )).Aggregate(1, (acc, v) => acc * v).ToString();
+            p.X >= b.Start.X && p.X < b.End.X &&
+            p.Y >= b.Start.Y && p.Y < b.End.Y
+        )).Aggregate(1, (acc, v) => acc * v).ToString();
     }
 
     public string SolvePart2()
     {        
         var size = new Vec2(101, 103);
-        var set = new HashSet<Vec2>();
 
-        int iteration = 0;
-        for (bool valid = false; !valid;)
-        {
-            set.Clear();
-            Predict(size, ++iteration, _predictionBuffer);
-            set.UnionWith(_predictionBuffer);
-
-            valid = set.Count == _predictionBuffer.Length;                
-        }
-
-        return iteration.ToString();
+        var iterations = Math.Max(size.X, size.Y);
+        var variances = Enumerable.Range(0, iterations).Select(i => Variance(Predict(size, i, _predictionBuffer))).ToArray();
+        var (vx, vy) = (variances.IndexOfMin(v => v.x), variances.IndexOfMin(v => v.y));        
+        return (vx + (AOC.Mod(AOC.ModInv(size.X, size.Y) * (vy - vx), size.Y) * size.X)).ToString();
     }
 
     #region Private methods
 
-    private void Predict(Vec2 size, int iterations, Vec2[] buffer)
+    private Vec2[] Predict(Vec2 size, int iterations, Vec2[] buffer)
     {
         for(int i = 0; i < _robots.Length; i++)
         {
             buffer[i].X = AOC.Mod(_robots[i].Pos.X + _robots[i].Vel.X * iterations, size.X);
             buffer[i].Y = AOC.Mod(_robots[i].Pos.Y + _robots[i].Vel.Y * iterations, size.Y);
         }
+
+        return buffer;
+    }
+
+    private static (double x, double y) Variance(Vec2[] points)
+    {
+        var n = points.Length;
+
+        var ax = points.Average(p => p.X);
+        var ay = points.Average(p => p.Y);
+
+        var vx = points.Sum(p => (p.X - ax) * (p.X - ax)) / (n - 1);
+        var vy = points.Sum(p => (p.Y - ay) * (p.Y - ay)) / (n - 1);
+
+        return (vx, vy);
     }
 
     private static int M2I32(Match match, string group)

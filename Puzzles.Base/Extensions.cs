@@ -15,6 +15,28 @@ public static class Extensions
         return source;
     }
 
+    public static int IndexOfMin<T, V>(this T[] source, Func<T, V> selector)
+        where V : IComparable<V>
+    {
+        int min = 0;
+        for(int i = 1; i < source.Length; i++)
+            if (selector(source[i]).CompareTo(selector(source[min])) < 0)
+                min = i;
+
+        return min;
+    }
+
+    public static int IndexOfMax<T, V>(this T[] source, Func<T, V> selector)
+        where V : IComparable<V>
+    {
+        int max = 0;
+        for (int i = 1; i < source.Length; i++)
+            if (selector(source[i]).CompareTo(selector(source[max])) > 0)
+                max = i;
+
+        return max;
+    }
+
     public static TValue AddAndReturn<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value)
     {
         source.Add(key, value); 
