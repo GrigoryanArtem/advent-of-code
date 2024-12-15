@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Puzzles.Base\Puzzles.Base.csproj" />
+    <ProjectReference Include="..\Puzzles.Web\Puzzles.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="2024\input\*.in">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="token">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

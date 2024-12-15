@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Puzzles.Web;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -15,6 +16,7 @@ internal class Program
     {
         ParseArgs(args);
         Init();
+        ResolveInput();
         Run(App.Services.GetRequiredService<IPuzzleSolver>(), State.PerformanceMode ? 1000 : 1);        
     }
 
@@ -54,7 +56,7 @@ internal class Program
             result = func();
 
         return (sw.Elapsed.TotalMilliseconds / count, result);
-    }
+    }    
 
     private static void Init()
     {        
@@ -63,17 +65,36 @@ internal class Program
         var puzzlesServices = new PuzzlesServices(State.InputPath);
         puzzlesServices.Register(builder.Services);
 
+        builder.Services.AddTransient(s => new PuzzleLoader(File.ReadAllText("token")));
         var name = RegisterSolver(builder.Services);
 
         Console.WriteLine($"=== {State.Year} Day-{State.Day}: {name} ===");
         Console.WriteLine();
-        Console.WriteLine($"Mode: {State.Input}");
-        Console.WriteLine($"Input: {Path.GetFullPath(State.InputPath)}");
-        Console.WriteLine();
+        Console.Error.WriteLine($"Mode: {State.Input}");
+        Console.Error.WriteLine($"Input: {Path.GetFullPath(State.InputPath)}");
+        Console.Error.WriteLine();
 
         App = builder.Build();
     }
-    
+
+    private static void ResolveInput()
+    {
+        if (State.Input != State.InputMode.Input)
+            return;
+
+        if (File.Exists(State.InputPath))
+            return;
+
+        Console.Error.WriteLine($"Load input for {State.Year}/{State.Day}...");
+
+        var loader = App.Services.GetRequiredService<PuzzleLoader>();
+        var getInput = loader.GetInput(State.Year, State.Day, CancellationToken.None);
+        getInput.Wait();
+
+        File.WriteAllText(State.InputPath, getInput.Result);
+        Console.Error.WriteLine($"Input saved to {Path.GetFullPath(State.InputPath)}...");
+    }
+
     private static string RegisterSolver(IServiceCollection services)
     {
         var solverInterface = typeof(IPuzzleSolver);
