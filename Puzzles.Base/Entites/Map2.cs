@@ -3,6 +3,11 @@
 namespace Puzzles.Base.Entites;
 public class Map2<T> : IEnumerable<T>
 {
+    public const int UP = 0;
+    public const int RIGHT = 1;
+    public const int DOWN = 2;
+    public const int LEFT = 3;
+
     public Map2(T[] data, int columns)
     {
         Columns = columns;
@@ -29,6 +34,9 @@ public class Map2<T> : IEnumerable<T>
 
     public int[] Directions { get; }
 
+    public int Next(int location, int direction)
+        => location + Directions[direction];
+
     public Map2<T> Copy()
     {
         var buffer = new T[Data.Length];
@@ -48,7 +56,7 @@ public class Map2<T> : IEnumerable<T>
         }
     }
 
-    private int D2toD1(int x, int y)
+    public int D2toD1(int x, int y)
         => y * Columns + x;
 
     public (int x, int y) D1toD2(int loc)

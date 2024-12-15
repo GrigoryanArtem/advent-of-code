@@ -48,7 +48,7 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
 
     private static int CheckAndMove(Map2<char> map, int location, int ddx)
     {
-        var next = location + map.Directions[ddx];
+        var next = map.Next(location, ddx);
         if (map[location] == BORDER || !Check(map, location, ddx, []))
         {
             return location;
@@ -66,13 +66,13 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
             return true;
 
         visited.Add(location);
-        var next = location + map.Directions[ddx];
+        var next = map.Next(location, ddx);
         return map[location] switch
         {
             BORDER => false,
             EMPTY => true,
-            BOXL => Check(map, next, ddx, visited) && Check(map, location + 1, ddx, visited),
-            BOXR => Check(map, next, ddx, visited) && Check(map, location - 1, ddx, visited),
+            BOXL => Check(map, next, ddx, visited) && Check(map, map.Next(location, Map2<char>.RIGHT), ddx, visited),
+            BOXR => Check(map, next, ddx, visited) && Check(map, map.Next(location, Map2<char>.LEFT), ddx, visited),
             _ => Check(map, next, ddx, visited)
         };
     }
@@ -83,7 +83,7 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
             return;
 
         visited.Add(location);
-        var next = location + map.Directions[ddx];
+        var next = map.Next(location, ddx);
         switch (map[location])
         {
             case BOX:
@@ -92,11 +92,11 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
                 break;
             case BOXL:
                 Move(map, next, ddx, visited);
-                Move(map, location + 1, ddx, visited);
+                Move(map, map.Next(location, Map2<char>.RIGHT), ddx, visited);
                 break;
             case BOXR:
                 Move(map, next, ddx, visited);
-                Move(map, location - 1, ddx, visited);
+                Move(map, map.Next(location, Map2<char>.LEFT), ddx, visited);
                 break;
             default:
                 return;
