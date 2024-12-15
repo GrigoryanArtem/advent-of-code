@@ -1,4 +1,4 @@
-﻿using Puzzles.Base.Entites;
+﻿using Map = Puzzles.Base.Entites.Map2<char>;
 
 namespace Puzzles.Runner._2024;
 
@@ -17,8 +17,8 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
 
     #endregion
 
-    private Map2<char>? _map;
-    private Map2<char>? _wideMap;
+    private Map? _map;
+    private Map? _wideMap;
 
     private int[] _path = [];    
 
@@ -36,20 +36,20 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
 
     #region Private methods
 
-    private int SumOfGPS(Map2<char> map, char target)
+    private int SumOfGPS(Map map, char target)
     {
         var currentLocation = Array.IndexOf(map.Data, ROBOT);
-        _path.ForEach(d => currentLocation = CheckAndMove(map, currentLocation, d));
+        _path.ForEach(d => currentLocation = TryMove(map, currentLocation, d));
 
         return map.WithIndex()
             .Where(c => c.item == target)
             .Sum(c => Distance(map, c.index));
     }
 
-    private static int CheckAndMove(Map2<char> map, int location, int ddx)
+    private static int TryMove(Map map, int location, int ddx)
     {
         var next = map.Next(location, ddx);
-        if (map[location] == BORDER || !Check(map, location, ddx, []))
+        if (map[location] == BORDER || !CanMove(map, location, ddx, []))
         {
             return location;
         }
@@ -60,7 +60,7 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
         }
     }
 
-    private static bool Check(Map2<char> map, int location, int ddx, HashSet<int> visited)
+    private static bool CanMove(Map map, int location, int ddx, HashSet<int> visited)
     {
         if (visited.Contains(location))
             return true;
@@ -71,13 +71,13 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
         {
             BORDER => false,
             EMPTY => true,
-            BOXL => Check(map, next, ddx, visited) && Check(map, map.Next(location, Map2<char>.RIGHT), ddx, visited),
-            BOXR => Check(map, next, ddx, visited) && Check(map, map.Next(location, Map2<char>.LEFT), ddx, visited),
-            _ => Check(map, next, ddx, visited)
+            BOXL => CanMove(map, next, ddx, visited) && CanMove(map, map.Next(location, Map.RIGHT), ddx, visited),
+            BOXR => CanMove(map, next, ddx, visited) && CanMove(map, map.Next(location, Map.LEFT), ddx, visited),
+            _ => CanMove(map, next, ddx, visited)
         };
     }
 
-    private static void Move(Map2<char> map, int location, int ddx, HashSet<int> visited)
+    private static void Move(Map map, int location, int ddx, HashSet<int> visited)
     {
         if (visited.Contains(location))
             return;
@@ -92,11 +92,11 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
                 break;
             case BOXL:
                 Move(map, next, ddx, visited);
-                Move(map, map.Next(location, Map2<char>.RIGHT), ddx, visited);
+                Move(map, map.Next(location, Map.RIGHT), ddx, visited);
                 break;
             case BOXR:
                 Move(map, next, ddx, visited);
-                Move(map, map.Next(location, Map2<char>.LEFT), ddx, visited);
+                Move(map, map.Next(location, Map.LEFT), ddx, visited);
                 break;
             default:
                 return;
@@ -143,7 +143,7 @@ public partial class Day15(ILinesInputReader input) : IPuzzleSolver
         _ => throw new NotImplementedException()
     };    
 
-    private static int Distance<T>(Map2<T> map, int location) 
+    private static int Distance(Map map, int location) 
     {
         var (x, y) = map.D1toD2(location);
         return y * 100 + x;
