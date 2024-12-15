@@ -1,0 +1,62 @@
+﻿using System.Collections;
+
+namespace Puzzles.Base.Entites;
+public class Map2<T> : IEnumerable<T>
+{
+    public Map2(T[] data, int columns)
+    {
+        Columns = columns;
+        Rows = data.Length / columns;
+        Data = data;
+        Directions = [-Columns, 1, Columns, -1];
+    }
+
+    public T this[int loc]
+    {
+        get => Data[loc];
+        set => Data[loc] = value;
+    }
+
+    public T this[int x, int y]
+    {
+        get => Data[D2toD1(x, y)];
+        set => Data[D2toD1(x, y)] = value;
+    }
+
+    public int Rows { get; }
+    public int Columns { get; }
+    public T[] Data { get; }
+
+    public int[] Directions { get; }
+
+    public Map2<T> Copy()
+    {
+        var buffer = new T[Data.Length];
+        Array.Copy(Data, buffer, Data.Length);
+
+        return new(buffer, Columns);
+    }
+
+    public void Draw()
+    {
+        for (int i = 0; i < Data.Length; i += Columns)
+        {
+            for (int k = i; k < i + Columns; k++)
+                Console.Write(Data[k]);
+
+            Console.WriteLine();
+        }
+    }
+
+    private int D2toD1(int x, int y)
+        => y * Columns + x;
+
+    public (int x, int y) D1toD2(int loc)
+        => (loc % Columns, loc / Columns);
+
+    public IEnumerator<T> GetEnumerator()
+        => Data.AsEnumerable().GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator()
+        => Data.GetEnumerator();
+}
