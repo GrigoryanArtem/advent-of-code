@@ -45,16 +45,24 @@ public class Map2<T> : IEnumerable<T>
         return new(buffer, Columns);
     }
 
-    public void Draw()
+    public void Draw(Func<T, int, string>? formatter = null)
     {
+        var f = formatter ?? DefaultFormat;
+
         for (int i = 0; i < Data.Length; i += Columns)
         {
             for (int k = i; k < i + Columns; k++)
-                Console.Write(Data[k]);
+                Console.Write(f(Data[k], k));
 
             Console.WriteLine();
         }
     }
+
+    public (int location, int direction) LD2L(int ld)
+        => (ld / Directions.Length, ld % Directions.Length);
+
+    public int L2LD(int location, int direction)
+        => Directions.Length * location + direction;
 
     public int D2toD1(int x, int y)
         => y * Columns + x;
@@ -67,4 +75,11 @@ public class Map2<T> : IEnumerable<T>
 
     IEnumerator IEnumerable.GetEnumerator()
         => Data.GetEnumerator();
+
+    #region Private methods
+
+    public string DefaultFormat(T value, int location)
+        => value?.ToString() ?? String.Empty;
+
+    #endregion
 }
