@@ -37,6 +37,22 @@ public class Map2<T> : IEnumerable<T>
     public int Next(int location, int direction)
         => location + Directions[direction];
 
+    public void FillBorders(T value)
+    {
+        for (int x = 0; x < Columns; x++)
+            this[x, 0] = this[x, Rows - 1] = value;
+
+        for (int y = 0; y < Rows; y++)
+            this[0, y] = this[Columns - 1, y] = value;
+    }
+
+    public TBuffer[] CreateBuffer<TBuffer>(TBuffer defaultValue = default!)
+    {
+        var buffer = new TBuffer[Data.Length];
+        Array.Fill(buffer, defaultValue);
+        return buffer;
+    }
+
     public Map2<T> Copy()
     {
         var buffer = new T[Data.Length];

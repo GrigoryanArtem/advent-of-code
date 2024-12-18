@@ -45,3 +45,4 @@ Time was measured by running each part n times and finding the average result. T
 |   15 | [Warehouse Woes](https://adventofcode.com/2024/day/15)         |              2.1 |              2.4 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day15.cs) |
 |   16 | [Reindeer Maze](https://adventofcode.com/2024/day/16)          |                8 |                8 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day16.cs) |
 |   17 | [Chronospatial Computer](https://adventofcode.com/2024/day/17) |             0.03 |             0.65 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day17.cs) |
+|   18 | [RAM Run](https://adventofcode.com/2024/day/18)                |             0.86 |             0.67 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day18.cs) |
