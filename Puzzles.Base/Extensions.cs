@@ -44,10 +44,4 @@ public static class Extensions
         source.Add(key, value); 
         return value;
     }
-
-    public static TValue AddAndReturn<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> source, TKey key, TValue value)
-    {
-        source.TryAdd(key, value);
-        return value;
-    }
 }
