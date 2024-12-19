@@ -1,9 +1,11 @@
-﻿namespace Puzzles.Runner._2024;
+﻿using System.Collections.Concurrent;
+
+namespace Puzzles.Runner._2024;
 
 [Puzzle("Linen Layout", 19, 2024)]
 public class Day19(ILinesInputReader input) : IPuzzleSolver
 {
-    private readonly Dictionary<string, ulong> _cache = [];
+    private readonly ConcurrentDictionary<string, ulong> _cache = [];
 
     private HashSet<string> _towels = [];
     private string[] _patterns = [];
@@ -19,7 +21,7 @@ public class Day19(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart1()
     {
         _cache.Clear();
-        return _patterns.Count(p => DesignCombinations(p) > 0UL).ToString();
+        return _patterns.AsParallel().Count(p => DesignCombinations(p) > 0UL).ToString();
     }
 
     public string SolvePart2()
@@ -31,6 +33,6 @@ public class Day19(ILinesInputReader input) : IPuzzleSolver
     public ulong DesignCombinations(string pattern)
         => _cache.TryGetValue(pattern, out var value) ? value :
             _cache.AddAndReturn(pattern, (_towels.Contains(pattern) ? 1UL : 0UL) +
-                _towels.Where(t => t.Length < pattern.Length && pattern[..t.Length] == t)
+                _towels.Where(t => t.Length < pattern.Length && pattern.StartsWith(t))
                     .UInt64Sum(t => DesignCombinations(pattern[t.Length..])));
 }

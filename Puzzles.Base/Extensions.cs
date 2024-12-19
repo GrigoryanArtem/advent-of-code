@@ -1,4 +1,6 @@
-﻿namespace Puzzles.Base;
+﻿using System.Collections.Concurrent;
+
+namespace Puzzles.Base;
 public static class Extensions
 {
     public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> source)
@@ -40,6 +42,12 @@ public static class Extensions
     public static TValue AddAndReturn<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value)
     {
         source.Add(key, value); 
+        return value;
+    }
+
+    public static TValue AddAndReturn<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> source, TKey key, TValue value)
+    {
+        source.TryAdd(key, value);
         return value;
     }
 }
