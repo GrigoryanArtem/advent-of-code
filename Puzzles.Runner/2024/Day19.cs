@@ -25,10 +25,7 @@ public class Day19(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart2()
-    {
-        _cache.Clear();
-        return _patterns.UInt64Sum(DesignCombinations).ToString();
-    }
+        => _patterns.UInt64Sum(DesignCombinations).ToString();
 
     public ulong DesignCombinations(string pattern)
         => _cache.TryGetValue(pattern, out var value) ? value :
