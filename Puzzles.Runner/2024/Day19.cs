@@ -28,8 +28,7 @@ public class Day19(ILinesInputReader input) : IPuzzleSolver
         => _patterns.UInt64Sum(DesignCombinations).ToString();
 
     public ulong DesignCombinations(string pattern)
-        => _cache.TryGetValue(pattern, out var value) ? value :
-            _cache.AddAndReturn(pattern, (_towels.Contains(pattern) ? 1UL : 0UL) +
-                _towels.Where(t => t.Length < pattern.Length && pattern.StartsWith(t))
-                    .UInt64Sum(t => DesignCombinations(pattern[t.Length..])));
+        => _cache.TryGetValue(pattern, out var value) ? value : _cache.AddAndReturn(pattern,
+            (_towels.Contains(pattern) ? 1UL : 0UL) + _towels.Where(pattern.StartsWith)
+                .UInt64Sum(t => DesignCombinations(pattern[t.Length..])));
 }
