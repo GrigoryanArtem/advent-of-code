@@ -43,8 +43,9 @@ public class Day20(ILinesInputReader input) : IPuzzleSolver
         var te = bfs.Full(start, map.CreateBuffer<int>());
         var ts = bfs.Full(start, map.CreateBuffer<int>());
 
-        return map.AsParallel().WithIndex()
+        return map.WithIndex()
             .Where(c => c.item != BORDER && c.item != OBSTRUCTION)
+            .AsParallel()
             .Sum(cell => GetCheatCells(map, cell.index, depth, [])
                 .Select(jmp => te[end] - (te[cell.index] + ts[jmp] + map.Manhattan(cell.index, jmp)))
                 .Count(dst => dst >= minDistance));
