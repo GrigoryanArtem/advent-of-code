@@ -41,17 +41,17 @@ public class Day20(ILinesInputReader input) : IPuzzleSolver
         var end = Array.IndexOf(map.Data, END);
 
         var te = bfs.Full(start, map.CreateBuffer<int>());
-        var ts = bfs.Full(start, map.CreateBuffer<int>());
+        var ts = bfs.Full(end, map.CreateBuffer<int>());
 
         return map.WithIndex()
             .Where(c => c.item != BORDER && c.item != OBSTRUCTION)
             .AsParallel()
             .Sum(cell => GetCheatCells(map, cell.index, depth, [])
-                .Select(jmp => te[end] - (te[cell.index] + ts[jmp] + map.Manhattan(cell.index, jmp)))
+                .Select(jmp => te[end] - (te[cell.index] + ts[jmp.loc] + jmp.dist))
                 .Count(dst => dst >= minDistance));
     }
 
-    private static IEnumerable<int> GetCheatCells(Map map, int loc, int depth, HashSet<int> visited)
+    private static IEnumerable<(int loc, int dist)> GetCheatCells(Map map, int loc, int depth, HashSet<int> visited)
     {
         var queue = new Queue<(int loc, int d)>();
         queue.Enqueue((loc, 0));
@@ -66,7 +66,7 @@ public class Day20(ILinesInputReader input) : IPuzzleSolver
             visited.Add(current);
 
             if ((map[current] == EMPTY || map[current] == END) && distance > 0)
-                yield return current;
+                yield return (current, distance);
 
             if (distance >= depth)
                 continue;
