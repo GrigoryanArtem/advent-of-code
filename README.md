@@ -47,3 +47,4 @@ Time was measured by running each part n times and finding the average result. T
 |   17 | [Chronospatial Computer](https://adventofcode.com/2024/day/17) |             0.03 |             0.65 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day17.cs) |
 |   18 | [RAM Run](https://adventofcode.com/2024/day/18)                |             0.64 |             0.64 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day18.cs) |
 |   19 | [Linen Layout](https://adventofcode.com/2024/day/19)           |               13 |               13 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day19.cs) |
+|   20 | [Race Condition](https://adventofcode.com/2024/day/20)         |               27 |              680 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day20.cs) |

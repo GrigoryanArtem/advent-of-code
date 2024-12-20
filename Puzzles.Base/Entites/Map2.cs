@@ -89,6 +89,14 @@ public class Map2<T> : IEnumerable<T>
     public (int x, int y) D1toD2(int loc)
         => (loc % Columns, loc / Columns);
 
+    public int Manhattan(int from, int to)
+    {
+        var (cx, cy) = D1toD2(from);
+        var (ex, ey) = D1toD2(to);
+
+        return Math.Abs(cx - ex) + Math.Abs(cy - ey);
+    }
+
     public IEnumerator<T> GetEnumerator()
         => Data.AsEnumerable().GetEnumerator();
 
