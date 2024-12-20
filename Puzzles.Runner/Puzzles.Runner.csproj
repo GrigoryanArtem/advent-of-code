@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include=" Puzzles.Base.Entites" />
     <Using Include="Puzzles.Base" />
     <Using Include="Puzzles.Base.Abstractions" />
   </ItemGroup>

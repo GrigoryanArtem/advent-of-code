@@ -34,8 +34,11 @@ public class Map2<T> : IEnumerable<T>
 
     public int[] Directions { get; }
 
-    public int Next(int location, int direction)
-        => location + Directions[direction];
+    public int InvDdx(int ddx)
+        => (ddx + 2) % Directions.Length;
+
+    public int Next(int location, int ddx)
+        => location + Directions[ddx];
 
     public void FillBorders(T value)
     {
@@ -92,9 +95,26 @@ public class Map2<T> : IEnumerable<T>
     IEnumerator IEnumerable.GetEnumerator()
         => Data.GetEnumerator();
 
+    public static Map2<T> Empty(int columns, int rows)
+        => new(new T[rows * columns], columns);
+
+    public static Map2<T> WithBorders(T[] data, int columns, T borderValue)
+    {
+        var rows = data.Length / columns;
+
+        var map = Empty(columns + 2, rows + 2);
+        map.FillBorders(borderValue);
+
+        for (int y = 0; y < rows; y++)
+            for (int x = 0; x < columns; x++)
+                map[x + 1, y + 1] = data[y * columns + x];
+
+        return map;
+    }
+
     #region Private methods
 
-    public string DefaultFormat(T value, int location)
+    private string DefaultFormat(T value, int location)
         => value?.ToString() ?? String.Empty;
 
     #endregion

@@ -44,4 +44,10 @@ public static class Extensions
         source.Add(key, value); 
         return value;
     }
+
+    public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value)
+    {
+        source.TryAdd(key, value);
+        return source[key];
+    }
 }

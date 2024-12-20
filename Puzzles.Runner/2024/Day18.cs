@@ -1,7 +1,6 @@
 ﻿namespace Puzzles.Runner._2024;
 
-using Puzzles.Base.Entites;
-using Map = Puzzles.Base.Entites.Map2<char>;
+using Map = Map2<char>;
 
 [Puzzle("RAM Run", 18, 2024)]
 public class Day18(ILinesInputReader input) : IPuzzleSolver
