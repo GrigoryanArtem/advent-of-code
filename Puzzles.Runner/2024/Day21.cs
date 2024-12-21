@@ -10,8 +10,8 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
 
     #region Members
 
-    private Map _keyboard;
-    private Map _robotKeyboard;
+    private Map? _keyboard;
+    private Map? _robotKeyboard;
 
     private readonly Dictionary<(string, int), ulong> _cache = [];
     private readonly List<int> _pathBuffer = new(64);
@@ -40,7 +40,7 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
     }
 
     private ulong SolveNumeric(string code, int depth)
-        => Convert.ToUInt64(code[..^1]) * AssembleSequence(_keyboard, code).UInt64Sum(ins => SolveDirectional(ins, depth));
+        => Convert.ToUInt64(code[..^1]) * AssembleSequence(_keyboard!, code).UInt64Sum(ins => SolveDirectional(ins, depth));
 
     private ulong SolveDirectional(string code, int depth)
     {
@@ -52,7 +52,7 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
         if (depth == 0)
             return (ulong)code.Length;
 
-        return _cache.AddAndReturn(tuple, AssembleSequence(_robotKeyboard, code)
+        return _cache.AddAndReturn(tuple, AssembleSequence(_robotKeyboard!, code)
             .UInt64Sum(ins => SolveDirectional(ins, depth - 1)));
     }
 

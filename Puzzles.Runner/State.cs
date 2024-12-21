@@ -8,11 +8,18 @@ public class State
         Custom
     }
 
+    public enum RunMode
+    {
+        Run,
+        Load
+    }
+
     public int Year { get; set; }
     public int Day { get; set; }    
 
     public bool PerformanceMode { get; set; }
 
+    public RunMode Mode { get; set; }
     public InputMode Input { get; set; }
 
     public string? CustomPath { get; set; }

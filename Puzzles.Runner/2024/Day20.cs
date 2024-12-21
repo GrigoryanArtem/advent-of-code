@@ -16,7 +16,7 @@ public class Day20(ILinesInputReader input) : IPuzzleSolver
 
     #endregion
 
-    private Map _map;
+    private Map? _map;
 
     public void Init() => _map = Map.WithBorders
     (
@@ -26,10 +26,10 @@ public class Day20(ILinesInputReader input) : IPuzzleSolver
     );
 
     public string SolvePart1()
-        => Solve(_map, 2, 100).ToString();
+        => Solve(_map!, 2, 100).ToString();
 
     public string SolvePart2()
-        => Solve(_map, 20, 100).ToString();
+        => Solve(_map!, 20, 100).ToString();
 
     #region Private methods
 

@@ -13,7 +13,7 @@ public class Day16(ILinesInputReader input) : IPuzzleSolver
     private const int FORWARD = 1;
     private const int ROTATE = 1000;
 
-    private Map _map;
+    private Map? _map;
     private int[] _buffer = [];
 
     public void Init()
@@ -24,14 +24,14 @@ public class Day16(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart1()
     {
-        var end = Array.IndexOf(_map.Data, END);
+        var end = Array.IndexOf(_map!.Data, END);
         DistanceToEnd(_map, Array.IndexOf(_map.Data, START), end, _buffer);
         return GetMinDistance(_map, _buffer, end).ToString();
     }
 
     public string SolvePart2()
     {
-        var start = Array.IndexOf(_map.Data, START);
+        var start = Array.IndexOf(_map!.Data, START);
         var end = Array.IndexOf(_map.Data, END);
 
         DistanceToEnd(_map, Array.IndexOf(_map.Data, START), end, _buffer);

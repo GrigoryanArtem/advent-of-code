@@ -38,12 +38,14 @@ public static class Extensions
     }
 
     public static TValue AddAndReturn<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value)
+         where TKey : notnull
     {
         source.Add(key, value); 
         return value;
     }
 
     public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value)
+         where TKey : notnull
     {
         source.TryAdd(key, value);
         return source[key];

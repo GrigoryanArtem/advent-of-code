@@ -9,15 +9,24 @@ namespace Puzzles.Runner;
 
 internal class Program
 {
-    private static IHost App { get; set; }
-    private static State State { get; set; }
+    private const string TOKEN_FILE_NAME = "token";
+
+    private static IHost? App { get; set; }
+    private static State? State { get; set; }
 
     static void Main(string[] args)
     {
-        ParseArgs(args);
-        Init();
-        ResolveInput();
-        Run(App.Services.GetRequiredService<IPuzzleSolver>(), State.PerformanceMode ? 1000 : 1);        
+        try
+        {
+            ParseArgs(args);
+            Init();
+            ResolveInput();
+            Run(App!.Services.GetRequiredService<IPuzzleSolver>(), State!.PerformanceMode ? 1000 : 1);
+        }
+        catch (PuzzlesException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+        }
     }
 
     private static void Run(IPuzzleSolver solver, int count)
@@ -35,16 +44,17 @@ internal class Program
             Console.WriteLine();
         }
 
-        var part1 = RunWithTime(solver.SolvePart1, count);
-        Console.WriteLine("Part 1:");
-        Console.WriteLine($"Time: {part1.timeMs:f3} ms.");
-        Console.WriteLine($"> Answer: {part1.result}");
-        Console.WriteLine();
+        PrintResult("Part 1", RunWithTime(solver.SolvePart1, count));
+        PrintResult("Part 2", RunWithTime(solver.SolvePart2, count));
+    }
 
-        var part2 = RunWithTime(solver.SolvePart2, count);
-        Console.WriteLine("Part 2:");
-        Console.WriteLine($"Time: {part2.timeMs:f3} ms.");
-        Console.WriteLine($"> Answer: {part2.result}");
+    private static void PrintResult<T>(string title, (double, T) data)
+    {
+        var(timeMs, result) = data;
+
+        Console.WriteLine(title);
+        Console.WriteLine($"Time: {timeMs:f3} ms.");
+        Console.WriteLine($"> Answer: {result}");
     }
 
     public static (double timeMs, T result) RunWithTime<T>(Func<T> func, int count)
@@ -62,10 +72,10 @@ internal class Program
     {        
         var builder = Host.CreateApplicationBuilder();
 
-        var puzzlesServices = new PuzzlesServices(State.InputPath);
+        var puzzlesServices = new PuzzlesServices(State!.InputPath);
         puzzlesServices.Register(builder.Services);
 
-        builder.Services.AddTransient(s => new PuzzleLoader(File.ReadAllText("token")));
+        builder.Services.AddTransient(s => new PuzzleLoader(TOKEN_FILE_NAME));
         var name = RegisterSolver(builder.Services);
 
         Console.WriteLine($"=== {State.Year} Day-{State.Day}: {name} ===");
@@ -79,7 +89,7 @@ internal class Program
 
     private static void ResolveInput()
     {
-        if (State.Input != State.InputMode.Input)
+        if (State!.Input != State.InputMode.Input)
             return;
 
         if (File.Exists(State.InputPath))
@@ -87,7 +97,7 @@ internal class Program
 
         Console.Error.WriteLine($"Load input for {State.Year}/{State.Day}...");
 
-        var loader = App.Services.GetRequiredService<PuzzleLoader>();
+        var loader = App!.Services.GetRequiredService<PuzzleLoader>();
         var getInput = loader.GetInput(State.Year, State.Day, CancellationToken.None);
         getInput.Wait();
 
@@ -108,7 +118,7 @@ internal class Program
                     .FirstOrDefault())
             )
             .Where(d => d.attribute is not null && 
-                d.attribute.Year == State.Year && d.attribute.Day == State.Day)
+                d.attribute.Year == State!.Year && d.attribute.Day == State.Day)
             .Single();
 
         services.AddTransient(solverInterface, solver);
@@ -128,9 +138,10 @@ internal class Program
                     Year = co.Year ?? now.Year,
                     CustomPath = co.Input,
                     PerformanceMode = co.Performance,
+                    Mode = State.RunMode.Run,
                     Input = !String.IsNullOrEmpty(co.Input) ? State.InputMode.Custom : co.Examples ? State.InputMode.Examples : State.InputMode.Input
                 };
             })
-            .WithNotParsed(_ => throw new ArgumentException());
+            .WithNotParsed(_ => throw new PuzzlesException("Arguments are not valid"));
     }
 }

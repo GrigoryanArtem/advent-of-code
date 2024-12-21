@@ -6,7 +6,7 @@ public partial class Day02(ILinesInputReader input) : IPuzzleSolver
     private const int MIN = 1;
     private const int MAX = 3;
 
-    private int[][] _lines;
+    private int[][] _lines = [];
 
     public void Init()
         => _lines = input.GetTokens(" ", Convert.ToInt32);
@@ -79,13 +79,13 @@ public partial class Day02(ILinesInputReader input) : IPuzzleSolver
         return success;
     }
 
-    private static int?[,] CreateDiffMatrix(int[] nums, int distance)
+    private static int?[,] CreateDiffMatrix(int[] numbers, int distance)
     {
-        int?[,] result = new int?[nums.Length, distance];
+        int?[,] result = new int?[numbers.Length, distance];
 
-        for (int i = 1; i < nums.Length; i++)
+        for (int i = 1; i < numbers.Length; i++)
             for (int k = 0; k < distance; k++)
-                result[i, k] = i - (k + 1) >= 0 ? nums[i] - nums[i - (k + 1)] : null;
+                result[i, k] = i - (k + 1) >= 0 ? numbers[i] - numbers[i - (k + 1)] : null;
 
         return result;
     }
