@@ -1,90 +1,81 @@
 ﻿namespace Puzzles.Runner._2024;
 
-using System.Dynamic;
-using System.Text;
 using Map = Map2<char>;
 
 [Puzzle("Keypad Conundrum", 21, 2024)]
 public class Day21(ILinesInputReader input) : IPuzzleSolver
 {
     private const char GAP = ' ';
-    private const char ENTER = 'A';       
+    private const char ENTER = 'A';
 
     private Map _keyboard;
-    private Map _robotKeyboard;    
+    private Map _robotKeyboard;
 
     public void Init()
     {
         _keyboard = Map.WithBorders(['7', '8', '9', '4', '5', '6', '1', '2', '3', GAP, '0', ENTER], 3, GAP);
         _robotKeyboard = Map.WithBorders([GAP, '^', ENTER, '<', 'v', '>'], 3, GAP);
-        
-    } 
-
-
-    public void DisassembleSequence(string seq)
-    {        
-        var c3 = ParseString(_robotKeyboard, seq);
-        var c2 = ParseString(_robotKeyboard, c3);
-        var c1 = ParseString(_keyboard, c2);
-
-        Console.WriteLine();
-
-        Console.WriteLine($">>> {seq} <<<");
-        Console.WriteLine(c3);
-        Console.WriteLine(c2);
-        Console.WriteLine(c1);
-
-        Console.WriteLine();
     }
 
-    private string ParseString(Map keyboard, string seq)
-    {
-        List<char> answer = [];
-        var location = Array.IndexOf(keyboard.Data, ENTER);
-        foreach (var ch in seq)
-        {
-            if (ch == ENTER)
-            {
-                answer.Add(keyboard[location]);
-                continue;
-            }
-
-            var ddx = C2Ddx(ch);
-            location = keyboard.Next(location, ddx);
-        }
-
-        return new string([.. answer]);
-    }
-
-    public string SolvePart2()
-    { 
-        return "";
-    }
 
     public string SolvePart1()
     {
-        var sum = 0;
+        var sum = 0UL;
         foreach (var code in input.Lines)
         {
-            var num = Convert.ToInt32(code[..^1]);
+            sum += SolveNumeric(code, 2);
+        }
 
-            var c1 = AssembleSequence(_keyboard, code.ToCharArray());
-            var c2 = AssembleSequence(_robotKeyboard, c1.ToCharArray());
-            var c3 = AssembleSequence(_robotKeyboard, c2.ToCharArray());
-
-            sum += c3.Length * num;
+        return sum.ToString();
+    }
+    public string SolvePart2()
+    {
+        var sum = 0UL;
+        foreach (var code in input.Lines)
+        {
+            sum += SolveNumeric(code, 25);
         }
 
         return sum.ToString();
     }
 
-    
-    private static string AssembleSequence(Map keyboard, char[] code)
+
+    public ulong SolveNumeric(string code, int depth)
+    {
+        var num = Convert.ToUInt64(code[..^1]);
+
+        var sum = 0UL;
+        foreach (var instruction in AssembleSequence(_keyboard, code))
+        {
+            sum += num * SolveDirectional(instruction, depth);
+        }
+
+        return sum;
+    }
+
+    private readonly Dictionary<(string, int), ulong> _cache = [];
+    public ulong SolveDirectional(string code, int depth)
+    {
+        var tuple = (code, depth);
+        if(_cache.TryGetValue(tuple, out var value))
+            return value;
+
+        if (depth == 0)
+            return (ulong)code.Length;
+
+        var sum = 0UL;
+        foreach (var instruction in AssembleSequence(_robotKeyboard, code))
+        {
+            sum += SolveDirectional(instruction, depth - 1);
+        }
+
+        return _cache.AddAndReturn(tuple, sum);
+    }
+
+    private static IEnumerable<string> AssembleSequence(Map keyboard, string code)
     {
         var buffer = keyboard.CreateBuffer<int>();
         var location = Array.IndexOf(keyboard.Data, ENTER);
-
-        StringBuilder answer = new();
 
         foreach (var c in code)
         {
@@ -92,7 +83,7 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
 
             if (target == location)
             {
-                answer.Append(ENTER);
+                yield return ENTER.ToString();
                 continue;
             }
 
@@ -101,12 +92,10 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
             var path = new List<int>();
             GetPath(keyboard, distances, target, location, path);
 
-            answer.Append(GetPath(keyboard, location, target));
+            yield return GetPath(keyboard, location, target);
 
             location = target;
         }
-
-        return answer.ToString();
     }
 
     public static string GetPath(Map keyboard, int start, int end)
@@ -178,7 +167,7 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
         _ => throw new NotImplementedException()
     };
 
-    public static int[] Full(Map map,int start, int end, int[] distances)
+    public static int[] Full(Map map, int start, int end, int[] distances)
     {
         Array.Fill(distances, Int32.MaxValue);
 
