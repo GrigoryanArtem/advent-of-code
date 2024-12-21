@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-
-namespace Puzzles.Base;
+﻿namespace Puzzles.Base;
 public static class Extensions
 {
     public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> source)
