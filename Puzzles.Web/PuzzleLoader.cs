@@ -8,7 +8,7 @@ public class PuzzleLoader
 
     public PuzzleLoader(string path)
     {
-        if (File.Exists(path))
+        if (!File.Exists(path))
             throw new PuzzlesException("Session token file not found.");
 
         var sessionToken = File.ReadAllText(path);
