@@ -48,3 +48,4 @@ Time was measured by running each part n times and finding the average result. T
 |   18 | [RAM Run](https://adventofcode.com/2024/day/18)                |             0.64 |             0.64 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day18.cs) |
 |   19 | [Linen Layout](https://adventofcode.com/2024/day/19)           |               13 |               13 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day19.cs) |
 |   20 | [Race Condition](https://adventofcode.com/2024/day/20)         |              2.8 |              116 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day20.cs) |
+|   21 | [Keypad Conundrum](https://adventofcode.com/2024/day/21)       |              0.2 |              0.8 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day21.cs) |

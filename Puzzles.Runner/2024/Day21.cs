@@ -8,8 +8,16 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
     private const char GAP = ' ';
     private const char ENTER = 'A';
 
+    #region Members
+
     private Map _keyboard;
     private Map _robotKeyboard;
+
+    private readonly Dictionary<(string, int), ulong> _cache = [];
+    private readonly List<int> _pathBuffer = new(64);
+    private readonly int[] _distanceBuffer = new int[64];
+
+    #endregion
 
     public void Init()
     {
@@ -17,69 +25,44 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
         _robotKeyboard = Map.WithBorders([GAP, '^', ENTER, '<', 'v', '>'], 3, GAP);
     }
 
-
     public string SolvePart1()
-    {
-        var sum = 0UL;
-        foreach (var code in input.Lines)
-        {
-            sum += SolveNumeric(code, 2);
-        }
+        => Solve(2);
 
-        return sum.ToString();
-    }
     public string SolvePart2()
-    {
-        var sum = 0UL;
-        foreach (var code in input.Lines)
-        {
-            sum += SolveNumeric(code, 25);
-        }
+        => Solve(25);
 
-        return sum.ToString();
+    #region Private methods
+
+    private string Solve(int depth)
+    {
+        _cache.Clear();
+        return input.Lines.UInt64Sum(code => SolveNumeric(code, depth)).ToString();
     }
 
+    private ulong SolveNumeric(string code, int depth)
+        => Convert.ToUInt64(code[..^1]) * AssembleSequence(_keyboard, code).UInt64Sum(ins => SolveDirectional(ins, depth));
 
-    public ulong SolveNumeric(string code, int depth)
-    {
-        var num = Convert.ToUInt64(code[..^1]);
-
-        var sum = 0UL;
-        foreach (var instruction in AssembleSequence(_keyboard, code))
-        {
-            sum += num * SolveDirectional(instruction, depth);
-        }
-
-        return sum;
-    }
-
-    private readonly Dictionary<(string, int), ulong> _cache = [];
-    public ulong SolveDirectional(string code, int depth)
+    private ulong SolveDirectional(string code, int depth)
     {
         var tuple = (code, depth);
-        if(_cache.TryGetValue(tuple, out var value))
+
+        if (_cache.TryGetValue(tuple, out var value))
             return value;
 
         if (depth == 0)
             return (ulong)code.Length;
 
-        var sum = 0UL;
-        foreach (var instruction in AssembleSequence(_robotKeyboard, code))
-        {
-            sum += SolveDirectional(instruction, depth - 1);
-        }
-
-        return _cache.AddAndReturn(tuple, sum);
+        return _cache.AddAndReturn(tuple, AssembleSequence(_robotKeyboard, code)
+            .UInt64Sum(ins => SolveDirectional(ins, depth - 1)));
     }
 
-    private static IEnumerable<string> AssembleSequence(Map keyboard, string code)
+    private IEnumerable<string> AssembleSequence(Map keyboard, string code)
     {
-        var buffer = keyboard.CreateBuffer<int>();
         var location = Array.IndexOf(keyboard.Data, ENTER);
 
-        foreach (var c in code)
+        foreach (var symbol in code)
         {
-            var target = Array.IndexOf(keyboard.Data, c);
+            var target = Array.IndexOf(keyboard.Data, symbol);
 
             if (target == location)
             {
@@ -87,53 +70,43 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
                 continue;
             }
 
-            var distances = Full(keyboard, location, target, buffer);
-
-            var path = new List<int>();
-            GetPath(keyboard, distances, target, location, path);
-
-            yield return GetPath(keyboard, location, target);
-
+            yield return GetInstructions(keyboard, location, target);
             location = target;
         }
     }
 
-    public static string GetPath(Map keyboard, int start, int end)
-    {
-        var buffer = keyboard.CreateBuffer<int>();
-        var distances = Full(keyboard, start, end, buffer);
+    private string GetInstructions(Map keyboard, int start, int end)
+    {        
+        var distances = BFS(keyboard, start, end, _distanceBuffer);
 
-        var path = new List<int>();
-        GetPath(keyboard, distances, end, start, path);
+        _pathBuffer.Clear();
+        ReconstructPath(keyboard, distances, end, start, _pathBuffer);
 
-        var temp = path.Reverse<int>()
+        var instructions = _pathBuffer.Reverse<int>()
             .Select(keyboard.InvDdx)
-            .OrderBy(Ddx2W2)
+            .OrderBy(Ddx2W)
             .ToArray();
 
-        if (!IsPossible(keyboard, start, end, temp))
-            temp = [.. temp.OrderByDescending(Ddx2W2)];
+        if (!IsPossible(keyboard, start, instructions))
+            instructions = [.. instructions.OrderByDescending(Ddx2W)];
 
-        return new string(temp.Select(Ddx2C).ToArray()) + ENTER.ToString();
+        return new string(instructions.Select(Ddx2C).ToArray()) + ENTER.ToString();
     }
 
-    public static bool IsPossible(Map keyboard, int start, int end, int[] path)
+    private static bool IsPossible(Map keyboard, int location, int[] path)
     {
-        var loc = start;
+        var possibility = true;
 
-        foreach (var ddx in path)
+        for (int i = 0; possibility && i < path.Length; i++)
         {
-            loc = keyboard.Next(loc, ddx);
-
-            if (keyboard[loc] == GAP)
-                return false;
+            location = keyboard.Next(location, path[i]);
+            possibility &= keyboard[location] != GAP;
         }
 
-
-        return true;
+        return possibility;
     }
 
-    public static void GetPath(Map map, int[] distances, int start, int end, List<int> path)
+    private static void ReconstructPath(Map map, int[] distances, int start, int end, List<int> path)
     {
         if (start == end)
             return;
@@ -144,30 +117,10 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
             .First();
 
         path.Add(next.ddx);
-        GetPath(map, distances, next.loc, end, path);
+        ReconstructPath(map, distances, next.loc, end, path);
     }
 
-    public static char Ddx2C(int dir) => dir switch
-    {
-        0 => '^',
-        1 => '>',
-        2 => 'v',
-        3 => '<',
-
-        _ => throw new NotImplementedException()
-    };
-
-    public static int C2Ddx(char c) => c switch
-    {
-        '^' => 0,
-        '>' => 1,
-        'v' => 2,
-        '<' => 3,
-
-        _ => throw new NotImplementedException()
-    };
-
-    public static int[] Full(Map map, int start, int end, int[] distances)
+    private static int[] BFS(Map map, int start, int end, int[] distances)
     {
         Array.Fill(distances, Int32.MaxValue);
 
@@ -202,7 +155,9 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
         return distances;
     }
 
-    public static int Ddx2W2(int ddx) => ddx switch
+    #region Converters
+
+    private static int Ddx2W(int ddx) => ddx switch
     {
         0 => 2,
         1 => 4,
@@ -211,4 +166,17 @@ public class Day21(ILinesInputReader input) : IPuzzleSolver
 
         _ => throw new NotImplementedException()
     };
+
+    private static char Ddx2C(int dir) => dir switch
+    {
+        0 => '^',
+        1 => '>',
+        2 => 'v',
+        3 => '<',
+
+        _ => throw new NotImplementedException()
+    };
+
+    #endregion
+    #endregion
 }
