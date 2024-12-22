@@ -53,14 +53,14 @@ public class Day22(ILinesInputReader input) : IPuzzleSolver
         {
             var digit = secret % BASE_10;
             seq = (seq << 8) + (byte)(digit - prev + BASE_10);
+            secret = NextSecret(secret);
             prev = digit;
         }
-
-        for (int i = 0; i < SEQ_SIZE; secret = NextSecret(secret), i++)        
-            update();
         
+        for (int i = 0; i < SEQ_SIZE; i++)        
+            update();
 
-        for (int i = 0; i < iterations; secret = NextSecret(secret), i++)
+        for (int i = 0; i < iterations; i++)
         {
             update();
 
