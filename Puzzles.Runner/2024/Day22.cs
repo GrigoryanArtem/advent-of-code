@@ -2,9 +2,7 @@
 
 [Puzzle("Monkey Market", 22, 2024)]
 public class Day22(ILinesInputReader input) : IPuzzleSolver
-{
-    private readonly record struct Seq(long N1, long N2, long N3, long N4);
-
+{    
     #region Constants
 
     private const long MOD = 16777216L;
@@ -51,18 +49,18 @@ public class Day22(ILinesInputReader input) : IPuzzleSolver
         return secret;
     }
 
-    private static Dictionary<Seq, long> CalculateSeqs(long secret, long iterations)
+    private static Dictionary<int, long> CalculateSeqs(long secret, long iterations)
     {
-        Dictionary<Seq, long> result = [];
+        Dictionary<int, long> result = [];
 
-        var buffer = new long[SEQ_SIZE];
+        var buffer = new int[SEQ_SIZE];
         var tail = 0L;
         var prev = 0L;
 
         long updateBuffer()
         {
             var digit = secret % 10;
-            buffer[tail] = digit - prev;
+            buffer[tail] = (int)(digit - prev) + 10;
 
             return digit;
         }
@@ -91,13 +89,15 @@ public class Day22(ILinesInputReader input) : IPuzzleSolver
         return result;
     }
 
-    private static Seq B2S(long[] buffer, long tail) => new
-    (
-        N1: buffer[(tail + 1) % SEQ_SIZE],
-        N2: buffer[(tail + 2) % SEQ_SIZE],
-        N3: buffer[(tail + 3) % SEQ_SIZE],
-        N4: buffer[(tail + 4) % SEQ_SIZE]
-    );
+    private static int B2S(int[] buffer, long tail)
+    {
+        var answer = 0;
+
+        for (int i = 1; i <= SEQ_SIZE; i++)
+            answer = (answer << 5) + buffer[(tail + i) % SEQ_SIZE];
+
+        return answer;
+    }
 
     private static long NextSecret(long secret)
     {
