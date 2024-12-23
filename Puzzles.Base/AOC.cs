@@ -30,6 +30,19 @@ public static class AOC
         return Mod(t, m);
     }
 
+    public static void Sort2(ref int a, ref int b)
+    {
+        if (a > b)
+            (b, a) = (a, b);
+    }
+
+    public static void Sort3(ref int a, ref int b, ref int c)
+    {
+        Sort2(ref a, ref b);
+        Sort2(ref a, ref c);
+        Sort2(ref b, ref c);
+    }
+
     #region Private methods
 
     private static ulong[] InitDividers()
