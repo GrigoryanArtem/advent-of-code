@@ -20,8 +20,9 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart1()
     {
         Set paths = [];
-        foreach (var key in _graph.Keys.Where(k => k.StartsWith('t')))
-            paths.UnionWith(FindSet(key));
+
+        _graph.Keys.Where(k => k.StartsWith('t'))
+            .ForEach(k => paths.UnionWith(FindSet(k)));
 
         return paths.Count.ToString();
     }
@@ -37,13 +38,10 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
         {
             foreach (var lvl2 in _graph[lvl1].Where(c => c != lvl1  && c != v))
             {
-                foreach (var lvl3 in _graph[lvl2].Where(c => c != lvl2 && c != lvl1))
+                foreach (var lvl3 in _graph[lvl2].Where(c => c != lvl2 && c != lvl1 && c == v))
                 {
-                    if (lvl3 == v)
-                    {
-                        var path = new string[] { v, lvl1, lvl2 }.OrderBy(c => c).ToArray();
-                        list.Add(String.Join(",", path));
-                    }
+                    var path = new string[] { v, lvl1, lvl2 }.OrderBy(c => c).ToArray();
+                    list.Add(String.Join(",", path));
                 }
             }
         }
