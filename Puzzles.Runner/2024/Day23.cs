@@ -34,18 +34,11 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
     {        
         Set list = [];
 
-        foreach (var lvl1 in _graph[v].Where(c => c != v))
-        {
-            foreach (var lvl2 in _graph[lvl1].Where(c => c != lvl1  && c != v))
-            {
-                foreach (var lvl3 in _graph[lvl2].Where(c => c != lvl2 && c != lvl1 && c == v))
-                {
-                    var path = new string[] { v, lvl1, lvl2 }.OrderBy(c => c).ToArray();
-                    list.Add(String.Join(",", path));
-                }
-            }
-        }
-        
+        foreach (var lvl1 in _graph[v])
+            foreach (var lvl2 in _graph[lvl1])
+                foreach (var lvl3 in _graph[lvl2].Where(c => c == v))
+                    list.Add(String.Join(",", new string[] { v, lvl1, lvl2 }.OrderBy(c => c)));
+
         return list;
     }
 
