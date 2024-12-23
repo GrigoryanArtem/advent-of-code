@@ -31,7 +31,9 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart2()
         => String.Join(",", Cliques(_graph).MaxBy(c => c.Count)?.Select(I2V).OrderBy(x => x)!);
 
-    public Set FindSet(int v)
+    #region Private methods
+    
+    private Set FindSet(int v)
     {        
         Set list = [];
 
@@ -59,9 +61,8 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
             cliques.Add(R);
             return;
         }
-
-        int pivot = ChoosePivot(P, X, graph); 
-        foreach (var v in P.Except(graph[pivot]))
+        
+        foreach (var v in P.Except(graph[NonNeighborsVertex(P, X, graph)]))
         {            
             BronKerbosch
             (
@@ -77,7 +78,7 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
         }
     }
 
-    private static int ChoosePivot(Set P, Set X, Graph graph)
+    private static int NonNeighborsVertex(Set P, Set X, Graph graph)
         => P.Union(X).OrderByDescending(v => graph[v].Count).First();
 
     private static int ToSet(int v1, int v2, int v3)
@@ -95,4 +96,5 @@ public class Day23(ILinesInputReader input) : IPuzzleSolver
     private static bool StartsWith(int v, int target)
         => (v >> 5) == target;
 
+    #endregion
 }
