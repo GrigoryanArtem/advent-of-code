@@ -1,9 +1,6 @@
 ﻿using OpenCvSharp;
-using Puzzles.Base;
-using Puzzles.Base.Abstractions;
-using Puzzles.Base.Entites;
 
-namespace Puzzles.Visuals;
+namespace Puzzles.Visuals._2024;
 
 using Map = Map2<char>;
 

@@ -23,4 +23,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Puzzles.Base" />
+    <Using Include="Puzzles.Base.Abstractions" />
+    <Using Include="Puzzles.Base.Entites" />
+  </ItemGroup>
+
 </Project>
