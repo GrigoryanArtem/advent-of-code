@@ -22,7 +22,7 @@ public class Day15
 
     #endregion
 
-    private readonly WindowRenderer _renderer;
+    private readonly FileRenderer _renderer;
 
     private Map? _map;
     private Map? _wideMap;
@@ -49,6 +49,11 @@ public class Day15
     public void Run()
     {
         SumOfGPS(_wideMap, BOXL);
+    }
+
+    public void Save()
+    {
+        _renderer.Save();
     }
 
     private int SumOfGPS(Map map, char target)
@@ -218,7 +223,7 @@ public class Day15
         Mat noise = new Mat(_renderer.Frame.Size(), _renderer.Frame.Type());
         Cv2.Randn(noise, new Scalar(20, 20, 20), new Scalar(10, 10, 10));
 
-        _renderer.Frame = ApplyLensDistortion(_renderer.Frame, distortionCoeffs) + noise;
+        _renderer.Frame = ApplyLensDistortion(_renderer.Frame + noise, distortionCoeffs);
         _renderer.Render();
     }
 

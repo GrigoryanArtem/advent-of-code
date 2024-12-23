@@ -11,7 +11,7 @@ internal class Program
         var day20 = new Day15(reader);
 
         day20.Run();
-        // day20.Save();
+        day20.Save();
 
     }
 }

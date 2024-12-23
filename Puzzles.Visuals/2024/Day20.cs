@@ -36,8 +36,7 @@ public class Day20
         );
 
         var size = new Size(_map.Columns * SCALE, _map.Rows * SCALE);
-        var fourCC = FourCC.FromString("mp4v");
-        _writer = new VideoWriter("visualization.mp4", fourCC, 60, size);
+        
 
         _frame = new Mat();
         _defaultFrame = new Mat(size, MatType.CV_8UC3);

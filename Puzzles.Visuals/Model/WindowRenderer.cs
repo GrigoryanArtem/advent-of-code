@@ -8,6 +8,8 @@ public class WindowRenderer(int fps, Size frameSize) : IRenderer
     public Mat Frame { get; set;  } = new Mat(frameSize, MatType.CV_8UC3);
     public Mat BaseFrame { get; } = new Mat(frameSize, MatType.CV_8UC3);
 
+    public void Save() { }
+
     public void Render()
     {
         Cv2.ImShow("Day ?", Frame);
