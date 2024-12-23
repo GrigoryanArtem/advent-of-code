@@ -3,7 +3,7 @@
 using Set = HashSet<string>;
 using Graph = Dictionary<string, HashSet<string>>;
 
-[Puzzle("Monkey Market", 23, 2024)]
+[Puzzle("LAN Party", 23, 2024)]
 public class Day23(ILinesInputReader input) : IPuzzleSolver
 {
     private readonly Graph _graph = [];
