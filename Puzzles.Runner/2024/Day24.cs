@@ -39,12 +39,6 @@ public partial class Day24(IFullInputReader input) : IPuzzleSolver
 
     private Dictionary<string, string> GenerateSwaps(Dictionary<string, string> swaps)
     {
-        void Swap(string a, string b)
-        {
-            swaps.Add(a, b);
-            swaps.Add(b, a);
-        }
-
         var count = Convert.ToInt32(_values.Keys
             .Where(k => k.StartsWith('x'))
             .Order()
@@ -53,9 +47,16 @@ public partial class Day24(IFullInputReader input) : IPuzzleSolver
         var co = GetOut(swaps, "x00", "y00", Op.AND);
         for (int i = 1; i <= count; i++)
         {
-            var x = $"x{i:D2}";
-            var y = $"y{i:D2}";
-            var z = $"z{i:D2}";
+            void Swap(string a, string b)
+            {
+                swaps.Add(a, b);
+                swaps.Add(b, a);
+                i--;
+            }
+
+            var x = $"x{i:d2}";
+            var y = $"y{i:d2}";
+            var z = $"z{i:d2}";
 
             var xor = GetOut(swaps, x, y, Op.XOR)!;
             var and = GetOut(swaps, x, y, Op.AND)!;
@@ -66,13 +67,13 @@ public partial class Day24(IFullInputReader input) : IPuzzleSolver
             if (cXor == null && cAnd == null)
             {
                 Swap(xor, and);
-                return GenerateSwaps(swaps);
+                continue;
             }
 
             if (cXor != z)
             {
                 Swap(cXor!, z);
-                return GenerateSwaps(swaps);
+                continue;
             }
 
             co = GetOut(swaps, and, cAnd, Op.OR);
