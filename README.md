@@ -27,9 +27,9 @@ Place your examples to
 🟨 Medium  
 🟥 Hard  
 
-### 2024
-
 Time was measured by running each part n times and finding the average result. The i9-13900K was used for testing.
+
+### 2024
 
 | #   |  Day | Problem                                                        | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                                   |
 | --- | ---: | -------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------------ |
@@ -57,3 +57,9 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   22 | [Monkey Market](https://adventofcode.com/2024/day/22)          |              1.1 |               32 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day22.cs) |
 | 🟨   |   23 | [LAN Party](https://adventofcode.com/2024/day/23)              |              0.5 |              6.5 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day23.cs) |
 | 🟨   |   24 | [Crossed Wires](https://adventofcode.com/2024/day/24)          |              0.3 |              0.5 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day24.cs) |
+
+### 2023
+
+| #   |  Day | Problem                                            | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                                   |
+| --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------------ |
+| 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1) |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2023/Day01.cs) |
