@@ -57,6 +57,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   22 | [Monkey Market](https://adventofcode.com/2024/day/22)          |              1.1 |               32 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day22.cs) |
 | 🟨   |   23 | [LAN Party](https://adventofcode.com/2024/day/23)              |              0.5 |              6.5 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day23.cs) |
 | 🟨   |   24 | [Crossed Wires](https://adventofcode.com/2024/day/24)          |              0.3 |              0.5 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day24.cs) |
+| 🟩   |   25 | [Code Chronicle](https://adventofcode.com/2024/day/25)         |                1 |                - | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2024/Day25.cs) |
 
 ### 2023
 
