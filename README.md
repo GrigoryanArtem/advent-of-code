@@ -64,3 +64,9 @@ Time was measured by running each part n times and finding the average result. T
 | #   |  Day | Problem                                            | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                                   |
 | --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------------ |
 | 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1) |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2023/Day01.cs) |
+
+### 2019
+
+| #   |  Day | Problem                                                                   | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                                   |
+| --- | ---: | ------------------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------------ |
+| 🟩   |   01 | [The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1) |            0.004 |            0.005 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2019/Day01.cs) |
