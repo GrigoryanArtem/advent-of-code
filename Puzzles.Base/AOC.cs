@@ -1,4 +1,6 @@
-﻿namespace Puzzles.Base;
+﻿using Puzzles.Base.Entites;
+
+namespace Puzzles.Base;
 public static class AOC
 {
     private static readonly ulong[] digitsDividers;
@@ -42,6 +44,12 @@ public static class AOC
         Sort2(ref a, ref c);
         Sort2(ref b, ref c);
     }
+
+    public static int ManhattanDistance(int ax, int ay, int bx, int by)
+        => Math.Abs(ax - bx) + Math.Abs(ay - by);
+
+    public static int ManhattanDistance(Vec2 from, Vec2 to)
+        => ManhattanDistance(from.X, from.Y, to.X, to.Y);
 
     #region Private methods
 
