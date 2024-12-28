@@ -22,29 +22,48 @@ public class Day03(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart1()
     {
-        var p1 = PathToPoints(_paths[0]);
-        var p2 = PathToPoints(_paths[1]);
+        var d = Intersect(_paths[0], _paths[1], (p, _, _) => AOC.ManhattanDistance(Vec2.Zero, p));
 
-        p1.IntersectWith(p2);
-
-        return p1.Select(p => AOC.ManhattanDistance(Vec2.Zero, p)).Min().ToString();
+        return d.Min().ToString();
     }
 
-    private HashSet<Vec2> PathToPoints(Instruction[] path)
+    public string SolvePart2()
     {
-        var result = new HashSet<Vec2> ();
-        var current = new Vec2(0, 0);
+        var d = Intersect(_paths[0], _paths[1], (_, i1, i2) => i1 + i2);
 
-        foreach (var (dir, distance) in path)
+        return d.Min().ToString();
+    }
+
+    private int[] Intersect(Instruction[] path1, Instruction[] path2, Func<Vec2, int, int, int> metric)
+    {
+        var data = new Dictionary<Vec2, int>();
+        var result = new List<int>();
+
+        var current = new Vec2(0, 0);
+        int counter = 1;
+        foreach (var (dir, distance) in path1)
         {
-            for (int i = 0; i < distance; i++) 
+            for (int i = 0; i < distance; i++, counter++) 
             {
                 current += _directions[dir];
-                result.Add(current);
+                data.TryAdd(current, counter);
             }
         }
 
-        return result;
+        current = new Vec2(0, 0);
+        counter = 1;
+        foreach (var (dir, distance) in path2)
+        {
+            for (int i = 0; i < distance; i++, counter++)
+            {
+                current += _directions[dir];
+
+                if (data.TryGetValue(current, out var index))
+                    result.Add(metric(current, index, counter));
+            }
+        }
+
+        return [..result];
     }
 
     private static int DC2D(char dc) => dc switch
