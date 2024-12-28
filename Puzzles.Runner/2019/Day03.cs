@@ -29,7 +29,7 @@ public class Day03(ILinesInputReader input) : IPuzzleSolver
         var data = new Dictionary<Vec2, int>();
         var result = new List<int>();
 
-        var current = new Vec2(0, 0);
+        var current = Vec2.Zero;
         int counter = 1;
         foreach (var (dir, distance) in path1)
         {
@@ -40,7 +40,7 @@ public class Day03(ILinesInputReader input) : IPuzzleSolver
             }
         }
 
-        current = new Vec2(0, 0);
+        current = Vec2.Zero;
         counter = 1;
         foreach (var (dir, distance) in path2)
         {

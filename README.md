@@ -30,11 +30,11 @@ Place your examples to
 Time was measured by running each part n times and finding the average result. The i9-13900K was used for testing.
 
 ## Events
-| Year            |     ⭐ |
-| --------------- | ------: |
-| [2024](#2024) |      50 |
-| [2023](#2023) |      02 |
-| [2019](#2019) |      06 |
+| Year          |    ⭐ |
+| ------------- | ---: |
+| [2024](#2024) |   50 |
+| [2023](#2023) |   02 |
+| [2019](#2019) |   08 |
 
 ### 2024
 
@@ -79,3 +79,4 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   01 | [The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1) |            0.004 |            0.005 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2019/Day01.cs) |
 | 🟩   |   02 | [1202 Program Alarm](https://adventofcode.com/2019/day/2)                 |                0 |             0.36 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2019/Day02.cs) |
 | 🟩   |   03 | [Crossed Wires](https://adventofcode.com/2019/day/3)                      |              6.9 |              8.7 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2019/Day03.cs) |
+| 🟩   |   04 | [Secure Container](https://adventofcode.com/2019/day/4)                   |                1 |              0.4 | [Code](https://github.com/GrigoryanArtem/advent-of-code-2024/blob/master/Puzzles.Runner/2019/Day04.cs) |
