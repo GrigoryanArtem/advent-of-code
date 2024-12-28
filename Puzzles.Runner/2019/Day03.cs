@@ -1,12 +1,11 @@
 ﻿namespace Puzzles.Runner._2019;
 
-using System.Security.AccessControl;
 using Instruction = (int dir, int distance);
 
 [Puzzle("Crossed Wires", 3, 2019)]
 public class Day03(ILinesInputReader input) : IPuzzleSolver
 {
-    private Vec2[] _directions = 
+    private readonly Vec2[] _directions = 
     [
         new(0, 1),
         new(1, 0),
@@ -19,20 +18,11 @@ public class Day03(ILinesInputReader input) : IPuzzleSolver
     public void Init()
         => _paths = [.. input.GetTokens(",", str => (dir: DC2D(str[0]), distance: Convert.ToInt32(str[1..])))];
     
-
     public string SolvePart1()
-    {
-        var d = Intersect(_paths[0], _paths[1], (p, _, _) => AOC.ManhattanDistance(Vec2.Zero, p));
-
-        return d.Min().ToString();
-    }
+        => Intersect(_paths[0], _paths[1], (p, _, _) => AOC.ManhattanDistance(Vec2.Zero, p)).Min().ToString();
 
     public string SolvePart2()
-    {
-        var d = Intersect(_paths[0], _paths[1], (_, i1, i2) => i1 + i2);
-
-        return d.Min().ToString();
-    }
+        => Intersect(_paths[0], _paths[1], (_, i1, i2) => i1 + i2).Min().ToString();
 
     private int[] Intersect(Instruction[] path1, Instruction[] path2, Func<Vec2, int, int, int> metric)
     {
