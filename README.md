@@ -29,6 +29,13 @@ Place your examples to
 
 Time was measured by running each part n times and finding the average result. The i9-13900K was used for testing.
 
+## Events
+| Year            |     ⭐ |
+| --------------- | ------: |
+| [2024](#2024) |      50 |
+| [2023](#2023) |      02 |
+| [2019](#2019) |      06 |
+
 ### 2024
 
 | #   |  Day | Problem                                                        | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                                   |
