@@ -17,4 +17,12 @@ public class Day05(ILinesInputReader input) : IPuzzleSolver
 
         return _machine.Output.Last().ToString();
     }
+
+    public string SolvePart2()
+    {
+        _machine.Reset([5]);
+        _machine.Run();
+
+        return _machine.Output.Last().ToString();
+    }
 }
