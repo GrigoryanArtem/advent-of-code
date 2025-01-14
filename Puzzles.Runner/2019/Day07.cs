@@ -5,25 +5,40 @@ namespace Puzzles.Runner._2019;
 [Puzzle("Amplification Circuit", 7, 2019)]
 public class Day07(ILinesInputReader input) : IPuzzleSolver
 {
-    private IntCodeMachine _machine;
+    private const int AMPLIFIERS_COUNT = 5;
+    private int[] _program = [];
 
     public void Init()
-        => _machine = new([.. input.GetTokens(",", Convert.ToInt32).First()]);
+        => _program = [.. input.GetTokens(",", Convert.ToInt32).First()];
 
     public string SolvePart1()
-        => PhaseSettings([0, 1, 2, 3, 4]).Max(Run).ToString();
+        => PhaseSettings([0, 1, 2, 3, 4]).Max(ps => Run(ps, loop: false)).ToString();
 
-    private int Run(int[] phaseSetting)
+    public string SolvePart2()
+        => PhaseSettings([5, 6, 7, 8, 9]).Max(ps => Run(ps, loop: true)).ToString();
+
+    #region Private methods
+
+    private int Run(int[] phaseSetting, bool loop)
     {
+        var amps = Enumerable.Range(0, AMPLIFIERS_COUNT)
+            .Select(_ => new IntCodeMachine(_program))
+            .ToArray();
+
+        foreach (var (amp, idx) in amps.WithIndex())
+            amp.Input(phaseSetting[idx]);
+
         var output = 0;
-
-        for (int i = 0; i < 5; i++)
+        do
         {
-            _machine.Reset([phaseSetting[i], output]);
-            _machine.Run();
+            foreach (var amp in amps.Where(a => !a.Halted))
+            {
+                amp.Input(output);
+                amp.Run();
 
-            output = _machine.Output.Last();
-        }
+                output = amp.Output.Last();
+            }
+        } while (loop && !amps.All(a => a.Halted));
 
         return output;
     }
@@ -46,5 +61,6 @@ public class Day07(ILinesInputReader input) : IPuzzleSolver
             (src[idx], src[j]) = (src[j], src[idx]);
         }
     }
-}
 
+    #endregion
+}
