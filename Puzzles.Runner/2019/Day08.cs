@@ -35,7 +35,6 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
        .Select(i => layers.FirstOrDefault(layer => layer.Data[i] != 2)?.Data[i] ?? 2)
        .ToArray();
 
-
     private static string DrawImage(int[] image)
     {
         StringBuilder sb = new();
@@ -53,9 +52,9 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
 
     private static char C2S(int c) => c switch
     {
-        0 => '.',
+        0 => ' ',
         1 => '#',
-        _ => ' '
+        _ => '.'
     };
 
     #endregion
