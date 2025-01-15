@@ -34,7 +34,7 @@ Time was measured by running each part n times and finding the average result. T
 | ------------- | ---: |
 | [2024](#2024) |   50 |
 | [2023](#2023) |    2 |
-| [2019](#2019) |   12 |
+| [2019](#2019) |   16 |
 
 ### 2024
 
@@ -83,3 +83,4 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   05 | [Sunny with a Chance of Asteroids](https://adventofcode.com/2019/day/5)   |            0.002 |            0.003 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day05.cs) |
 | 🟩   |   06 | [Universal Orbit Map](https://adventofcode.com/2019/day/6)                |              0.9 |              0.1 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day06.cs) |
 | 🟩   |   07 | [Amplification Circuit](https://adventofcode.com/2019/day/7)              |             0.23 |             0.24 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day07.cs) |
+| 🟩   |   08 | [Space Image Format](https://adventofcode.com/2019/day/8)                 |            0.004 |             0.02 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day08.cs) |

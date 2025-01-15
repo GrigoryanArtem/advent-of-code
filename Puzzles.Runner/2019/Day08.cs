@@ -5,7 +5,7 @@ namespace Puzzles.Runner._2019;
 [Puzzle("Space Image Format", 8, 2019)]
 public class Day08(ILinesInputReader input) : IPuzzleSolver
 {
-    private record Layer(int[] Data, IReadOnlyDictionary<int, int> count);
+    private record Layer(int[] Data, IReadOnlyDictionary<int, int> Count);
 
     private const int WIDTH = 25;
     private const int HEIGHT = 6;
@@ -13,58 +13,50 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
     private Layer[] _layers = []; 
 
     public void Init()
-    {
-        _layers = input.Lines.First().Select(c => c - '0')
+        => _layers = input.Lines.First().Select(c => c - '0')
             .Chunk(WIDTH * HEIGHT)
             .Select(c => new Layer([.. c], c.GroupBy(x => x)
                 .ToDictionary(x => x.Key, x => x.Count())))
             .ToArray();
-    }
 
     public string SolvePart1()
     {
-        var layer = _layers.MinBy(layer => layer.count.GetValueOrDefault(0));
-        return (layer.count.GetValueOrDefault(1) * layer.count.GetValueOrDefault(2)).ToString();
+        var layer = _layers.MinBy(layer => layer.Count.GetValueOrDefault(0))!;
+        return (layer.Count.GetValueOrDefault(1) * layer.Count.GetValueOrDefault(2)).ToString();
     }
 
     public string SolvePart2()
-    {
-        var image = MergeLayers(_layers);
-        return DrawImage(image);
-    }
+        => DrawImage(MergeLayers(_layers));    
+
+    #region Private methods
 
     private static int[] MergeLayers(Layer[] layers)
+       => Enumerable.Range(0, WIDTH * HEIGHT)
+       .Select(i => layers.FirstOrDefault(layer => layer.Data[i] != 2)?.Data[i] ?? 2)
+       .ToArray();
+
+
+    private static string DrawImage(int[] image)
     {
-        var image = new int[WIDTH * HEIGHT];
+        StringBuilder sb = new();
 
         for (int i = 0; i < image.Length; i++)
         {
-            image[i] = layers.FirstOrDefault(layer => layer.Data[i] != 2)?.Data[i] ?? 2;
-        }
+            if(i % WIDTH == 0)
+                sb.AppendLine();
 
-        return image;
-    }
-
-    public static string DrawImage(int[] image)
-    {
-        StringBuilder sb = new();
-        sb.AppendLine();
-
-        for (int i = 0; i < image.Length;)
-        {
-            for (int k = 0; k < WIDTH; k++, i++)
-                sb.Append(C2S(image[i]));
-
-            sb.AppendLine();
+            sb.Append(C2S(image[i]));
         }
 
         return sb.ToString();
     }
 
-    public static char C2S(int c) => c switch
+    private static char C2S(int c) => c switch
     {
         0 => '.',
         1 => '#',
         _ => ' '
     };
+
+    #endregion
 }
