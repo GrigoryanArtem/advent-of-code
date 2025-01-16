@@ -11,16 +11,14 @@ public class Day09(ILinesInputReader input) : IPuzzleSolver
         => _machine = new IntCodeMachine(input.GetTokens(",", Convert.ToInt64).First(), UInt16.MaxValue);
 
     public string SolvePart1()
-    {
-        _machine.Reset([1]);
-        _machine.Run();
-
-        return String.Join(",", _machine.Output).ToString();
-    }
+        => Run(1);
 
     public string SolvePart2()
+        => Run(2);
+
+    public string Run(int input)
     {
-        _machine.Reset([2]);
+        _machine.Reset([input]);
         _machine.Run();
 
         return String.Join(",", _machine.Output).ToString();
