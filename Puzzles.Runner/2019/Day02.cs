@@ -16,7 +16,7 @@ public class Day02(ILinesInputReader input) : IPuzzleSolver
         _machine.Reset(noun: 12, verb: 2);
         _machine.Run();
 
-        return _machine.Result.ToString();
+        return _machine[0].ToString();
     }
 
     public string SolvePart2()
@@ -28,7 +28,7 @@ public class Day02(ILinesInputReader input) : IPuzzleSolver
                 _machine.Reset(noun, verb);
                 _machine.Run();
 
-                if (_machine.Result == EXPECTED_RESULT)
+                if (_machine[0]== EXPECTED_RESULT)
                     return (100 * noun + verb).ToString();
             }
         }

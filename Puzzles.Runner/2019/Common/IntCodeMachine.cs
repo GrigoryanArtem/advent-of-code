@@ -2,7 +2,7 @@
 
 public class IntCodeMachine
 {
-    public enum Mode
+    private enum Mode
     {
         Position = 0,
         Immediate = 1,
@@ -13,30 +13,25 @@ public class IntCodeMachine
 
     #region Members
 
-    public long[] _init;
-    public long[] _memory;
+    private readonly long[] _init;
+    private readonly long[] _memory;
 
     private bool _inputWaiting;
 
-    public List<long> _output = [];
-    public Queue<long> _input = [];
+    private readonly List<long> _output = [];
+    private readonly Queue<long> _input = [];
 
     #endregion
 
-    public IntCodeMachine(long[] memory, int? size = null)
+    public IntCodeMachine(long[] memory, int? memorySize = null)
     {
         _init = memory;
-        _memory = new long[size ?? memory.Length];
+        _memory = new long[memorySize ?? memory.Length];
 
         Reset();
     }
 
-    public long State { get; private set; }
-    public int Size => _memory.Length;
-    public IEnumerable<long> Output => _output;
-
-    public bool Halted { get; private set; }
-    public long RelativeBase { get; private set; }
+    #region Properties
 
     public long this[int idx] => _memory[idx];
 
@@ -52,7 +47,14 @@ public class IntCodeMachine
         set => _memory[2] = value;
     }
 
-    public long Result => _memory[0];
+    public long State { get; private set; }
+    public int MemorySize => _memory.Length;
+    public IEnumerable<long> Output => _output;
+
+    public bool Halted { get; private set; }
+    public long RelativeBase { get; private set; }
+
+    #endregion
 
     public void Reset(long[]? input = null)
     {
@@ -109,6 +111,8 @@ public class IntCodeMachine
             };
         }
     }
+
+    #region Private methods    
 
     #region Math
 
@@ -204,6 +208,8 @@ public class IntCodeMachine
 
     private static Mode V2M(long value, int parameter)
         => (Mode)(value / MODE_MASK[parameter - 1] % 10);
+
+    #endregion
 
     #endregion
 }
