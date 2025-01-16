@@ -2,7 +2,14 @@
 
 public class IntCodeMachine
 {
-    private static readonly long[] MODE = [100, 1000, 10000];
+    public enum Mode
+    {
+        Position = 0,
+        Immediate = 1,
+        Relative = 2
+    }
+
+    private static readonly long[] MODE_MASK = [100, 1000, 10000];
 
     #region Members
 
@@ -16,10 +23,10 @@ public class IntCodeMachine
 
     #endregion
 
-    public IntCodeMachine(long[] memory)
+    public IntCodeMachine(long[] memory, int? size = null)
     {
         _init = memory;
-        _memory = new long[memory.Length];
+        _memory = new long[size ?? memory.Length];
 
         Reset();
     }
@@ -29,6 +36,7 @@ public class IntCodeMachine
     public IEnumerable<long> Output => _output;
 
     public bool Halted { get; private set; }
+    public long RelativeBase { get; private set; }
 
     public long this[int idx] => _memory[idx];
 
@@ -48,11 +56,13 @@ public class IntCodeMachine
 
     public void Reset(long[]? input = null)
     {
-        Array.Copy(_init, _memory, _memory.Length);
+        Array.Clear(_memory, 0, _memory.Length);
+        Array.Copy(_init, _memory, _init.Length);
 
         _input = new(input ?? []);
         _output.Clear();
 
+        RelativeBase = 0;
         State = 0;
     }
 
@@ -86,12 +96,14 @@ public class IntCodeMachine
                 2 => Multiply(Val(1), Val(2), Ref(3)),
 
                 3 => In(Ref(1)),
-                4 => Out(Ref(1)),
+                4 => Out(Val(1)),
 
                 5 => JIT(Val(1), Val(2)),
                 6 => JIF(Val(1), Val(2)),
                 7 => LN(Val(1), Val(2), Ref(3)),
                 8 => EQ(Val(1), Val(2), Ref(3)),
+
+                9 => ARB(Val(1)),
 
                 _ => throw new InvalidOperationException($"Invalid opcode: {opCode}")
             };
@@ -130,7 +142,7 @@ public class IntCodeMachine
 
     private long Out(long a)
     {
-        _output.Add(_memory[a]);
+        _output.Add(a);
         return State + 2;
     }
 
@@ -149,32 +161,49 @@ public class IntCodeMachine
     // less than
     private long LN(long a, long b, long c)
     {
-        _memory[c] = a < b ? 1 : 0;
+        _memory[c] = a < b ? 1L : 0L;
         return State + 4;
     }
 
     // equals
     private long EQ(long a, long b, long c)
     {
-        _memory[c] = a == b ? 1 : 0;
+        _memory[c] = a == b ? 1L : 0L;
         return State + 4;
+    }
+
+    #endregion
+
+    #region Relative base
+
+    // adjusts the relative base
+    public long ARB(long a)
+    {
+        RelativeBase += a;
+        return State + 2;
     }
 
     #endregion
 
     #region Additional methods
 
-    private long Ref(long parameter)
-        => _memory[State + parameter];
+    private long Ref(int parameter) => V2M(_memory[State], parameter) switch
+    {
+        Mode.Position => _memory[State + parameter],
+        Mode.Immediate => State + parameter,
+        Mode.Relative => RelativeBase + _memory[State + parameter],
+
+        _ => throw new NotSupportedException()
+    };
 
     private long Val(int parameter)
-        => V2M(_memory[State], parameter) ? _memory[State + parameter] : _memory[_memory[State + parameter]];
+        => _memory[Ref(parameter)];
 
     private static long OpCode(long address)
-        => address % MODE[0];
+        => address % MODE_MASK[0];
 
-    private static bool V2M(long value, int parameter)
-        => ((value / MODE[parameter - 1]) & 1) == 1;
+    private static Mode V2M(long value, int parameter)
+        => (Mode)(value / MODE_MASK[parameter - 1] % 10);
 
     #endregion
 }
