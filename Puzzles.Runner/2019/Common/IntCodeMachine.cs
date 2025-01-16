@@ -19,7 +19,7 @@ public class IntCodeMachine
     private bool _inputWaiting;
 
     private readonly List<long> _output = [];
-    private readonly Queue<long> _input = [];
+    private Queue<long> _input = [];
 
     #endregion
 
@@ -66,6 +66,7 @@ public class IntCodeMachine
 
         RelativeBase = 0;
         State = 0;
+        Halted = false;
     }
 
     public void Reset(long noun, long verb, long[]? input = null)
@@ -83,13 +84,12 @@ public class IntCodeMachine
     {
         _inputWaiting = false;
 
-        while (!_inputWaiting)
+        while (!_inputWaiting && !Halted)
         {
             var op = _memory[State];
             var opCode = OpCode(op);
-
-            Halted = opCode == 99;
-            if (Halted)
+            
+            if (Halted = opCode == 99)
                 break;
 
             State = opCode switch
