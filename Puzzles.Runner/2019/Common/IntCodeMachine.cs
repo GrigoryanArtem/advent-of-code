@@ -2,51 +2,51 @@
 
 public class IntCodeMachine
 {
-    private static readonly int[] MODE = [100, 1000, 10000];
+    private static readonly long[] MODE = [100, 1000, 10000];
 
     #region Members
 
-    public int[] _init;
-    public int[] _memory;
+    public long[] _init;
+    public long[] _memory;
 
     private bool _inputWaiting;
 
-    public List<int> _output = [];
-    public Queue<int> _input = [];
+    public List<long> _output = [];
+    public Queue<long> _input = [];
 
     #endregion
 
-    public IntCodeMachine(int[] memory)
+    public IntCodeMachine(long[] memory)
     {
         _init = memory;
-        _memory = new int[memory.Length];
+        _memory = new long[memory.Length];
 
         Reset();
     }
 
-    public int State { get; private set; }
+    public long State { get; private set; }
     public int Size => _memory.Length;
-    public IEnumerable<int> Output => _output;
+    public IEnumerable<long> Output => _output;
 
     public bool Halted { get; private set; }
 
-    public int this[int idx] => _memory[idx];
+    public long this[int idx] => _memory[idx];
 
-    public int Noun
+    public long Noun
     {
         get => _memory[1];
         set => _memory[1] = value;
     }
 
-    public int Verb
+    public long Verb
     {
         get => _memory[2];
         set => _memory[2] = value;
     }
 
-    public int Result => _memory[0];
+    public long Result => _memory[0];
 
-    public void Reset(int[]? input = null)
+    public void Reset(long[]? input = null)
     {
         Array.Copy(_init, _memory, _memory.Length);
 
@@ -56,7 +56,7 @@ public class IntCodeMachine
         State = 0;
     }
 
-    public void Reset(int noun, int verb, int[]? input = null)
+    public void Reset(long noun, long verb, long[]? input = null)
     {
         Reset(input);
 
@@ -64,7 +64,7 @@ public class IntCodeMachine
         Verb = verb;
     }
 
-    public void Input(int value)
+    public void Input(long value)
         => _input.Enqueue(value);
 
     public void Run()
@@ -100,13 +100,13 @@ public class IntCodeMachine
 
     #region Math
 
-    private int Add(int a, int b, int c)
+    private long Add(long a, long b, long c)
     {
         _memory[c] = a + b;
         return State + 4;
     }
 
-    private int Multiply(int a, int b, int c)
+    private long Multiply(long a, long b, long c)
     {
         _memory[c] = a * b;
         return State + 4;
@@ -116,7 +116,7 @@ public class IntCodeMachine
 
     #region I/O
 
-    private int In(int a)
+    private long In(long a)
     {
         if (_input.TryDequeue(out var value))
         {
@@ -128,7 +128,7 @@ public class IntCodeMachine
         return State;
     }
 
-    private int Out(int a)
+    private long Out(long a)
     {
         _output.Add(_memory[a]);
         return State + 2;
@@ -139,22 +139,22 @@ public class IntCodeMachine
     #region Jumps
 
     // jump-if-true
-    private int JIT(int a, int b)
-        => a != 0 ? b : State + 3;
+    private long JIT(long a, long b)
+        => a != 0L ? b : State + 3;
 
     // jump-if-false
-    private int JIF(int a, int b)
-        => a == 0 ? b : State + 3;
+    private long JIF(long a, long b)
+        => a == 0L ? b : State + 3;
 
     // less than
-    private int LN(int a, int b, int c)
+    private long LN(long a, long b, long c)
     {
         _memory[c] = a < b ? 1 : 0;
         return State + 4;
     }
 
     // equals
-    private int EQ(int a, int b, int c)
+    private long EQ(long a, long b, long c)
     {
         _memory[c] = a == b ? 1 : 0;
         return State + 4;
@@ -164,16 +164,16 @@ public class IntCodeMachine
 
     #region Additional methods
 
-    private int Ref(int parameter)
+    private long Ref(long parameter)
         => _memory[State + parameter];
 
-    private int Val(int parameter)
+    private long Val(int parameter)
         => V2M(_memory[State], parameter) ? _memory[State + parameter] : _memory[_memory[State + parameter]];
 
-    private static int OpCode(int address)
+    private static long OpCode(long address)
         => address % MODE[0];
 
-    private static bool V2M(int value, int parameter)
+    private static bool V2M(long value, int parameter)
         => ((value / MODE[parameter - 1]) & 1) == 1;
 
     #endregion

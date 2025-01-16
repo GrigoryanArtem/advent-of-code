@@ -6,10 +6,10 @@ namespace Puzzles.Runner._2019;
 public class Day07(ILinesInputReader input) : IPuzzleSolver
 {
     private const int AMPLIFIERS_COUNT = 5;
-    private int[] _program = [];
+    private long[] _program = [];
 
     public void Init()
-        => _program = [.. input.GetTokens(",", Convert.ToInt32).First()];
+        => _program = [.. input.GetTokens(",", Convert.ToInt64).First()];
 
     public string SolvePart1()
         => PhaseSettings([0, 1, 2, 3, 4]).Max(ps => Run(ps, loop: false)).ToString();
@@ -19,7 +19,7 @@ public class Day07(ILinesInputReader input) : IPuzzleSolver
 
     #region Private methods
 
-    private int Run(int[] phaseSetting, bool loop)
+    private long Run(int[] phaseSetting, bool loop)
     {
         var amps = Enumerable.Range(0, AMPLIFIERS_COUNT)
             .Select(_ => new IntCodeMachine(_program))
@@ -28,7 +28,7 @@ public class Day07(ILinesInputReader input) : IPuzzleSolver
         foreach (var (amp, idx) in amps.WithIndex())
             amp.Input(phaseSetting[idx]);
 
-        var output = 0;
+        var output = 0L;
         do
         {
             foreach (var amp in amps.Where(a => !a.Halted))

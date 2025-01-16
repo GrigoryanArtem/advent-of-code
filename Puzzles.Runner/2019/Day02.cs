@@ -9,7 +9,7 @@ public class Day02(ILinesInputReader input) : IPuzzleSolver
     private IntCodeMachine _machine;
 
     public void Init()
-        => _machine = new([.. input.GetTokens(",", Convert.ToInt32).First()]);
+        => _machine = new([.. input.GetTokens(",", Convert.ToInt64).First()]);
 
     public string SolvePart1()
     {        
