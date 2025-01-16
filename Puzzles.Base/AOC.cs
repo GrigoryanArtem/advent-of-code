@@ -45,6 +45,17 @@ public static class AOC
         Sort2(ref b, ref c);
     }
 
+    public static double Angle(Vec2 from, Vec2 to)
+        => Angle(from.X, from.Y, to.X, to.Y);
+    public static double Angle(int ax, int ay, int bx, int by)
+        => Math.Atan2(by - ay, bx - ax);
+
+    public static double EuclideanDistance(Vec2 from, Vec2 to)
+        => EuclideanDistance(from.X, from.Y, to.X, to.Y);
+    
+    public static double EuclideanDistance(int ax, int ay, int bx, int by)
+        => Math.Sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
+
     public static int ManhattanDistance(int ax, int ay, int bx, int by)
         => Math.Abs(ax - bx) + Math.Abs(ay - by);
 

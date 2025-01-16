@@ -8,6 +8,13 @@ public class Map2<T> : IEnumerable<T>
     public const int DOWN = 2;
     public const int LEFT = 3;
 
+    private Map2()
+    {
+        Columns = Rows = 0;
+        Data = [];
+        Directions = [0, 0, 0, 0];
+    }
+
     public Map2(T[] data, int columns)
     {
         Columns = columns;
@@ -103,6 +110,7 @@ public class Map2<T> : IEnumerable<T>
     IEnumerator IEnumerable.GetEnumerator()
         => Data.GetEnumerator();
 
+    public static Map2<T> Null => new();
     public static Map2<T> Empty(int columns, int rows)
         => new(new T[rows * columns], columns);
 
