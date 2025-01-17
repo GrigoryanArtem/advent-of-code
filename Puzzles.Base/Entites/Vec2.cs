@@ -22,8 +22,8 @@ public record struct Vec2
     public static Vec2 operator -(Vec2 a, Vec2 b)
         => new(a.X - b.X, a.Y - b.Y);
 
-    public static Vec2 operator+ (Vec2 a, Vec2 b)
+    public static Vec2 operator +(Vec2 a, Vec2 b)
         => new(a.X + b.X, a.Y + b.Y);
 
-    public static Vec2 Zero { get; } = new Vec2(0, 0);
+    public static Vec2 Zero => new(0, 0);
 }

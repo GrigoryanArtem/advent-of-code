@@ -99,6 +99,12 @@ public static class AOC
     public static int ManhattanDistance(Vec2 from, Vec2 to)
         => ManhattanDistance(from.X, from.Y, to.X, to.Y);
 
+    public static int ManhattanDistance(int ax, int ay, int az, int bx, int by, int bz)
+        => Math.Abs(ax - bx) + Math.Abs(ay - by) + Math.Abs(az - bz);
+
+    public static int ManhattanDistance(Vec3 from, Vec3 to)
+        => ManhattanDistance(from.X, from.Y, from.Z, to.X, to.Y, to.Z);
+
     #endregion
 
     #region Private methods
