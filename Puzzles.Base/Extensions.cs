@@ -23,6 +23,29 @@ public static class Extensions
         return source;
     }
 
+    public static (V min, V max) MinMax<T, V>(this IEnumerable<T> source, Func<T, V> selector)
+        where V : IComparable<V>
+    {
+        if(!source.Any())
+            throw new InvalidOperationException("Sequence contains no elements");
+
+        var min = selector(source.First());
+        var max = selector(source.First());
+
+        foreach(var el in source)
+        {
+            var value = selector(el);
+
+            if (value.CompareTo(min) < 0)
+                min = value;
+
+            if (value.CompareTo(max) > 0)
+                max = value;
+        }
+
+        return (min, max);
+    }
+
     public static int IndexOfMin<T, V>(this T[] source, Func<T, V> selector)
         where V : IComparable<V>
     {

@@ -33,10 +33,11 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
             .WhereNotNull(d => d.vd)
             .Select(d => (d.a, d.vd.Angle, d.vd.Distance))
             .ToArray();
-
-        var (x, y) = Order(laserData)[TARGET_ASTEROID];
-        return (x * 100 + y).ToString();
+        
+        return LocValue(Order(laserData)[TARGET_ASTEROID]).ToString();
     }
+
+    #region Pirvate methods
 
     private static Vec2[] Order(IEnumerable<(Vec2 position, double angle, double distance)> data)
         => data.GroupBy(x => x.angle)
@@ -44,6 +45,7 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
             .OrderBy(x => x.angle)
             .Select(x => x.loc)
             .ToArray();
+
     private static VisibilityData[][] Visibility(Vec2[] asteroids)
     {
         var visibility = new VisibilityData[asteroids.Length][];
@@ -70,4 +72,9 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
         var angle = AOC.Angle(from, to) + AOC.HALF_PI;
         return angle < 0 ? angle + AOC.PI2 : angle;
     }
+
+    private static int LocValue(Vec2 location)
+        => location.X * 100 + location.Y;
+
+    #endregion
 }

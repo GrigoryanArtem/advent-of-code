@@ -11,6 +11,8 @@ public class IntCodeMachine
 
     private static readonly long[] MODE_MASK = [100, 1000, 10000];
 
+    public static IntCodeMachine Null => new([]);
+
     #region Members
 
     private readonly long[] _init;
@@ -111,6 +113,9 @@ public class IntCodeMachine
             };
         }
     }
+
+    public static IntCodeMachine FromInput(ILinesInputReader input, int? memorySize = null)
+        => new([.. input.GetTokens(",", Convert.ToInt64).First()], memorySize);
 
     #region Private methods    
 

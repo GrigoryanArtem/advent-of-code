@@ -3,16 +3,42 @@
 namespace Puzzles.Base;
 public static class AOC
 {
+    #region Constants
+
     public const double PI2 = Math.PI * 2;
     public const double HALF_PI = Math.PI / 2;
+
+    #endregion
 
     private static readonly ulong[] digitsDividers;
 
     static AOC()
         => digitsDividers = InitDividers();
 
+    #region Directions
+
+    public static Vec2[] Directions2D =>
+    [
+        new Vec2(0, 1),  // UP
+        new Vec2(1, 0),  // RIGHT
+        new Vec2(0, -1), // DOWN
+        new Vec2(-1, 0)  // LEFT
+    ];
+
+    public static Vec2[] Directions2DInv =>
+    [
+        new Vec2(0, -1), // UP
+        new Vec2(1, 0),  // RIGHT
+        new Vec2(0, 1),  // DOWN
+        new Vec2(-1, 0)  // LEFT
+    ];
+
+    #endregion
+
+    #region Math
+
     public static int GetDigits(ulong number)
-        => (int)(Math.Log10(number) + 1);
+       => (int)(Math.Log10(number) + 1);
 
     public static (ulong left, ulong right) SplitUInt64(ulong number, int size)
         => (number / digitsDividers[size], number % digitsDividers[size]);
@@ -35,6 +61,10 @@ public static class AOC
         return Mod(t, m);
     }
 
+    #endregion
+
+    #region Sort
+
     public static void Sort2(ref int a, ref int b)
     {
         if (a > b)
@@ -48,6 +78,10 @@ public static class AOC
         Sort2(ref b, ref c);
     }
 
+    #endregion
+
+    #region Vectors
+
     public static double Angle(Vec2 from, Vec2 to)
         => Angle(from.X, from.Y, to.X, to.Y);
     public static double Angle(int ax, int ay, int bx, int by)
@@ -55,7 +89,7 @@ public static class AOC
 
     public static double EuclideanDistance(Vec2 from, Vec2 to)
         => EuclideanDistance(from.X, from.Y, to.X, to.Y);
-    
+
     public static double EuclideanDistance(int ax, int ay, int bx, int by)
         => Math.Sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
 
@@ -64,6 +98,8 @@ public static class AOC
 
     public static int ManhattanDistance(Vec2 from, Vec2 to)
         => ManhattanDistance(from.X, from.Y, to.X, to.Y);
+
+    #endregion
 
     #region Private methods
 
