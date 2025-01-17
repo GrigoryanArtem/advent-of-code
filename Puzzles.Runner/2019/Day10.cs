@@ -52,8 +52,9 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
         for(int i = 0; i < visibility.Length; i++)
             visibility[i] = new VisibilityData[asteroids.Length];
 
-        for (int i = 0; i < asteroids.Length; i++)
+        asteroids.WithIndex().AsParallel().ForAll(a =>
         {
+            var i = a.index;
             for (int j = i + 1; j < asteroids.Length; j++)
             {
                 var distance = AOC.EuclideanDistance(asteroids[i], asteroids[j]);
@@ -61,7 +62,7 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
                 visibility[i][j] = new(Angle(asteroids[i], asteroids[j]), distance);
                 visibility[j][i] = new(Angle(asteroids[j], asteroids[i]), distance);
             }
-        }
+        });
 
         return visibility;
     }
