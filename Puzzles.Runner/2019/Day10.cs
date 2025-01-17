@@ -29,30 +29,16 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
         return (x * 100 + y).ToString();
     }
 
-    public Vec2[] Order(IEnumerable<KeyValuePair<Vec2, (double angle, double distance)>> data)
-    {
-        var sort = data.OrderBy(x => NormAngle(x.Value.angle)).ThenBy(kv => kv.Value.distance).ToList();
-        var result = new Vec2[sort.Count];
+    private static Vec2[] Order(Dictionary<Vec2, (double angle, double distance)> data)
+        => data
+            .GroupBy(x => x.Value.angle)
+            .SelectMany(x => x.Select((kv, idx) => (loc: kv.Key, angle: x.Key + (idx * AOC.PI2))))
+            .OrderBy(x => x.angle)
+            .Select(x => x.loc)
+            .ToArray();
 
-        for(int k = 0; k < result.Length;)
-        {
-            double? angle = null;
-            for (int i = 0; i < sort.Count; i++)
-            {
-                if (angle == sort[i].Value.angle)
-                    continue;
 
-                angle = sort[i].Value.angle;
-                result[k++] = sort[i].Key;
-                sort.RemoveAt(i);
-                i--;                                    
-            }
-        }
-
-        return result;
-    }
-
-    public static Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> Visibility(Vec2[] asteroids)
+    private static Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> Visibility(Vec2[] asteroids)
     {
         Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> data = [];
 
@@ -69,18 +55,17 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
                 
                 var distance = AOC.EuclideanDistance(ast, trg);
 
-                data[ast].Add(trg, (AOC.Angle(ast, trg), distance));
-                data[trg].Add(ast, (AOC.Angle(trg, ast), distance));
+                data[ast].Add(trg, (Angle(ast, trg), distance));
+                data[trg].Add(ast, (Angle(trg, ast), distance));
             }
         }
 
         return data;
     }
 
-    public static double NormAngle(double angle)
+    private static double Angle(Vec2 from, Vec2 to)
     {
-        angle = angle + Math.PI / 2;
-        angle = angle < 0 ? angle + 2 * Math.PI : angle;
-        return angle * 180 / Math.PI;
+        var angle = AOC.Angle(from, to) + AOC.HALF_PI;
+        return angle < 0 ? angle + AOC.PI2 : angle;
     }
 }

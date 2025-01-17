@@ -3,6 +3,9 @@
 namespace Puzzles.Base;
 public static class AOC
 {
+    public const double PI2 = Math.PI * 2;
+    public const double HALF_PI = Math.PI / 2;
+
     private static readonly ulong[] digitsDividers;
 
     static AOC()
