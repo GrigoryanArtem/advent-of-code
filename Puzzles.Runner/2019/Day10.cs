@@ -1,25 +1,17 @@
 ﻿namespace Puzzles.Runner._2019;
-
-using Map = Map2<char>;
-
 [Puzzle("Monitoring Station", 10, 2019)]
 public class Day10(ILinesInputReader input) : IPuzzleSolver
 {
     private const char ASTEROID = '#';
-
-    private Map _map = Map.Null;
-    private int[] _asteroids = [];
+    
+    private Vec2[] _asteroids = [];
 
     public void Init()
-    {
-        _map = new Map
-        (
-            data: [.. input.Lines.SelectMany(line => line)],
-            columns: input.Lines.First().Length
-        );
-
-        _asteroids = [.._map.WithIndex().Where(p => p.item == ASTEROID).Select(p => p.index)];
-    }
+        => _asteroids = input.Lines
+            .SelectMany((line, y) => line.Select((c, x) => (c, x, y)))
+            .Where(t => t.c == ASTEROID)
+            .Select(t => new Vec2(t.x, t.y))
+            .ToArray();
 
     public string SolvePart1()
     {
@@ -30,38 +22,55 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart2()
     {
         var data = Visibility(_asteroids);
-        var laserPosition = data.MaxBy(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).Key;
-        var lv = data[laserPosition].OrderBy(x => NormAngle(x.Value.angle)).ThenBy(kv => kv.Value.distance).ToArray();
-        var dat = lv.Select(kv => _map.D1toD2(kv.Key)).ToArray();
-        // var (x, y) = _map.D1toD2(lv[200].Key);
+        var laserPosition = data.MaxBy(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).Key;        
+        var dat = Order(data[laserPosition]);
 
-        // return (x * 100 + y).ToString();
-        return "";
+        var (x, y) = dat[199];
+        return (x * 100 + y).ToString();
     }
 
-    public Dictionary<int, Dictionary<int, (double angle, double distance)>> Visibility(int[] asteroids)
+    public Vec2[] Order(IEnumerable<KeyValuePair<Vec2, (double angle, double distance)>> data)
     {
-        Dictionary<int, Dictionary<int, (double angle, double distance)>> data = [];
+        var sort = data.OrderBy(x => NormAngle(x.Value.angle)).ThenBy(kv => kv.Value.distance).ToList();
+        var result = new Vec2[sort.Count];
 
-        foreach (var asteroid in asteroids)
+        for(int k = 0; k < result.Length;)
         {
-            data.TryAdd(asteroid, []);
-            var (ax, ay) = _map.D1toD2(asteroid);
-
-            foreach (var target in asteroids)
+            double? angle = null;
+            for (int i = 0; i < sort.Count; i++)
             {
-                if (target == asteroid || data[asteroid].ContainsKey(target))
+                if (angle == sort[i].Value.angle)
                     continue;
 
-                data.TryAdd(target, []);
+                angle = sort[i].Value.angle;
+                result[k++] = sort[i].Key;
+                sort.RemoveAt(i);
+                i--;                                    
+            }
+        }
 
-                var (tx, ty) = _map.D1toD2(target);
+        return result;
+    }
 
-                var angle = AOC.Angle(ax, ay, tx, ty);
-                var distance = AOC.EuclideanDistance(ax, ay, tx, ty);
+    public static Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> Visibility(Vec2[] asteroids)
+    {
+        Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> data = [];
 
-                data[asteroid].Add(target, (angle, distance));
-                data[target].Add(asteroid, (angle + Math.PI, distance));
+        foreach (var ast in asteroids)
+        {
+            data.TryAdd(ast, []);
+
+            foreach (var trg in asteroids)
+            {
+                if (trg == ast || data[ast].ContainsKey(trg))
+                    continue;
+
+                data.TryAdd(trg, []);
+                
+                var distance = AOC.EuclideanDistance(ast, trg);
+
+                data[ast].Add(trg, (AOC.Angle(ast, trg), distance));
+                data[trg].Add(ast, (AOC.Angle(trg, ast), distance));
             }
         }
 
@@ -70,7 +79,8 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
 
     public static double NormAngle(double angle)
     {
-        angle = angle - Math.PI / 2;
-        return angle < 0 ? angle + 2 * Math.PI : angle;
+        angle = angle + Math.PI / 2;
+        angle = angle < 0 ? angle + 2 * Math.PI : angle;
+        return angle * 180 / Math.PI;
     }
 }
