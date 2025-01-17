@@ -6,7 +6,15 @@ public static class Extensions
 
     public static ulong UInt64Sum<T>(this IEnumerable<T> source, Func<T, ulong> func)
         => source.Aggregate(0UL, (acc, n) => acc + func(n));
-    
+
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
+        where T : class
+        => source.Where(x => x is not null);
+
+    public static IEnumerable<T> WhereNotNull<T, V>(this IEnumerable<T> source, Func<T, V> selector)
+       where V : class
+       => source.Where(x => selector(x) is not null);
+
     public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
     {
         foreach (var item in source)

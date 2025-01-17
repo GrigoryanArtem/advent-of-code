@@ -2,6 +2,8 @@
 [Puzzle("Monitoring Station", 10, 2019)]
 public class Day10(ILinesInputReader input) : IPuzzleSolver
 {
+    private record VisibilityData(double Angle, double Distance);
+    
     private const char ASTEROID = '#';
     private const int TARGET_ASTEROID = 199;
 
@@ -15,51 +17,53 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
             .ToArray();
 
     public string SolvePart1()
-    {
-        var visibility = Visibility(_asteroids);
-        return visibility.Max(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).ToString();
-    }
+        => Visibility(_asteroids).Max(v => v.WhereNotNull().Select(d => d.Angle).Distinct().Count()).ToString();    
 
     public string SolvePart2()
     {
         var visibility = Visibility(_asteroids);
-        var laserPosition = visibility.MaxBy(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).Key;
+        var laserPosition = visibility.IndexOfMax(v => v.WhereNotNull()
+            .Select(d => d.Angle)
+            .Distinct()
+            .Count());
 
-        var (x, y) = Order(visibility[laserPosition])[TARGET_ASTEROID];
-        return (x * 100 + y).ToString();
+        var laserData = visibility[laserPosition]
+            .Zip(_asteroids, (vd, a) => (vd, a))
+            .WhereNotNull(d => d.vd)
+            .Select(d => (d.a, d.vd.Angle, d.vd.Distance))
+            .ToArray();
+
+        var (x, y) = Order(laserData)[TARGET_ASTEROID];
+        return (x * 100 + y).ToString();        
     }
 
-    private static Vec2[] Order(Dictionary<Vec2, (double angle, double distance)> data)
-        => data.GroupBy(x => x.Value.angle)
-            .SelectMany(x => x.Select((kv, idx) => (loc: kv.Key, angle: x.Key + (idx * AOC.PI2))))
+    private static Vec2[] Order(IEnumerable<(Vec2 position, double angle, double distance)> data)
+        => data.GroupBy(x => x.angle)
+            .SelectMany(x => x.Select((kv, idx) => (loc: kv.position, angle: x.Key + (idx * AOC.PI2))))
             .OrderBy(x => x.angle)
             .Select(x => x.loc)
             .ToArray();
 
 
-    private static Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> Visibility(Vec2[] asteroids)
+    private static VisibilityData[][] Visibility(Vec2[] asteroids)
     {
-        Dictionary<Vec2, Dictionary<Vec2, (double angle, double distance)>> data = [];
+        var visibility = new VisibilityData[asteroids.Length][];
 
-        foreach (var ast in asteroids)
+        for(int i = 0; i < visibility.Length; i++)
+            visibility[i] = new VisibilityData[asteroids.Length];
+
+        for (int i = 0; i < asteroids.Length; i++)
         {
-            data.TryAdd(ast, []);
-
-            foreach (var trg in asteroids)
+            for (int j = i + 1; j < asteroids.Length; j++)
             {
-                if (trg == ast || data[ast].ContainsKey(trg))
-                    continue;
+                var distance = AOC.EuclideanDistance(asteroids[i], asteroids[j]);
 
-                data.TryAdd(trg, []);
-
-                var distance = AOC.EuclideanDistance(ast, trg);
-
-                data[ast].Add(trg, (Angle(ast, trg), distance));
-                data[trg].Add(ast, (Angle(trg, ast), distance));
+                visibility[i][j] = new(Angle(asteroids[i], asteroids[j]), distance);
+                visibility[j][i] = new(Angle(asteroids[j], asteroids[i]), distance);
             }
         }
 
-        return data;
+        return visibility;
     }
 
     private static double Angle(Vec2 from, Vec2 to)
