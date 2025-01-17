@@ -3,7 +3,8 @@
 public class Day10(ILinesInputReader input) : IPuzzleSolver
 {
     private const char ASTEROID = '#';
-    
+    private const int TARGET_ASTEROID = 199;
+
     private Vec2[] _asteroids = [];
 
     public void Init()
@@ -15,23 +16,21 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart1()
     {
-        var data = Visibility(_asteroids);
-        return data.Max(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).ToString();
+        var visibility = Visibility(_asteroids);
+        return visibility.Max(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).ToString();
     }
 
     public string SolvePart2()
     {
-        var data = Visibility(_asteroids);
-        var laserPosition = data.MaxBy(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).Key;        
-        var dat = Order(data[laserPosition]);
+        var visibility = Visibility(_asteroids);
+        var laserPosition = visibility.MaxBy(kv => kv.Value.GroupBy(x => x.Value.angle).Count()).Key;
 
-        var (x, y) = dat[199];
+        var (x, y) = Order(visibility[laserPosition])[TARGET_ASTEROID];
         return (x * 100 + y).ToString();
     }
 
     private static Vec2[] Order(Dictionary<Vec2, (double angle, double distance)> data)
-        => data
-            .GroupBy(x => x.Value.angle)
+        => data.GroupBy(x => x.Value.angle)
             .SelectMany(x => x.Select((kv, idx) => (loc: kv.Key, angle: x.Key + (idx * AOC.PI2))))
             .OrderBy(x => x.angle)
             .Select(x => x.loc)
@@ -52,7 +51,7 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
                     continue;
 
                 data.TryAdd(trg, []);
-                
+
                 var distance = AOC.EuclideanDistance(ast, trg);
 
                 data[ast].Add(trg, (Angle(ast, trg), distance));
