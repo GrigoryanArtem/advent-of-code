@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using Puzzles.Base.Entities;
 using Puzzles.Visuals.Model;
 
 namespace Puzzles.Visuals._2024;
