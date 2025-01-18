@@ -5,9 +5,10 @@ namespace Puzzles.Runner._2019;
 [Puzzle("The N-Body Problem", 12, 2019)]
 public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 {
+    private const int M16 = 0xFFFF;
+
     private const int DEMENSIONS = 3;
     private const int MOONS = 4;
-    private const int MASK_16 = 0xFFFF;
 
     private long[] _pos = [];
 
@@ -23,31 +24,40 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart1()
     {
-        var (moons, velocities) = Simulate().ElementAt(999);
-        return Energy(moons, velocities).ToString();
+        var (pos, vel) = Simulate().ElementAt(999);
+        return Energy(pos, vel).ToString();
     }
+
     public string SolvePart2()
     {
-        var simulation = Simulate().GetEnumerator();
-        var periods = new int[DEMENSIONS];
+        var periods = Enumerable.Range(0, DEMENSIONS)
+            .Select(FindPeriod)
+            .ToArray();
 
-        for (int step = 1; simulation.MoveNext() && !periods.All(p => p > 0); step++)
-        {
-            var (pos, vel) = simulation.Current;
-            for (int d = 0; d < periods.Length; d++)
-            {
-                if (periods[d] > 0)
-                    continue;
-
-                if (vel[d] == 0 && pos[d] == _pos[d])
-                    periods[d] = step;
-            }
-        }
-
-        return periods.LCM().ToString();
+        Task.WhenAll(periods);
+        return periods.Select(p => p.Result).LCM().ToString();
     }
 
     #region Private methods
+
+    private Task<int> FindPeriod(int d) => Task.Run(() =>
+    {
+        var period = 0;
+
+        var simulation = Simulate().GetEnumerator();
+        for (int step = 1; simulation.MoveNext(); step++)
+        {
+            var (pos, vel) = simulation.Current;
+
+            if (vel[d] == 0 && pos[d] == _pos[d])
+            {
+                period = step;
+                break;
+            }
+        }
+
+        return period;
+    });
 
     private IEnumerable<(long[] pos, long[] vel)> Simulate()
     {
@@ -86,7 +96,7 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
     }
 
     private static long Shift(short val, int idx)
-        => (long)(val & MASK_16) << (0x10 * idx);
+        => (long)(val & M16) << (0x10 * idx);
 
     private static long V(long pack, int idx)
         => (short)((pack >> (0x10 * idx)) & 0xFFFF);
