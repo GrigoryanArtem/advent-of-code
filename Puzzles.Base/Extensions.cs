@@ -68,6 +68,15 @@ public static class Extensions
         return max;
     }
 
+    public static long LCM(this IEnumerable<int> source)
+    {
+        var acc = 1L;
+        foreach (var item in source)
+            acc = AOC.LCM(acc, item);
+
+        return acc;
+    }
+
     public static TValue AddAndReturn<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value)
          where TKey : notnull
     {

@@ -6,7 +6,6 @@ namespace Puzzles.Runner._2019;
 public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 {
     private const int DEMENSIONS = 3;
-
     private int[][] _moons = [];
 
     public void Init()
@@ -20,31 +19,36 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart2()
     {
-        ulong?[] periods = new ulong?[DEMENSIONS];
+        var simulation = Simulate().GetEnumerator();
+        var periods = Enumerable.Repeat(-1, DEMENSIONS).ToArray();
         var hashes = Enumerable.Range(0, DEMENSIONS)
-            .Select(_ => new HashSet<(int, int, int, int, int, int, int, int)>())
+            .Select(_ => new HashSet<long>())
             .ToArray();
 
-        foreach (var (moons, velocities) in Simulate())
-        {
-            if (periods.All(p => p.HasValue))
-                break;
-
+        for (int step = 0; simulation.MoveNext() && !periods.All(p => p > 0); step++)
+        {            
+            var (moons, velocities) = simulation.Current;
             for (int d = 0; d < periods.Length; d++)
             {
-                if (periods[d].HasValue)
+                if (periods[d] > 0)
                     continue;
-                
-                var hash = (moons[0][d], moons[1][d], moons[2][d], moons[3][d], velocities[0][d], velocities[1][d], velocities[2][d], velocities[3][d]);                
+
+                var hash = Hash(moons, velocities, d);
                 if (hashes[d].Contains(hash))
-                    periods[d] = (ulong)hashes[d].Count;
+                {
+                    periods[d] = hashes[d].Count;
+                }
                 else
+                {
                     hashes[d].Add(hash);
+                }
             }
         }
 
-        return AOC.LCM(AOC.LCM(periods[0].Value, periods[1].Value), periods[2].Value).ToString();
+        return periods.LCM().ToString();
     }
+
+    #region Private methods
 
     private IEnumerable<(int[][] moons, int[][] velocities)> Simulate()
     {
@@ -69,13 +73,15 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
         }
     }
 
-    private static int Hash(IEnumerable<int> data)
+    private static long Hash(int[][] moons, int[][] velocities, int d)
+        => (Hash(moons, d) << 31) + Hash(velocities, d);
+
+    private static long Hash(int[][] data, int d)
     {
-        int hash = 127; // Start with a prime number
-        foreach (var num in data)
-        {
-            hash = hash * 127 + num; // Multiply by a prime and add the value
-        }
+        var hash = 17L;
+        for (int i = 0; i < data.Length; i++)
+            hash = hash * 127 + data[i][d];
+
         return hash;
     }
 
@@ -93,4 +99,6 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 
     [GeneratedRegex(@"<x=(?<x>-?\d+),\s+y=(?<y>-?\d+),\s+z=(?<z>-?\d+)>")]
     private static partial Regex MoonRegex();
+
+    #endregion
 }

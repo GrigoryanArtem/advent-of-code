@@ -61,14 +61,15 @@ public static class AOC
         return Mod(t, m);
     }
 
-    public static ulong GCD(ulong a, ulong b)
+    public static long GCD(long a, long b)
     {
         while (b != 0)
             (a, b) = (b, a % b);
+
         return a;
     }
 
-    public static ulong LCM(ulong a, ulong b)
+    public static long LCM(long a, long b)
         => a / GCD(a, b) * b;
 
     #endregion
