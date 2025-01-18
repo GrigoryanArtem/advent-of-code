@@ -35,7 +35,11 @@ public class IntCodeMachine
 
     #region Properties
 
-    public long this[int idx] => _memory[idx];
+    public long this[int idx]
+    {
+        get => _memory[idx];
+        set => _memory[idx] = value;
+    }
 
     public long Noun
     {
@@ -90,7 +94,7 @@ public class IntCodeMachine
         {
             var op = _memory[State];
             var opCode = OpCode(op);
-            
+
             if (Halted = opCode == 99)
                 break;
 
@@ -113,6 +117,9 @@ public class IntCodeMachine
             };
         }
     }
+
+    public void CleanOutput()
+        => _output.Clear();
 
     public static IntCodeMachine FromInput(ILinesInputReader input, int? memorySize = null)
         => new([.. input.GetTokens(",", Convert.ToInt64).First()], memorySize);
