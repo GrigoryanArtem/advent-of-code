@@ -24,14 +24,14 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 
     public string SolvePart1()
     {
-        var (pos, vel) = Simulate().ElementAt(999);
+        var (pos, vel) = Simulate(1000);
         return Energy(pos, vel).ToString();
     }
 
     public string SolvePart2()
     {
         var periods = Enumerable.Range(0, DEMENSIONS)
-            .Select(FindPeriod)
+            .Select(d => Task.Run(() => FindPeriod(d)))
             .ToArray();
 
         Task.WhenAll(periods);
@@ -40,16 +40,14 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 
     #region Private methods
 
-    private Task<int> FindPeriod(int d) => Task.Run(() =>
+    private int FindPeriod(int d) 
     {
         var period = 0;
 
-        var simulation = Simulate().GetEnumerator();
+        var simulation = Simulate(d, Int32.MaxValue).GetEnumerator();
         for (int step = 1; simulation.MoveNext(); step++)
-        {
-            var (pos, vel) = simulation.Current;
-
-            if (vel[d] == 0 && pos[d] == _pos[d])
+        {            
+            if (simulation.Current.vel == 0 && simulation.Current.pos == _pos[d])
             {
                 period = step;
                 break;
@@ -57,33 +55,38 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
         }
 
         return period;
-    });
+    }
 
-    private IEnumerable<(long[] pos, long[] vel)> Simulate()
+    private IEnumerable<(long pos, long vel)> Simulate(int d, int count)
     {
-        var pos = _pos.ToArray();
-        var vel = new long[DEMENSIONS];
+        var pos = _pos[d];
+        var vel = 0L;
 
-        while (true)
+        for(int i = 0; i < count; i++)
         {
-            for (int d = 0; d < DEMENSIONS; d++)
+            for (int m1 = 0; m1 < MOONS; m1++)
             {
-                for (int m1 = 0; m1 < MOONS; m1++)
-                {
-                    var dv = 0;
+                var dv = 0;
 
-                    for (int m2 = 0; m2 < MOONS; m2++)
-                        dv += Math.Sign(V(pos[d], m2) - V(pos[d], m1));
+                for (int m2 = 0; m2 < MOONS; m2++)
+                    dv += Math.Sign(V(pos, m2) - V(pos, m1));
 
-                    vel[d] = Add(vel[d], Shift((short)dv, m1));
-                }
+                vel = Add(vel, Shift((short)dv, m1));
             }
 
-            for (int d = 0; d < DEMENSIONS; d++)
-                pos[d] = Add(pos[d], vel[d]);
-
+            pos = Add(pos, vel);
             yield return (pos, vel);
         }
+    }
+
+    private (long[] pos, long[] vel) Simulate(int count)
+    {
+        var sim = Enumerable.Range(0, DEMENSIONS)
+            .Select(d => Task.Run(() => Simulate(d, count).Last()))
+            .ToArray();
+
+        Task.WhenAll(sim);
+        return ([..sim.Select(s => s.Result.pos)], [..sim.Select(s => s.Result.vel)]);
     }
 
     private static long Add(long a, long b)
