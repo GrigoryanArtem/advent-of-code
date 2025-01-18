@@ -20,12 +20,12 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart2()
     {
         var simulation = Simulate().GetEnumerator();
-        var periods = Enumerable.Repeat(-1, DEMENSIONS).ToArray();
+        var periods = new int[DEMENSIONS];
         var hashes = Enumerable.Range(0, DEMENSIONS)
             .Select(_ => new HashSet<long>())
             .ToArray();
 
-        for (int step = 0; simulation.MoveNext() && !periods.All(p => p > 0); step++)
+        for (int step = 1; simulation.MoveNext() && !periods.All(p => p > 0); step++)
         {            
             var (moons, velocities) = simulation.Current;
             for (int d = 0; d < periods.Length; d++)
@@ -33,15 +33,8 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
                 if (periods[d] > 0)
                     continue;
 
-                var hash = Hash(moons, velocities, d);
-                if (hashes[d].Contains(hash))
-                {
-                    periods[d] = hashes[d].Count;
-                }
-                else
-                {
-                    hashes[d].Add(hash);
-                }
+                if (velocities.All(v => v[d] == 0) && moons.Zip(_moons, (m1, m2) => m1[d] == m2[d]).All(x => x))
+                    periods[d] = step;
             }
         }
 
@@ -71,18 +64,6 @@ public partial class Day12(ILinesInputReader input) : IPuzzleSolver
 
             yield return (moons, velocities);
         }
-    }
-
-    private static long Hash(int[][] moons, int[][] velocities, int d)
-        => (Hash(moons, d) << 31) + Hash(velocities, d);
-
-    private static long Hash(int[][] data, int d)
-    {
-        var hash = 17L;
-        for (int i = 0; i < data.Length; i++)
-            hash = hash * 127 + data[i][d];
-
-        return hash;
     }
 
     private static int Energy(int[][] moons, int[][] velocities)
