@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Puzzles.Base.Entites;
+namespace Puzzles.Base.Entities;
 public class Map2<T> : IEnumerable<T>
 {
     public const int UP = 0;

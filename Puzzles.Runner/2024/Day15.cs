@@ -1,4 +1,4 @@
-﻿using Map = Puzzles.Base.Entites.Map2<char>;
+﻿using Map = Puzzles.Base.Entities.Map2<char>;
 
 namespace Puzzles.Runner._2024;
 

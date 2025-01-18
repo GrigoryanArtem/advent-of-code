@@ -1,6 +1,4 @@
-﻿using Puzzles.Base.Entites;
-
-namespace Puzzles.Runner._2024;
+﻿namespace Puzzles.Runner._2024;
 
 [Puzzle("Bridge Repair", 8, 2024)]
 public class Day08(ILinesInputReader input) : IPuzzleSolver

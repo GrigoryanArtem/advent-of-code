@@ -1,4 +1,4 @@
-﻿namespace Puzzles.Base.Entites;
+﻿namespace Puzzles.Base.Entities;
 
 public record Point(int X, int Y)
 {

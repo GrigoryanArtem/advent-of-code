@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Puzzles.Base.Entites;
+namespace Puzzles.Base.Entities;
 
 public record struct Vec3 : IEnumerable<int>
 {

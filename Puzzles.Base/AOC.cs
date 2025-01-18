@@ -1,4 +1,4 @@
-﻿using Puzzles.Base.Entites;
+﻿using Puzzles.Base.Entities;
 
 namespace Puzzles.Base;
 public static class AOC
