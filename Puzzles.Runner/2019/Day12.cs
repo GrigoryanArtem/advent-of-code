@@ -4,62 +4,54 @@ namespace Puzzles.Runner._2019;
 
 [Puzzle("The N-Body Problem", 12, 2019)]
 public partial class Day12(ILinesInputReader input) : IPuzzleSolver
-{    
-    private Vec3[] _moons = [];
+{
+    private const int DEMENSIONS = 3;
+
+    private int[][] _moons = [];
 
     public void Init()
-    {
-        _moons = input.Lines.Select(line => MoonRegex().Match(line))
-            .Select(match => new Vec3
-            (
-                x: Convert.ToInt32(match.Groups["x"].Value),
-                y: Convert.ToInt32(match.Groups["y"].Value),
-                z: Convert.ToInt32(match.Groups["z"].Value)
-            ))
-            .ToArray();
-    }
+        => _moons = input.Lines.Select(line => M2V3(MoonRegex().Match(line))).ToArray();
 
     public string SolvePart1()
     {
-        var (moons, velocities)= Simulate(1000);
-        var energy = Energy(moons, velocities);
-
-        return energy.ToString();
+        var (moons, velocities) = Simulate().ElementAt(999);
+        return Energy(moons, velocities).ToString();
     }
 
-    private (Vec3[] moons, Vec3[] velocities) Simulate(int steps)
+    private IEnumerable<(int[][] moons, int[][] velocities)> Simulate()
     {
-        var moons = _moons.ToArray();
-        var velocities = new Vec3[moons.Length];
+        var moons = _moons.Select(m => m.ToArray()).ToArray();
+        var velocities = new int[moons.Length][];
 
-        for (var step = 0; step < steps; step++)
+        for (int i = 0; i < moons.Length; i++)
+            velocities[i] = new int[DEMENSIONS];
+
+        while (true)
         {
-            foreach (var (from, index) in moons.WithIndex())
-            {
-                foreach (var (to, otherIndex) in moons.WithIndex())
-                {
-                    if (index == otherIndex)
-                        continue;
-
-                    velocities[index].X += Math.Sign(to.X - from.X);
-                    velocities[index].Y += Math.Sign(to.Y - from.Y);
-                    velocities[index].Z += Math.Sign(to.Z - from.Z);
-                }
-            }
+            for (int i = 0; i < moons.Length; i++)
+                for (int k = 0; k < moons.Length; k++)
+                    for (int d = 0; d < DEMENSIONS; d++)
+                        velocities[i][d] += Math.Sign(moons[k][d] - moons[i][d]);
 
             for (int i = 0; i < moons.Length; i++)
-                moons[i] += velocities[i];
+                for (int d = 0; d < DEMENSIONS; d++)
+                    moons[i][d] += velocities[i][d];
+
+            yield return (moons, velocities);
         }
-
-        return (moons, velocities);
     }
-
-    private static int Energy(Vec3[] moons, Vec3[] velocities)
+    private static int Energy(int[][] moons, int[][] velocities)
         => moons.Zip(velocities, (m, v) => Value(m) * Value(v)).Sum();
+
+    private static int Value(int[] vec)
+        => vec.Sum(Math.Abs);
+
+    private static int[] M2V3(Match match)
+        => [M2I32(match, "x"), M2I32(match, "y"), M2I32(match, "z")];
+
+    private static int M2I32(Match match, string group)
+        => Convert.ToInt32(match.Groups[group].Value);
 
     [GeneratedRegex(@"<x=(?<x>-?\d+),\s+y=(?<y>-?\d+),\s+z=(?<z>-?\d+)>")]
     private static partial Regex MoonRegex();
-
-    private static int Value(Vec3 vec)
-        => Math.Abs(vec.X) + Math.Abs(vec.Y) + Math.Abs(vec.Z);
 }

@@ -61,6 +61,16 @@ public static class AOC
         return Mod(t, m);
     }
 
+    public static int GCD(int a, int b)
+    {
+        while (b != 0)
+            (a, b) = (b, a % b);
+        return a;
+    }
+
+    public static int LCM(int a, int b)
+        => a / GCD(a, b) * b;
+
     #endregion
 
     #region Sort

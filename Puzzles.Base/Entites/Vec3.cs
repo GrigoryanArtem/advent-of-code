@@ -1,6 +1,8 @@
-﻿namespace Puzzles.Base.Entites;
+﻿using System.Collections;
 
-public record struct Vec3
+namespace Puzzles.Base.Entites;
+
+public record struct Vec3 : IEnumerable<int>
 {
     public Vec3() { }
 
@@ -21,6 +23,16 @@ public record struct Vec3
         y = Y;
         z = Z;
     }
+
+    public readonly IEnumerator<int> GetEnumerator()
+    {
+        yield return X;
+        yield return Y;
+        yield return Z;
+    }
+
+    readonly IEnumerator IEnumerable.GetEnumerator() 
+        => GetEnumerator();
 
     public static Vec3 operator -(Vec3 a, Vec3 b)
         => new(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
