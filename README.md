@@ -34,7 +34,7 @@ Time was measured by running each part n times and finding the average result. T
 | ------------- | ---: |
 | [2024](#2024) |   50 |
 | [2023](#2023) |    2 |
-| [2019](#2019) |   24 |
+| [2019](#2019) |   28 |
 
 ### 2024
 
@@ -89,3 +89,4 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   11 | [Space Police](https://adventofcode.com/2019/day/11)                      |              1.6 |              0.1 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day11.cs) |
 | 🟨   |   12 | [The N-Body Problem](https://adventofcode.com/2019/day/12)                |             0.16 |              5.7 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day12.cs) |
 | 🟩   |   13 | [Care Package](https://adventofcode.com/2019/day/13)                      |             0.21 |              5.1 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day13.cs) |
+| 🟩   |   14 | [Space Stoichiometry](https://adventofcode.com/2019/day/14)               |              0.7 |              400 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day14.cs) |
