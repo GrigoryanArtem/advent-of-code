@@ -3,92 +3,100 @@
 [Puzzle("Space Stoichiometry", 14, 2019)]
 public class Day14(ILinesInputReader input) : IPuzzleSolver
 {
-    private record Element(string Name, long Quantity);
-    private record Reaction(Element[] Inputs, Element Output);
+    private record struct Element(int Id, long Quantity);
+    private record struct Reaction(Element[] Inputs, Element Output);
 
-    private const string ORE = "ORE";
-    private const string FUEL = "FUEL";
-    private const long TRILLION = 1000000000000;
+    #region Constants
 
-    private Dictionary<string, Reaction> _reactions = [];
+    private const int ORE = 0;
+    private const int FUEL = 1;
+
+    private const double ORE_COUNT = 1000000000000;
+
+    #endregion
+
+    private int _currentId = 2;
+    private readonly Dictionary<string, int> _ids = new()
+    {
+        {"ORE", ORE},
+        {"FUEL", FUEL}
+    };
+
+    private Reaction[] _reactions = [];
 
     public void Init()
-        => _reactions = input.Lines.Select(Str2Reaction).ToDictionary(r => r.Output.Name, r => r);
+    {
+        var parse = input.Lines.Select(Str2Reaction).ToArray();
+        _reactions = new Reaction[_currentId];
+        parse.ForEach(r => _reactions[r.Output.Id] = r);
+    }        
 
     public string SolvePart1()
-    {
-        var counts = new Dictionary<string, long>();
-        var over = new Dictionary<string, long>();
-        Count(FUEL, 1, counts, over);
-
-        return counts[ORE].ToString();
-    }
+        => Solve(FUEL, 1).ToString();
 
     public string SolvePart2()
     {
-        var counts = new Dictionary<string, long>();
-        var over = new Dictionary<string, long>();
+        var fuel = 1L;
+        var next = 0L;
 
-        Count(FUEL, 1, counts, over);
-
-        var count = TRILLION / counts[ORE];
-
-        counts.Clear();
-        over.Clear();
-
-        var ores = TRILLION;
-        Count(FUEL, count, counts, over);
-
-        while(TRILLION > counts[ORE])
+        while (fuel != next)
         {
-            Count(FUEL, 1, counts, over);
-            count++;
+            next = (int)(ORE_COUNT / Solve(FUEL, fuel) * fuel);
+            (fuel, next) = (next, fuel);
         }
 
-
-        return (count - 1).ToString();
+        return fuel.ToString();
     }
 
-    private void Count(string from, long count, Dictionary<string, long> counts, Dictionary<string, long> over)
+    #region Private methods
+
+    private long Solve(int from, long count)
+        => Solve(from, count, new long[_currentId], new long[_currentId]);
+
+    private long Solve(int from, long count, long[] counts, long[] over)
     {
-        var realCount = Math.Max(0, count - over.GetOrAdd(from, 0));
+        var realCount = Math.Max(0, count - over[from]);
         over[from] -= (count - realCount);
 
         if (from == ORE || realCount == 0)
-            return;
+            return counts[ORE];
 
         var reaction = _reactions[from];
 
         var reps = (long)Math.Ceiling((double)realCount / reaction.Output.Quantity);
         var output = reps * reaction.Output.Quantity;
 
-        over.TryAdd(from, 0);
         over[from] += output - realCount;
 
         foreach (var input in reaction.Inputs)
         {
             var needed = reps * input.Quantity;
+            counts[input.Id] += needed;
 
-            counts.TryAdd(input.Name, 0);
-            counts[input.Name] += needed;
-
-            Count(input.Name, needed, counts, over);
+            Solve(input.Id, needed, counts, over);
         }
+
+        return counts[ORE];
     }
 
-    private static Reaction Str2Reaction(string line)
+    private Reaction Str2Reaction(string line)
     {
         var tokens = line.Split("=>", StringSplitOptions.RemoveEmptyEntries);
         var input = tokens[0].Split(",", StringSplitOptions.RemoveEmptyEntries)
-            .Select(Str2El)
+            .Select(Str2Element)
             .ToArray();
 
-        return new(input, Str2El(tokens[1]));
+        return new(input, Str2Element(tokens[1]));
     }
 
-    private static Element Str2El(string str)
+    private Element Str2Element(string str)
     {
         var tokens = str.Trim().Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        return new(tokens[1], long.Parse(tokens[0]));
+        return new(GetId(tokens[1]), long.Parse(tokens[0]));
     }
+
+    private int GetId(string name)
+        => _ids.GetOrAdd(name, () => _currentId++);
+
+    #endregion
 }
