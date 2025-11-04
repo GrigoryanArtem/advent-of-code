@@ -6,14 +6,15 @@
     },
     "Examples": {
       "commandName": "Project",
-      "commandLineArgs": "-e"
+      "commandLineArgs": "-e -d 1 -y 2022"
     },
     "Input": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "-d 1 -y 2022"
     },
     "Performance": {
       "commandName": "Project",
-      "commandLineArgs": "-p"
+      "commandLineArgs": "-p -d 1 -y 2022"
     }
   }
 }
