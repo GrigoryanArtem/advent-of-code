@@ -34,6 +34,7 @@ Time was measured by running each part n times and finding the average result. T
 | ------------- | ---: |
 | [2024](#2024) |   50 |
 | [2023](#2023) |    2 |
+| [2023](#2022) |   10 |
 | [2019](#2019) |   28 |
 
 ### 2024
@@ -80,6 +81,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   02 | [Rock Paper Scissors](https://adventofcode.com/2022/day/2)     |            0.317 |            0.212 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day02.cs) |
 | 🟩   |   03 | [Rucksack Reorganization](https://adventofcode.com/2022/day/3) |            0.382 |            0.114 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day03.cs) |
 | 🟩   |   04 | [Camp Cleanup](https://adventofcode.com/2022/day/4)            |            0.022 |            0.022 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day04.cs) |
+| 🟩   |   05 | [Supply Stacks](https://adventofcode.com/2022/day/5)           |            0.031 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day05.cs) |
 
 ### 2019
 
