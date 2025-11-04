@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11111.16 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Puzzles.Runner", "Puzzles.Runner\Puzzles.Runner.csproj", "{ACF0D1FE-D3C7-41A0-99ED-840CAF791D7F}"
 EndProject
@@ -10,6 +10,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Web", "Puzzles.Web\Puzzles.Web.csproj", "{1B636DE0-009D-4BFC-AFF4-F91B7139BC22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Visuals", "Puzzles.Visuals\Puzzles.Visuals.csproj", "{718C4CA6-3EB7-4454-98B8-8515624EE34C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "meta", "meta", "{B454CB06-CBDB-4FBE-AFCF-9E93D79C2BBA}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

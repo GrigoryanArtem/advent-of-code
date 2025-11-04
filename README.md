@@ -72,6 +72,13 @@ Time was measured by running each part n times and finding the average result. T
 | --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
 | 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1) |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day01.cs) |
 
+### 2022
+
+| #   |  Day | Problem                                                    | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ---------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Calorie Counting?!](https://adventofcode.com/2022/day/1)  |            0.036 |            0.044 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day01.cs) |
+| 🟩   |   02 | [Rock Paper Scissors](https://adventofcode.com/2022/day/2) |            0.317 |            0.212 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day02.cs) |
+
 ### 2019
 
 | #   |  Day | Problem                                                                   | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
