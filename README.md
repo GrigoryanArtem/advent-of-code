@@ -84,6 +84,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   05 | [Supply Stacks](https://adventofcode.com/2022/day/5)           |            0.031 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day05.cs) |
 | 🟩   |   06 | [Tuning Trouble](https://adventofcode.com/2022/day/6)          |            0.010 |            0.013 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day06.cs) |
 | 🟩   |   07 | [No Space Left On Device](https://adventofcode.com/2022/day/7) |            0.345 |            0.294 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day07.cs) |
+| 🟨   |   08 | [Treetop Tree House](https://adventofcode.com/2022/day/8)      |            3.701 |            0.983 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day08.cs) |
 
 ### 2019
 

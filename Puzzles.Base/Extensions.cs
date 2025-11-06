@@ -46,6 +46,19 @@ public static class Extensions
         return (min, max);
     }
 
+    public static int IndexOf<T>(this IEnumerable<T> source, Func<T, bool> comparator)
+    {
+        var counter = 0;
+        foreach (var item in source)
+        {
+            counter++;
+            if (comparator(item))
+                break;
+        }
+
+        return counter;
+    }
+
     public static int IndexOfMin<T, V>(this T[] source, Func<T, V> selector)
         where V : IComparable<V>
     {
