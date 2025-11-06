@@ -25,7 +25,7 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
         {
             foreach (var ddx in Enumerable.Range(0, 4))
             {
-                if (ToBorder(map, idx, ddx).All(n => n.data < el))
+                if (ToBorder(map, idx, ddx).All(n => n < el))
                     set.Add(idx);
             }
         }
@@ -39,13 +39,13 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
         var array = map.WithIndex()
             .AsParallel()
             .Select(d => Enumerable.Range(0, 4)
-                .Aggregate(1, (acc, ddx) => acc *= ToBorder(map, d.index, ddx).IndexOf(n => n.data >= d.item)))
+                .Aggregate(1, (acc, ddx) => acc *= ToBorder(map, d.index, ddx).IndexOf(n => n >= d.item)))
             .ToArray();
 
         return array.Max().ToString();
     }
 
-    public static IEnumerable<(short data, int idx)> ToBorder(Map map, int idx, int ddx)
+    public static IEnumerable<short> ToBorder(Map map, int idx, int ddx)
     {
         int y = idx / map.Columns;
 
@@ -63,7 +63,7 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
 
             idx = nextIdx;
 
-            yield return (map[idx], idx);
+            yield return map[idx];
         }
     }
 }

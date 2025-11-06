@@ -25,7 +25,16 @@ public record struct Vec2 : IEnumerable<int>
     {
         yield return X;
         yield return Y;
+    }    
+
+    public void Move(Vec2 dir)
+    {
+        X += dir.X;
+        Y += dir.Y;
     }
+
+    public readonly Vec2 Clamp(int val)
+        => new(Math.Clamp(X, -val, val), Math.Clamp(Y, -val, val));
 
     readonly IEnumerator IEnumerable.GetEnumerator() 
         => GetEnumerator();

@@ -107,8 +107,24 @@ public static class AOC
     public static int ManhattanDistance(int ax, int ay, int bx, int by)
         => Math.Abs(ax - bx) + Math.Abs(ay - by);
 
+    public static int ChebyshevDistance(int ax, int ay, int bx, int by)
+        => Math.Max(Math.Abs(ax - bx), Math.Abs(ay - by));
+
+    /// <summary>
+    /// <para>2 1 2</para>
+    /// <para>1 x 1</para>
+    /// <para>2 1 2</para>
+    /// </summary>
     public static int ManhattanDistance(Vec2 from, Vec2 to)
         => ManhattanDistance(from.X, from.Y, to.X, to.Y);
+
+    /// <summary>
+    /// <para>1 1 1</para>
+    /// <para>1 x 1</para>
+    /// <para>1 1 1</para>
+    /// </summary>
+    public static int ChebyshevDistance(Vec2 from, Vec2 to)
+        => ChebyshevDistance(from.X, from.Y, to.X, to.Y);
 
     public static int ManhattanDistance(int ax, int ay, int az, int bx, int by, int bz)
         => Math.Abs(ax - bx) + Math.Abs(ay - by) + Math.Abs(az - bz);
