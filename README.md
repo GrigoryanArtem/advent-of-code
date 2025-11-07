@@ -34,7 +34,7 @@ Time was measured by running each part n times and finding the average result. T
 | ------------- | ---: |
 | [2024](#2024) |   50 |
 | [2023](#2023) |    2 |
-| [2023](#2022) |   10 |
+| [2022](#2022) |   22 |
 | [2019](#2019) |   28 |
 
 ### 2024
@@ -87,6 +87,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟨   |   08 | [Treetop Tree House](https://adventofcode.com/2022/day/8)      |            3.701 |            0.983 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day08.cs) |
 | 🟩   |   09 | [Rope Bridge](https://adventofcode.com/2022/day/9)             |            0.442 |            0.597 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day09.cs) |
 | 🟩   |   10 | [Cathode-Ray Tube](https://adventofcode.com/2022/day/10)       |            0.020 |            0.016 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day10.cs) |
+| 🟨   |   11 | [Monkey in the Middle](https://adventofcode.com/2022/day/11)   |            0.288 |           72.440 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day11.cs) |
 
 ### 2019
 
