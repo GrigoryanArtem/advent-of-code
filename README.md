@@ -75,19 +75,20 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2022
 
-| #   |  Day | Problem                                                        | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | -------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Calorie Counting?!](https://adventofcode.com/2022/day/1)      |            0.036 |            0.044 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day01.cs) |
-| 🟩   |   02 | [Rock Paper Scissors](https://adventofcode.com/2022/day/2)     |            0.317 |            0.212 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day02.cs) |
-| 🟩   |   03 | [Rucksack Reorganization](https://adventofcode.com/2022/day/3) |            0.382 |            0.114 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day03.cs) |
-| 🟩   |   04 | [Camp Cleanup](https://adventofcode.com/2022/day/4)            |            0.022 |            0.022 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day04.cs) |
-| 🟩   |   05 | [Supply Stacks](https://adventofcode.com/2022/day/5)           |            0.031 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day05.cs) |
-| 🟩   |   06 | [Tuning Trouble](https://adventofcode.com/2022/day/6)          |            0.010 |            0.013 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day06.cs) |
-| 🟩   |   07 | [No Space Left On Device](https://adventofcode.com/2022/day/7) |            0.345 |            0.294 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day07.cs) |
-| 🟨   |   08 | [Treetop Tree House](https://adventofcode.com/2022/day/8)      |            3.701 |            0.983 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day08.cs) |
-| 🟩   |   09 | [Rope Bridge](https://adventofcode.com/2022/day/9)             |            0.442 |            0.597 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day09.cs) |
-| 🟩   |   10 | [Cathode-Ray Tube](https://adventofcode.com/2022/day/10)       |            0.020 |            0.016 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day10.cs) |
-| 🟨   |   11 | [Monkey in the Middle](https://adventofcode.com/2022/day/11)   |            0.288 |           72.440 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day11.cs) |
+| #   |  Day | Problem                                                         | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | --------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Calorie Counting?!](https://adventofcode.com/2022/day/1)       |            0.036 |            0.044 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day01.cs) |
+| 🟩   |   02 | [Rock Paper Scissors](https://adventofcode.com/2022/day/2)      |            0.317 |            0.212 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day02.cs) |
+| 🟩   |   03 | [Rucksack Reorganization](https://adventofcode.com/2022/day/3)  |            0.382 |            0.114 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day03.cs) |
+| 🟩   |   04 | [Camp Cleanup](https://adventofcode.com/2022/day/4)             |            0.022 |            0.022 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day04.cs) |
+| 🟩   |   05 | [Supply Stacks](https://adventofcode.com/2022/day/5)            |            0.031 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day05.cs) |
+| 🟩   |   06 | [Tuning Trouble](https://adventofcode.com/2022/day/6)           |            0.010 |            0.013 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day06.cs) |
+| 🟩   |   07 | [No Space Left On Device](https://adventofcode.com/2022/day/7)  |            0.345 |            0.294 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day07.cs) |
+| 🟨   |   08 | [Treetop Tree House](https://adventofcode.com/2022/day/8)       |            3.701 |            0.983 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day08.cs) |
+| 🟩   |   09 | [Rope Bridge](https://adventofcode.com/2022/day/9)              |            0.442 |            0.597 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day09.cs) |
+| 🟩   |   10 | [Cathode-Ray Tube](https://adventofcode.com/2022/day/10)        |            0.020 |            0.016 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day10.cs) |
+| 🟨   |   11 | [Monkey in the Middle](https://adventofcode.com/2022/day/11)    |            0.288 |           72.440 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day11.cs) |
+| 🟩   |   12 | [Hill Climbing Algorithm](https://adventofcode.com/2022/day/12) |            0.654 |            0.601 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day12.cs) |
 
 ### 2019
 
