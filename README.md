@@ -34,7 +34,7 @@ Time was measured by running each part n times and finding the average result. T
 | ------------- | ---: |
 | [2024](#2024) |   50 |
 | [2023](#2023) |    2 |
-| [2022](#2022) |   22 |
+| [2022](#2022) |   26 |
 | [2019](#2019) |   28 |
 
 ### 2024
