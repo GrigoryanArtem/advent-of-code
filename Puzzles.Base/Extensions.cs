@@ -7,6 +7,9 @@ public static class Extensions
     public static ulong UInt64Sum<T>(this IEnumerable<T> source, Func<T, ulong> func)
         => source.Aggregate(0UL, (acc, n) => acc + func(n));
 
+    public static long Mul<T>(this IEnumerable<T> source, Func<T, int> func)
+       => source.Aggregate(1L, (acc, n) => acc * func(n));
+
     public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
         where T : class
         => source.Where(x => x is not null);
@@ -45,7 +48,6 @@ public static class Extensions
 
         return (min, max);
     }
-    
 
     public static int IndexOf<T>(this IEnumerable<T> source, Func<T, bool> comparator)
     {

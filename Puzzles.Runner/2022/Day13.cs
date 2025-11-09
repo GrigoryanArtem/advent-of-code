@@ -8,21 +8,21 @@ public partial class Day13(ILinesInputReader input) : IPuzzleSolver
         public Node[] Nodes { get; set; } = [];
         public int? Value { get; set; }
 
+        public static Node Create(int value)
+            => new() { Value = value };
+
+        public static Node Create(Node[] nodes)
+            => new() { Nodes = nodes };
+
         public static Node Parse(string line)
         {
             Parse(line, 1, out var node);
             return node;
         }
 
-        public static Node Create(int value)
-            => new() {  Value = value };
-
-        public static Node Create(Node[] nodes)
-            => new() { Nodes = nodes };
-
         private static int Parse(string line, int start, out Node node)
-        {            
-            List<Node> vals = [];
+        {
+            List<Node> nodes = [];
 
             var endIndex = 0;
             for (int idx = start; idx < line.Length; idx++)
@@ -32,7 +32,7 @@ public partial class Day13(ILinesInputReader input) : IPuzzleSolver
                 if (ch == '[')
                 {
                     idx = Parse(line, idx + 1, out var val);
-                    vals.Add(val);
+                    nodes.Add(val);
                     continue;
                 }
                 else if (ch == ']')
@@ -40,8 +40,7 @@ public partial class Day13(ILinesInputReader input) : IPuzzleSolver
                     endIndex = idx;
                     break;
                 }
-
-                if (Char.IsDigit(ch))
+                else if (Char.IsDigit(ch))
                 {
                     var numIdx = idx;
                     var next = line[idx + 1];
@@ -51,25 +50,25 @@ public partial class Day13(ILinesInputReader input) : IPuzzleSolver
                         next = line[idx + 1];
                     }
 
-                    vals.Add(Node.Create(Convert.ToInt32(line[numIdx..(idx + 1)])));
+                    nodes.Add(Node.Create(Convert.ToInt32(line[numIdx..(idx + 1)])));
                 }
             }
 
-            node = Node.Create([.. vals]);
+            node = Node.Create([.. nodes]);
             return endIndex;
         }
-    }    
+    }
 
     private Node[] _input = [];
 
     public void Init()
         => _input = [..input.Lines
             .Where(line => !String.IsNullOrWhiteSpace(line))
-            .Select(Node.Parse)];    
+            .Select(Node.Parse)];
 
     public string SolvePart1()
         => _input
-            .Chunk(2)            
+            .Chunk(2)
             .WithIndex()
             .Where(d => Compare(d.item[0], d.item[1]) > 0)
             .Sum(d => d.index + 1)
@@ -85,7 +84,7 @@ public partial class Day13(ILinesInputReader input) : IPuzzleSolver
             .OrderByDescending(x => x, comparer)
             .WithIndex()
             .Where(d => additional.Contains(d.item))
-            .Aggregate(1, (acc, d) => acc * (d.index + 1))
+            .Mul(d => d.index + 1)
             .ToString();
     }
 
