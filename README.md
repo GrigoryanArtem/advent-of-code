@@ -89,6 +89,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   10 | [Cathode-Ray Tube](https://adventofcode.com/2022/day/10)        |            0.020 |            0.016 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day10.cs) |
 | 🟨   |   11 | [Monkey in the Middle](https://adventofcode.com/2022/day/11)    |            0.288 |           72.440 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day11.cs) |
 | 🟩   |   12 | [Hill Climbing Algorithm](https://adventofcode.com/2022/day/12) |            0.654 |            0.601 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day12.cs) |
+| 🟩   |   13 | [Distress Signal](https://adventofcode.com/2022/day/13)         |            0.028 |            0.226 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day13.cs) |
 
 ### 2019
 

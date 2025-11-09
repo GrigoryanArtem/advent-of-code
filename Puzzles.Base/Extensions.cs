@@ -45,6 +45,7 @@ public static class Extensions
 
         return (min, max);
     }
+    
 
     public static int IndexOf<T>(this IEnumerable<T> source, Func<T, bool> comparator)
     {
