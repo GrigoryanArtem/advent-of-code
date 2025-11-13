@@ -33,7 +33,7 @@ Time was measured by running each part n times and finding the average result. T
 | Year          |    ⭐ |
 | ------------- | ---: |
 | [2024](#2024) |   50 |
-| [2023](#2023) |    2 |
+| [2023](#2023) |    6 |
 | [2022](#2022) |   26 |
 | [2019](#2019) |   28 |
 
@@ -72,6 +72,8 @@ Time was measured by running each part n times and finding the average result. T
 | #   |  Day | Problem                                            | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
 | --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
 | 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1) |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day01.cs) |
+| 🟩   |   02 | [Trebuchet?!](https://adventofcode.com/2023/day/2) |            0.225 |            0.278 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day02.cs) |
+| 🟩   |   03 | [Gear Ratios](https://adventofcode.com/2023/day/3) |            0.884 |            3.105 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day03.cs) |
 
 ### 2022
 
