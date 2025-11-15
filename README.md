@@ -35,6 +35,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2024](#2024) |   50 |
 | [2023](#2023) |    6 |
 | [2022](#2022) |   26 |
+| [2021](#2022) |    4 |
 | [2019](#2019) |   28 |
 
 ### 2024
@@ -92,6 +93,13 @@ Time was measured by running each part n times and finding the average result. T
 | 🟨   |   11 | [Monkey in the Middle](https://adventofcode.com/2022/day/11)    |            0.288 |           72.440 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day11.cs) |
 | 🟩   |   12 | [Hill Climbing Algorithm](https://adventofcode.com/2022/day/12) |            0.654 |            0.601 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day12.cs) |
 | 🟩   |   13 | [Distress Signal](https://adventofcode.com/2022/day/13)         |            0.028 |            0.226 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2022/Day13.cs) |
+
+### 2021
+
+| #   |  Day | Problem                                            | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1) |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
+| 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)       |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
 
 ### 2019
 
