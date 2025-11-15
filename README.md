@@ -96,10 +96,11 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2021
 
-| #   |  Day | Problem                                            | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1) |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
-| 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)       |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
+| #   |  Day | Problem                                                  | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | -------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1)       |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
+| 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)             |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
+| 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3) |            0.383 |            1.097 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
 
 ### 2019
 
