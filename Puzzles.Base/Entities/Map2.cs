@@ -110,6 +110,20 @@ public class Map2<T> : IEnumerable<T>
     IEnumerator IEnumerable.GetEnumerator()
         => Data.GetEnumerator();
 
+    public IEnumerable<T> Row(int row)
+    {
+        var start = D2toD1(0, row);
+        for(int i = 0; i < Columns; i++)
+            yield return this[start + i];
+    }
+
+    public IEnumerable<T> Column(int column)
+    {
+        var start = D2toD1(column, 0);
+        for (int i = 0; i < Rows; i++)
+            yield return this[start + i * Columns];
+    }
+
     public static Map2<T> Null => new();
     public static Map2<T> Empty(int columns, int rows)
         => new(new T[rows * columns], columns);

@@ -70,11 +70,11 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2023
 
-| #   |  Day | Problem                                            | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | -------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1) |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day01.cs) |
-| 🟩   |   02 | [Trebuchet?!](https://adventofcode.com/2023/day/2) |            0.225 |            0.278 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day02.cs) |
-| 🟩   |   03 | [Gear Ratios](https://adventofcode.com/2023/day/3) |            0.884 |            3.105 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day03.cs) |
+| #   |  Day | Problem                                               | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ----------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1)    |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day01.cs) |
+| 🟩   |   02 | [Trebuchet?!](https://adventofcode.com/2023/day/2)    |            0.225 |            0.278 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day02.cs) |
+| 🟩   |   03 | [Cube Conundrum](https://adventofcode.com/2023/day/3) |            0.884 |            3.105 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day03.cs) |
 
 ### 2022
 
@@ -100,7 +100,7 @@ Time was measured by running each part n times and finding the average result. T
 | --- | ---: | -------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
 | 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1)       |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
 | 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)             |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
-| 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3) |            0.383 |            1.097 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
+| 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3) |            0.127 |            0.011 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
 
 ### 2019
 

@@ -30,20 +30,14 @@ internal class Program
     }
 
     private static void Run(IPuzzleSolver solver, int count)
-    {
-        var initTime = Stopwatch.StartNew();
-        solver.Init();
-        initTime.Stop();
-
-        Console.WriteLine($"Init time: {initTime.Elapsed.TotalMilliseconds} ms.");
-        Console.WriteLine();
-
+    {        
         if (count > 1)
         {
             Console.WriteLine($"Number of iterations: {count}");
             Console.WriteLine();
         }
 
+        PrintResult("Init", RunWithTime(solver.Init, count));        
         PrintResult("Part 1", RunWithTime(solver.SolvePart1, count));
         PrintResult("Part 2", RunWithTime(solver.SolvePart2, count));
     }
@@ -55,6 +49,24 @@ internal class Program
         Console.WriteLine(title);
         Console.WriteLine($"Time: {timeMs:f3} ms.");
         Console.WriteLine($"> Answer: {result}");
+        Console.WriteLine();
+    }
+
+    private static void PrintResult(string title, double timeMs)
+    {
+        Console.WriteLine(title);
+        Console.WriteLine($"Time: {timeMs:f3} ms.");
+        Console.WriteLine();
+    }
+
+    public static double RunWithTime(Action acton, int count)
+    {
+        Stopwatch sw = Stopwatch.StartNew();
+
+        for (int i = 0; i < count; i++)
+            acton();
+
+        return (sw.Elapsed.TotalMilliseconds / count);
     }
 
     public static (double timeMs, T result) RunWithTime<T>(Func<T> func, int count)
