@@ -23,6 +23,12 @@ public class Mat2<T> : IEnumerable<T>
         Directions = [-Columns, 1, Columns, -1];
     }
 
+    public ref T Ref(int loc)
+        => ref Data[loc];
+
+    public ref T Ref(int x, int y)
+        => ref Data[D2toD1(x, y)];
+
     public T this[int loc]
     {
         get => Data[loc];
