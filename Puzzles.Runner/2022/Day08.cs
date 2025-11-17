@@ -1,6 +1,6 @@
 ﻿namespace Puzzles.Runner._2022;
 
-using Map = Map2<short>;
+using Map = Mat2<short>;
 
 [Puzzle("Treetop Tree House", 8, 2022)]
 public class Day08(ILinesInputReader input) : IPuzzleSolver

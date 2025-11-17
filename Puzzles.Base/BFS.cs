@@ -2,7 +2,7 @@
 
 namespace Puzzles.Base;
 
-public class BFS<T>(Map2<T> map, HashSet<T> obstructions)
+public class BFS<T>(Mat2<T> map, HashSet<T> obstructions)
 {
     private readonly Queue<int> queue = new(map.Data.Length);
     private readonly HashSet<int> visited = new(map.Data.Length);

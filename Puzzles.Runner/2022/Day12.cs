@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2022;
 
 using Puzzles.Base;
-using Map = Map2<char>;
+using Map = Mat2<char>;
 
 [Puzzle("Hill Climbing Algorithm", 12, 2022)]
 public partial class Day12(ILinesInputReader input) : IPuzzleSolver

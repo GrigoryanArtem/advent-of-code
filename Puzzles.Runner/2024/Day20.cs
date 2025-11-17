@@ -1,6 +1,6 @@
 ﻿namespace Puzzles.Runner._2024;
 
-using Map = Map2<char>;
+using Map = Mat2<char>;
 
 [Puzzle("Race Condition", 20, 2024)]
 public class Day20(ILinesInputReader input) : IPuzzleSolver

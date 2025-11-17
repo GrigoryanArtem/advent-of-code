@@ -2,7 +2,7 @@
 
 namespace Puzzles.Visuals._2024;
 
-using Map = Map2<char>;
+using Map = Mat2<char>;
 
 public class Day20
 {

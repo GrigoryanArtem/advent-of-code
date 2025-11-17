@@ -1,4 +1,4 @@
-﻿using Map = Puzzles.Base.Entities.Map2<char>;
+﻿using Map = Puzzles.Base.Entities.Mat2<char>;
 using Node = (int location, int direction, int distance);
 
 namespace Puzzles.Runner._2024;

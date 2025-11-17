@@ -1,6 +1,6 @@
 ﻿namespace Puzzles.Runner._2024;
 
-using Map = Map2<char>;
+using Map = Mat2<char>;
 
 [Puzzle("Keypad Conundrum", 21, 2024)]
 public class Day21(ILinesInputReader input) : IPuzzleSolver

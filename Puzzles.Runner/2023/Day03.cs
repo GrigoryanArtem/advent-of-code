@@ -1,6 +1,6 @@
 ﻿namespace Puzzles.Runner._2023;
 
-using Map = Map2<char>;
+using Map = Mat2<char>;
 
 [Puzzle("Gear Ratios", 3, 2023)]
 public partial class Day03(ILinesInputReader input) : IPuzzleSolver

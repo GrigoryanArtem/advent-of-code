@@ -1,6 +1,6 @@
 ﻿namespace Puzzles.Runner._2021;
 
-using Map = Map2<char>;
+using Map = Mat2<char>;
 
 [Puzzle("Binary Diagnostic", 3, 2021)]
 public class Day03(ILinesInputReader input) : IPuzzleSolver
@@ -25,7 +25,7 @@ public class Day03(ILinesInputReader input) : IPuzzleSolver
 
         var gamma = Enumerable.Range(0, _map.Columns)
             .Select(i => _map.Column(i).Count(ch => ch == '1'))
-            .Aggregate(0, (acc, v) => acc = (acc << 1) | (v > half ? 1 : 0));
+            .Aggregate(0, (acc, v) => acc = (acc << 1) | (v >= half ? 1 : 0));
 
         var epsilon = (~gamma) & mask;
 

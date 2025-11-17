@@ -101,6 +101,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1)       |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
 | 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)             |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
 | 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3) |            0.127 |            0.011 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
+| 🟩   |   04 | [Giant Squid](https://adventofcode.com/2021/day/4)       |            0.766 |            1.407 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day04.cs) |
 
 ### 2019
 

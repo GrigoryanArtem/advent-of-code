@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 
 namespace Puzzles.Base.Entities;
-public class Map2<T> : IEnumerable<T>
+public class Mat2<T> : IEnumerable<T>
 {
     public const int UP = 0;
     public const int RIGHT = 1;
     public const int DOWN = 2;
     public const int LEFT = 3;
 
-    private Map2()
+    private Mat2()
     {
         Columns = Rows = 0;
         Data = [];
         Directions = [0, 0, 0, 0];
     }
 
-    public Map2(T[] data, int columns)
+    public Mat2(T[] data, int columns)
     {
         Columns = columns;
         Rows = data.Length / columns;
@@ -63,7 +63,7 @@ public class Map2<T> : IEnumerable<T>
         return buffer;
     }
 
-    public Map2<T> Copy()
+    public Mat2<T> Copy()
     {
         var buffer = new T[Data.Length];
         Array.Copy(Data, buffer, Data.Length);
@@ -124,11 +124,11 @@ public class Map2<T> : IEnumerable<T>
             yield return this[start + i * Columns];
     }
 
-    public static Map2<T> Null => new();
-    public static Map2<T> Empty(int columns, int rows)
+    public static Mat2<T> Null => new();
+    public static Mat2<T> Empty(int columns, int rows)
         => new(new T[rows * columns], columns);
 
-    public static Map2<T> WithBorders(T[] data, int columns, T borderValue)
+    public static Mat2<T> WithBorders(T[] data, int columns, T borderValue)
     {
         var rows = data.Length / columns;
 
