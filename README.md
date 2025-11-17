@@ -102,7 +102,8 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)                |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
 | 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3)    |            0.127 |            0.011 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
 | 🟩   |   04 | [Giant Squid](https://adventofcode.com/2021/day/4)          |            0.766 |            1.407 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day04.cs) |
-| 🟩   |   05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5) |            5.063 |           10.416 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day05.cs) |
+| 🟩   |   05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5) |            1.809 |            1.672 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day05.cs) |
+| 🟨   |   06 | [Lanternfish](https://adventofcode.com/2021/day/6)          |            0.003 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day06.cs) |
 
 ### 2019
 

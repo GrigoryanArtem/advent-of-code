@@ -1,20 +1,16 @@
 {
   "profiles": {
-    "WSL": {
-      "commandName": "WSL2",
-      "distributionName": ""
-    },
     "Examples": {
       "commandName": "Project",
-      "commandLineArgs": "-e -d 5 -y 2021"
+      "commandLineArgs": "-e -d 6 -y 2021"
     },
     "Input": {
       "commandName": "Project",
-      "commandLineArgs": "-d 5 -y 2021"
+      "commandLineArgs": "-d 6 -y 2021"
     },
     "Performance": {
       "commandName": "Project",
-      "commandLineArgs": "-p -d 5 -y 2021"
+      "commandLineArgs": "-p -d 6 -y 2021"
     }
   }
 }

@@ -23,7 +23,7 @@ public class State
     public InputMode Input { get; set; }
 
     public string? CustomPath { get; set; }
-    public string InputPath => Input == InputMode.Custom ? CustomPath! : @$"{Year}/{ModeToPath()}/{Day}.in";
+    public string InputPath => Input == InputMode.Custom ? CustomPath! : @$"{Year}/{ModeToPath()}/{Day:D2}.in";
 
     private string ModeToPath() => Input switch
     {
