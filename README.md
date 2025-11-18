@@ -30,13 +30,19 @@ Place your examples to
 Time was measured by running each part n times and finding the average result. The i9-13900K was used for testing.
 
 ## Events
-| Year          |    ⭐ |
-| ------------- | ---: |
-| [2024](#2024) |   50 |
-| [2023](#2023) |    6 |
-| [2022](#2022) |   26 |
-| [2021](#2021) |   10 |
-| [2019](#2019) |   28 |
+| Year          |       ⭐ |
+| ------------- | ------: |
+| Total         | **124** |
+| [2024](#2024) |      50 |
+| [2023](#2023) |       6 |
+| [2022](#2022) |      26 |
+| [2021](#2021) |      14 |
+| 2020          |       0 |
+| [2019](#2019) |      28 |
+| 2018          |       0 |
+| 2017          |       0 |
+| 2016          |       0 |
+| 2015          |       0 |
 
 ### 2024
 
@@ -96,14 +102,15 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2021
 
-| #   |  Day | Problem                                                     | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | ----------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1)          |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
-| 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)                |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
-| 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3)    |            0.127 |            0.011 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
-| 🟩   |   04 | [Giant Squid](https://adventofcode.com/2021/day/4)          |            0.766 |            1.407 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day04.cs) |
-| 🟩   |   05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5) |            1.809 |            1.672 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day05.cs) |
-| 🟨   |   06 | [Lanternfish](https://adventofcode.com/2021/day/6)          |            0.003 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day06.cs) |
+| #   |  Day | Problem                                                        | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | -------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Sonar Sweep](https://adventofcode.com/2021/day/1)             |            0.037 |            0.037 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day01.cs) |
+| 🟩   |   02 | [Dive!](https://adventofcode.com/2021/day/2)                   |            0.052 |            0.046 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day02.cs) |
+| 🟩   |   03 | [Binary Diagnostic](https://adventofcode.com/2021/day/3)       |            0.127 |            0.011 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day03.cs) |
+| 🟩   |   04 | [Giant Squid](https://adventofcode.com/2021/day/4)             |            0.766 |            1.407 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day04.cs) |
+| 🟩   |   05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5)    |            1.809 |            1.672 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day05.cs) |
+| 🟨   |   06 | [Lanternfish](https://adventofcode.com/2021/day/6)             |            0.003 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day06.cs) |
+| 🟩   |   07 | [The Treachery of Whales](https://adventofcode.com/2021/day/7) |            0.041 |            0.061 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day07.cs) |
 
 ### 2019
 

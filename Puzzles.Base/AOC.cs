@@ -37,6 +37,18 @@ public static class AOC
 
     #region Math
 
+    public static int Median(IEnumerable<int> input)
+    {
+        var list = new List<int>(input);
+
+        list.Sort();
+        int mid = list.Count / 2;
+
+        return mid % 2 != 0 
+            ? list[mid] 
+            : (list[mid - 1] + list[mid]) / 2;
+    }
+
     public static int GetDigits(ulong number)
        => (int)(Math.Log10(number) + 1);
 
