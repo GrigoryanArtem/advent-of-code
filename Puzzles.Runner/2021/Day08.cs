@@ -1,51 +1,50 @@
-﻿namespace Puzzles.Runner._2021;
+﻿using System.Numerics;
+
+namespace Puzzles.Runner._2021;
 
 [Puzzle("Seven Segment Search", 8, 2021)]
 public class Day08(ILinesInputReader input) : IPuzzleSolver
 {    
-    private record Example(string[] Patterns, string[] Output);
-
+    private record Example(uint[] Patterns, uint[] Output);
     private class Resolver
     {
-        private readonly string[] _numbers = new string[10];
-        public int Resolve(string[] patterns, string[] probes)
+        private readonly uint[] _numbers = new uint[10];        
+
+        public int Resolve(uint[] patterns, uint[] probes)
         {
             Init(patterns);
             return probes.Aggregate(0, (acc, v) => acc * 10 + Resolve(v));
         }
 
-        private void Init(string[] patterns)
+        private void Init(uint[] patterns)
         {
             _numbers[1] = Find(patterns, 2);
             _numbers[7] = Find(patterns, 3);
             _numbers[4] = Find(patterns, 4);
             _numbers[8] = Find(patterns, 7);
 
-            _numbers[2] = Find(patterns, _numbers, 5, 1, 2);
-            _numbers[3] = Find(patterns, _numbers, 5, 2, 3);
-            _numbers[5] = Find(patterns, _numbers, 5, 1, 3);
-
-            _numbers[0] = Find(patterns, _numbers, 6, 2, 3);
-            _numbers[6] = Find(patterns, _numbers, 6, 1, 3);
-            _numbers[9] = Find(patterns, _numbers, 6, 2, 4);
+            _numbers[3] = Find(patterns, 5, 7, 3);
+            _numbers[9] = Find(patterns, 6, 4, 4);
+            _numbers[6] = Find(patterns, 6, 7, 2);
+            _numbers[5] = Find(patterns, 5, 6, 5);
+            _numbers[0] = Find(patterns, 6, 5, 4);
+            _numbers[2] = Find(patterns, 5, 4, 2);
         }
 
-        private int Resolve(string probe)
+        private int Resolve(uint probe)
             => Array.IndexOf(_numbers, probe);
 
-        private static string Find(string[] patterns, int length)
-            => patterns.First(p => p.Length == length);
+        private static uint Find(uint[] patterns, int length)
+            => patterns.First(p => BitOperations.PopCount(p) == length);
 
-        private static string Find(string[] patterns, string[] precalc, int length, int one, int four)
-            => patterns.First(p => p.Length == length &&
-                IntersectcCount(precalc[1], p) == one &&
-                IntersectcCount(precalc[4], p) == four);
-
-        private static int IntersectcCount(string a, string b)
-            => a.Count(b.Contains);
+        private uint Find(uint[] patterns, int length, int @ref, int count)
+            => patterns.First(p => 
+                BitOperations.PopCount(p) == length &&
+                BitOperations.PopCount(_numbers[@ref] & p) == count);
     }
 
     private Example[] _examples = [];
+    private static readonly ThreadLocal<Resolver> _resolver = new(() => new Resolver(), trackAllValues: false);
 
     public void Init()
     {
@@ -54,11 +53,8 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
             var tokens = line.Split("|");
             return new Example
             (
-                [..tokens[0].Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(str => new string([..str.OrderBy(x => x)]))],
-
-                [..tokens[1].Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(str => new string([..str.OrderBy(x => x)]))]
+                [..tokens[0].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(ToMask)],
+                [..tokens[1].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(ToMask)]
             );
         })];
     }
@@ -66,15 +62,24 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart1()
         => _examples.Sum(e => e.Output.Count(IsSimpleDigit)).ToString();
 
-    public string SolvePart2()
-    {
-        var resolver = new Resolver();
-        return _examples.Sum(ex => resolver.Resolve(ex.Patterns, ex.Output)).ToString();
-    }
+    public string SolvePart2() 
+        => _examples.AsParallel()            
+            .Sum(ex => _resolver.Value!.Resolve(ex.Patterns, ex.Output))
+            .ToString();
 
-    public static bool IsSimpleDigit(string value) => value.Length switch
+    private static bool IsSimpleDigit(uint value) => BitOperations.PopCount(value) switch
     {
         2 or 4 or 3 or 7 => true,
         _ => false
     };
+
+    private static uint ToMask(string str)
+    {
+        var result = 0u;
+
+        foreach (char c in str)
+            result |= 1u << (c - 'a');
+
+        return result;
+    }
 }

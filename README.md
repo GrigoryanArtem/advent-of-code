@@ -32,11 +32,11 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **124** |
+| Total         | **126** |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
-| [2021](#2021) |      14 |
+| [2021](#2021) |      16 |
 | 2020          |       0 |
 | [2019](#2019) |      28 |
 | 2018          |       0 |
@@ -111,7 +111,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5)    |            1.809 |            1.672 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day05.cs) |
 | 🟨   |   06 | [Lanternfish](https://adventofcode.com/2021/day/6)             |            0.003 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day06.cs) |
 | 🟩   |   07 | [The Treachery of Whales](https://adventofcode.com/2021/day/7) |            0.041 |            0.061 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day07.cs) |
-| 🟩   |   08 | [Seven Segment Search](https://adventofcode.com/2021/day/8)    |            0.012 |            0.299 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day08.cs) |
+| 🟩   |   08 | [Seven Segment Search](https://adventofcode.com/2021/day/8)    |            0.018 |            0.084 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day08.cs) |
 
 ### 2019
 
