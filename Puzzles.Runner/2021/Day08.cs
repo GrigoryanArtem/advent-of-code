@@ -46,9 +46,8 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
     private Example[] _examples = [];
     private static readonly ThreadLocal<Resolver> _resolver = new(() => new Resolver(), trackAllValues: false);
 
-    public void Init()
-    {
-        _examples = [.. input.Lines.Select(line =>
+    public void Init() 
+        => _examples = [.. input.Lines.Select(line =>
         {
             var tokens = line.Split("|");
             return new Example
@@ -57,8 +56,7 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
                 [..tokens[1].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(ToMask)]
             );
         })];
-    }
-
+    
     public string SolvePart1()
         => _examples.Sum(e => e.Output.Count(IsSimpleDigit)).ToString();
 
@@ -69,7 +67,7 @@ public class Day08(ILinesInputReader input) : IPuzzleSolver
 
     private static bool IsSimpleDigit(uint value) => BitOperations.PopCount(value) switch
     {
-        2 or 4 or 3 or 7 => true,
+        2 or 3 or 4 or 7 => true,
         _ => false
     };
 
