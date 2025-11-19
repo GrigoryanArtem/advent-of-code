@@ -16,11 +16,11 @@ To use custom input:
 
 Place your input to  
 `<year>/input/<day>.in`   
-`./2024/input/3.in`
+`./2024/input/03.in`
 
 Place your examples to  
 `<year>/examples/<day>.in`    
-`./2024/examples/3.in`
+`./2024/examples/03.in`
 
 ### Legend 
 🟩 Easy  
@@ -111,6 +111,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5)    |            1.809 |            1.672 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day05.cs) |
 | 🟨   |   06 | [Lanternfish](https://adventofcode.com/2021/day/6)             |            0.003 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day06.cs) |
 | 🟩   |   07 | [The Treachery of Whales](https://adventofcode.com/2021/day/7) |            0.041 |            0.061 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day07.cs) |
+| 🟩   |   08 | [Seven Segment Search](https://adventofcode.com/2021/day/8)    |            0.015 |            1.315 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day08.cs) |
 
 ### 2019
 
