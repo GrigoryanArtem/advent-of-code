@@ -31,21 +31,20 @@ public class Day10(ILinesInputReader input) : IPuzzleSolver
     };
 
     public string SolvePart1()
-        => input.Lines.UInt64Sum(line => TryComplete(line, Mode.Errors)).ToString();
+        => input.Lines.UInt64Sum(line => Score(line, Mode.Errors)).ToString();
     
 
     public string SolvePart2()
     {
-        var scores = input.Lines.Select(line => TryComplete(line, Mode.Complete))
+        var scores = input.Lines.Select(line => Score(line, Mode.Complete))
             .Where(v => v > 0)            
             .ToList();
 
         scores.Sort();
-
         return scores[scores.Count / 2].ToString();
     }
 
-    private ulong TryComplete(string line, Mode mode)
+    private ulong Score(string line, Mode mode)
     {
         Span<char> _stack = stackalloc char[2048];
         int ptr = 0;
