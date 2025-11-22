@@ -32,12 +32,12 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **130** |
+| Total         | **132** |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
 | [2021](#2021) |      20 |
-| 2020          |       0 |
+| [2020](#2020) |       2 |
 | [2019](#2019) |      28 |
 | 2018          |       0 |
 | 2017          |       0 |
@@ -114,6 +114,13 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   08 | [Seven Segment Search](https://adventofcode.com/2021/day/8)    |            0.018 |            0.084 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day08.cs) |
 | 🟩   |   09 | [Smoke Basin](https://adventofcode.com/2021/day/9)             |            0.123 |            0.141 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day09.cs) |
 | 🟩   |   10 | [Syntax Scoring](https://adventofcode.com/2021/day/10)         |            0.131 |            0.143 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2021/Day10.cs) |
+
+### 2020
+
+| #   |  Day | Problem                                              | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ---------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Report Repair](https://adventofcode.com/2020/day/1) |            0.015 |            0.052 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day01.cs) |
+
 
 ### 2019
 
