@@ -32,12 +32,12 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **132** |
+| Total         | **134** |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
 | [2021](#2021) |      20 |
-| [2020](#2020) |       2 |
+| [2020](#2020) |       4 |
 | [2019](#2019) |      28 |
 | 2018          |       0 |
 | 2017          |       0 |
@@ -117,9 +117,10 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2020
 
-| #   |  Day | Problem                                              | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | ---------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Report Repair](https://adventofcode.com/2020/day/1) |            0.015 |            0.052 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day01.cs) |
+| #   |  Day | Problem                                                    | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ---------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Report Repair](https://adventofcode.com/2020/day/1)       |            0.015 |            0.052 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day01.cs) |
+| 🟩   |   02 | [Password Philosophy](https://adventofcode.com/2020/day/1) |            0.063 |            0.033 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day02.cs) |
 
 
 ### 2019

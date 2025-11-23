@@ -2,15 +2,15 @@
   "profiles": {
     "Examples": {
       "commandName": "Project",
-      "commandLineArgs": "-e -d 1 -y 2020"
+      "commandLineArgs": "-e -d 2 -y 2020"
     },
     "Input": {
       "commandName": "Project",
-      "commandLineArgs": "-d 1 -y 2020"
+      "commandLineArgs": "-d 2 -y 2020"
     },
     "Performance": {
       "commandName": "Project",
-      "commandLineArgs": "-p -d 1 -y 2020"
+      "commandLineArgs": "-p -d 2 -y 2020"
     }
   }
 }
