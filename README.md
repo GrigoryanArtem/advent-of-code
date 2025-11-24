@@ -121,7 +121,7 @@ Time was measured by running each part n times and finding the average result. T
 | --- | ---: | ---------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
 | 🟩   |   01 | [Report Repair](https://adventofcode.com/2020/day/1)       |            0.015 |            0.052 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day01.cs) |
 | 🟩   |   02 | [Password Philosophy](https://adventofcode.com/2020/day/2) |            0.063 |            0.033 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day02.cs) |
-| 🟩   |   03 | [Toboggan Trajectory](https://adventofcode.com/2020/day/3) |                - |                 -| [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day03.cs) |
+| 🟩   |   03 | [Toboggan Trajectory](https://adventofcode.com/2020/day/3) |            0.008 |            0.036 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day03.cs) |
 
 ### 2019
 
