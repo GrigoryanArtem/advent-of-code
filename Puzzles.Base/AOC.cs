@@ -1,4 +1,5 @@
 ﻿using Puzzles.Base.Entities;
+using System.ComponentModel;
 
 namespace Puzzles.Base;
 public static class AOC
@@ -121,6 +122,9 @@ public static class AOC
 
     public static int ChebyshevDistance(int ax, int ay, int bx, int by)
         => Math.Max(Math.Abs(ax - bx), Math.Abs(ay - by));
+
+    public static long ArithmeticProgressionSum(int a1, int an, int n)
+        => (n * (a1 + an)) / 2;
 
     /// <summary>
     /// <para>2 1 2</para>

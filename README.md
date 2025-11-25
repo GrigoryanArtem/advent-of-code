@@ -123,6 +123,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   02 | [Password Philosophy](https://adventofcode.com/2020/day/2) |            0.063 |            0.033 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day02.cs) |
 | 🟩   |   03 | [Toboggan Trajectory](https://adventofcode.com/2020/day/3) |            0.008 |            0.036 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day03.cs) |
 | 🟩   |   04 | [Passport Processing](https://adventofcode.com/2020/day/4) |            0.158 |            0.384 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day04.cs) |
+| 🟩   |   05 | [Binary Boarding](https://adventofcode.com/2020/day/5)     |            0.202 |            0.158 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day05.cs) |
 
 ### 2019
 
