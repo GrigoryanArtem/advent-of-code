@@ -28,7 +28,7 @@ public class Day06(IFullInputReader input) : IPuzzleSolver
     {
         var result = 0U;
         foreach (var ch in str)
-            result |= (1U << (ch - 'a'));
+            result |= 1U << (ch - 'a');
 
         return result;
     }

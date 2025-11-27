@@ -32,12 +32,12 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **142** |
+| Total         | **144** |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
 | [2021](#2021) |      20 |
-| [2020](#2020) |      12 |
+| [2020](#2020) |      14 |
 | [2019](#2019) |      28 |
 | 2018          |       0 |
 | 2017          |       0 |
@@ -125,6 +125,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   04 | [Passport Processing](https://adventofcode.com/2020/day/4) |            0.158 |            0.384 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day04.cs) |
 | 🟩   |   05 | [Binary Boarding](https://adventofcode.com/2020/day/5)     |            0.202 |            0.158 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day05.cs) |
 | 🟩   |   06 | [Custom Customs](https://adventofcode.com/2020/day/6)      |            0.049 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day06.cs) |
+| 🟩   |   07 | [Handy Haversacks](https://adventofcode.com/2020/day/7)    |            0.114 |            0.005 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day07.cs) |
 
 ### 2019
 
