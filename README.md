@@ -125,7 +125,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   04 | [Passport Processing](https://adventofcode.com/2020/day/4) |            0.158 |            0.384 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day04.cs) |
 | 🟩   |   05 | [Binary Boarding](https://adventofcode.com/2020/day/5)     |            0.202 |            0.158 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day05.cs) |
 | 🟩   |   06 | [Custom Customs](https://adventofcode.com/2020/day/6)      |            0.049 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day06.cs) |
-| 🟩   |   07 | [Handy Haversacks](https://adventofcode.com/2020/day/7)    |            0.114 |            0.005 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day07.cs) |
+| 🟩   |   07 | [Handy Haversacks](https://adventofcode.com/2020/day/7)    |            0.032 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day07.cs) |
 
 ### 2019
 
