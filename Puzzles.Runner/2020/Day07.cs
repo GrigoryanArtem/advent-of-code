@@ -10,11 +10,13 @@ public partial class Day07(ILinesInputReader input) : IPuzzleSolver
     private const string SHINY_GOLD = "shiny gold";
     
     private BagsTree _tree = [];
-    private readonly Dictionary<string, int> _ids = [];
+    private Dictionary<string, int> _ids = [];
 
     public void Init()
     {
         _tree = [];
+        _ids = [];
+
         foreach (var (line, idx) in input.Lines.WithIndex())
         {
             var match = BagRegex().Match(line);

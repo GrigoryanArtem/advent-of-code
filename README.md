@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **144** |
+| Total         | **146** |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
@@ -126,6 +126,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   05 | [Binary Boarding](https://adventofcode.com/2020/day/5)     |            0.202 |            0.158 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day05.cs) |
 | 🟩   |   06 | [Custom Customs](https://adventofcode.com/2020/day/6)      |            0.049 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day06.cs) |
 | 🟩   |   07 | [Handy Haversacks](https://adventofcode.com/2020/day/7)    |            0.032 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day07.cs) |
+| 🟨   |   08 | [Handheld Halting](https://adventofcode.com/2020/day/8)    |            0.003 |            0.035 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day08.cs) |
 
 ### 2019
 
