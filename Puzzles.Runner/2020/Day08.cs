@@ -5,21 +5,9 @@ namespace Puzzles.Runner._2020;
 [Puzzle("Handheld Halting", 8, 2020)]
 public partial class Day08(ILinesInputReader input) : IPuzzleSolver
 {
-    private enum Op
-    {
-        acc,
-        jmp,
-        nop
-    }
+    private enum Op { acc, jmp, nop }
+    private record struct Instruction(Op Op, int Argument);
 
-    private record struct Instruction(Op Op, int Argument)
-    {
-        public readonly void Deconstruct(out Op op, out int argument)
-        {
-            op = Op;
-            argument = Argument;
-        }
-    }
 
     private Instruction[] _program = [];
 
@@ -72,13 +60,13 @@ public partial class Day08(ILinesInputReader input) : IPuzzleSolver
             if (buffer[cur])
                 return false;
 
-            var (op, arg) = program[cur];
+            ref var instr = ref program[cur];
             buffer[cur] = true;
 
-            (acc, cur) = op switch
+            (acc, cur) = instr.Op switch
             {
-                Op.acc => (acc + arg, cur + 1),
-                Op.jmp => (acc, cur + arg),
+                Op.acc => (acc + instr.Argument, cur + 1),
+                Op.jmp => (acc, cur + instr.Argument),
                 _ => (acc, cur + 1)
             };
         }
