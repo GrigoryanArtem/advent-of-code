@@ -127,6 +127,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   06 | [Custom Customs](https://adventofcode.com/2020/day/6)      |            0.049 |            0.042 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day06.cs) |
 | 🟩   |   07 | [Handy Haversacks](https://adventofcode.com/2020/day/7)    |            0.032 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day07.cs) |
 | 🟨   |   08 | [Handheld Halting](https://adventofcode.com/2020/day/8)    |            0.003 |            0.035 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day08.cs) |
+| 🟩   |   09 | [Encoding Error](https://adventofcode.com/2020/day/9)      |            0.135 |            0.129 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2020/Day09.cs) |
 
 ### 2019
 
