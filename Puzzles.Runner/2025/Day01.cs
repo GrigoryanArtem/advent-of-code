@@ -6,12 +6,12 @@ public partial class Day01(ILinesInputReader input) : IPuzzleSolver
     private const int MOD = 100;
 
     public string SolvePart1()
-        => Sequence().Count(d => d.deal == 0).ToString();
+        => Sequence().Count(d => d.dial == 0).ToString();
 
     public string SolvePart2()
         => Sequence().Sum(d => d.zeros).ToString();
 
-    private IEnumerable<(int deal, int zeros)> Sequence()
+    private IEnumerable<(int dial, int zeros)> Sequence()
     {
         var dial = 50;
 
