@@ -13,15 +13,15 @@ public partial class Day01(ILinesInputReader input) : IPuzzleSolver
 
     private IEnumerable<(int deal, int zeros)> Sequence()
     {
-        var deal = 50;
+        var dial = 50;
 
         foreach (var instr in input.Lines)
         {
-            var nd = deal + (instr[0] == 'L' ? -1 : 1) * Int32.Parse(instr.AsSpan()[1..]);
-            int zeros = Math.Abs(nd) / MOD + (nd <= 0 && deal > 0 ? 1 : 0);
+            var nd = dial + (instr[0] == 'L' ? -1 : 1) * Int32.Parse(instr.AsSpan()[1..]);
+            int zeros = Math.Abs(nd) / MOD + (nd <= 0 && dial > 0 ? 1 : 0);
 
-            deal = AOC.Mod(nd, MOD);
-            yield return (deal, zeros);
+            dial = AOC.Mod(nd, MOD);
+            yield return (dial, zeros);
         }
     }
 }
