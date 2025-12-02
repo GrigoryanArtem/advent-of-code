@@ -159,7 +159,7 @@ public static class AOC
         var ulongDigits = GetDigits(ulong.MaxValue);
         var digitsDividers = new ulong[ulongDigits];
 
-        digitsDividers[0] = 0UL;
+        digitsDividers[0] = 1UL;
         digitsDividers[1] = 10UL;
 
         for (int i = 2; i < ulongDigits; i++)

@@ -6,41 +6,50 @@ public partial class Day02(IFullInputReader input) : IPuzzleSolver
     private record Range(ulong From, ulong To);
 
     private Range[] _ranges = [];
+    private ulong[] _patterns = [];
 
     public void Init()
-    {
+    {        
         _ranges = [..input.Text.Split(',').Select(rng =>
         {
             var tokens = rng.Split('-', 2);
             return new Range(UInt64.Parse(tokens[0]), UInt64.Parse(tokens[1]));
         })];
+
+        var patterns = new HashSet<ulong>();
+        Enumerable.Range(2, 10).ForEach(i => GeneratePatterns(i, patterns));
+        _patterns = [.. patterns.Distinct().OrderBy(x => x)];
     }
 
     public string SolvePart1()
-    {
-        var sum = 0UL;
-
-        foreach(var r in _ranges)
-            for (var num = r.From; num <= r.To; num++)
-                if (IsSymmetric(num))
-                    sum += num;
-
-        return sum.ToString();
-    }
+        => CalculateSum(_patterns.AsSpan(), IsPalindrome).ToString();
 
     public string SolvePart2()
-    {
+        => CalculateSum(_patterns.AsSpan(), _ => true).ToString();    
+
+    private ulong CalculateSum(Span<ulong> patterns, Predicate<ulong> predicate)
+    {        
         var sum = 0UL;
 
         foreach (var r in _ranges)
-            for (var num = r.From; num <= r.To; num++)
-                if (HasPattern(num))
-                    sum += num;
+        {
+            var idx = patterns.BinarySearch(r.From);
 
-        return sum.ToString();
+            if (idx < 0)
+                idx = Math.Abs(idx) - 1;
+
+            while (patterns[idx] <= r.To)
+            {
+                var pattern = patterns[idx++];
+                if (predicate(pattern))
+                    sum += pattern;
+            }
+        }
+
+        return sum;
     }
 
-    private static bool IsSymmetric(ulong num)
+    private static bool IsPalindrome(ulong num)
     {
         var digits = AOC.GetDigits(num);
         var divider = AOC.DigitsDividers[digits / 2];
@@ -48,28 +57,24 @@ public partial class Day02(IFullInputReader input) : IPuzzleSolver
         return digits > 1 && num / divider == num % divider;
     }
 
-    private static bool HasPattern(ulong num)
+    private static void GeneratePatterns(int digits, HashSet<ulong> dest)
     {
-        var digits = AOC.GetDigits(num);
+        for (int block = 1; block <= digits / 2; block++)
+        {
+            if (digits % block != 0)
+                continue;
 
-        for(int i = 1; i <= digits / 2; i++)
-            if (HasPattern(num, digits, i))
-                return true;
+            var start = AOC.DigitsDividers[block - 1];
+            var end = AOC.DigitsDividers[block];
 
-        return false;
-    }
+            for (var @base = start; @base < end; @base++)
+            {
+                var result = 0UL;
+                for (int rep = 0; rep < digits / block; rep++)
+                    result = result * AOC.DigitsDividers[block] + @base;
 
-    private static bool HasPattern(ulong num, int size, int digits)
-    {
-        if (size % digits != 0)
-            return false;
-
-        var hasPattern = true;
-
-        var target = num % AOC.DigitsDividers[digits];
-        for (int k = 1; k < size / digits; k++)
-            hasPattern &= target == num / AOC.DigitsDividers[digits * k] % AOC.DigitsDividers[digits];
-
-        return hasPattern;
+                dest.Add(result);
+            }
+        }
     }
 }
