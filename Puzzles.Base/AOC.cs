@@ -16,6 +16,8 @@ public static class AOC
     static AOC()
         => digitsDividers = InitDividers();
 
+    public static ulong[] DigitsDividers => digitsDividers;
+
     #region Directions
 
     public static Vec2[] Directions2D =>
