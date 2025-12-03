@@ -20,26 +20,15 @@ public partial class Day03(ILinesInputReader input) : IPuzzleSolver
 
     public static long FindLargestNumber(Span<int> digits, int size)
     {
-        var ids = Enumerable.Range(digits.Length - size, size).ToArray();
-
-        ids[0] = digits[0..(ids[0] + 1)].IndexOfMax();
-        for (int i = 1; i < ids.Length; i++)
-        {
-            var start = ids[i - 1] + 1;
-            var end = ids[i] + 1;
-
-            ids[i] = start + digits[start..end].IndexOfMax();
-        }
-
-        return BuildNumber(digits, ids);
-    }
-
-    private static long BuildNumber(Span<int> digits, Span<int> ids)
-    {
         var num = 0L;
+        for(int i = 0, left = 0; i < size; i++)
+        {
+            var right = digits.Length - (size - i - 1) ;
+            var midx = digits[left..right].IndexOfMax();
 
-        foreach(var i in ids)
-            num = num * 10 + digits[i];
+            num = num * 10 + digits[midx + left];
+            left = midx + left + 1;
+        }
 
         return num;
     }
