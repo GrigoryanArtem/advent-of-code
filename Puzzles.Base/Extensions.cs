@@ -107,6 +107,28 @@ public static class Extensions
         return max;
     }
 
+    public static int IndexOfMax<T, V>(this Span<T> source, Func<T, V> selector)
+        where V : IComparable<V>
+    {
+        int max = 0;
+        for (int i = 1; i < source.Length; i++)
+            if (selector(source[i]).CompareTo(selector(source[max])) > 0)
+                max = i;
+
+        return max;
+    }
+
+    public static int IndexOfMax<T>(this Span<T> source)
+        where T : IComparable<T>
+    {
+        int max = 0;
+        for (int i = 1; i < source.Length; i++)
+            if (source[i].CompareTo(source[max]) > 0)
+                max = i;
+
+        return max;
+    }
+
     public static long LCM(this IEnumerable<int> source)
     {
         var acc = 1L;
