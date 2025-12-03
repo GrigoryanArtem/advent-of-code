@@ -23,8 +23,8 @@ public partial class Day03(ILinesInputReader input) : IPuzzleSolver
         var num = 0L;
         for (int i = 0, left = 0; i < size; i++)
         {
-            var right = digits.Length - (size - i - 1);
-            var midx = digits[left..right].IndexOfMax();
+            var right = size - i - 1;
+            var midx = digits[left..^right].IndexOfMax();
 
             num = num * 10 + digits[midx + left];
             left = midx + left + 1;
