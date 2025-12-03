@@ -32,8 +32,8 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **152** |
-| [2025](#2025) |       4 |
+| Total         | **154** |
+| [2025](#2025) |       6 |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
@@ -51,6 +51,7 @@ Time was measured by running each part n times and finding the average result. T
 | --- | ---: | ------------------------------------------------------ | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
 | 🟩   |   01 | [Secret Entrance](https://adventofcode.com/2025/day/1) |            0.157 |            0.152 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day01.cs) |
 | 🟩   |   02 | [Gift Shop](https://adventofcode.com/2025/day/2)       |            0.011 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day02.cs) |
+| 🟩   |   03 | [Lobby](https://adventofcode.com/2025/day/3)           |            0.129 |            0.205 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day03.cs) |
 
 ### 2024
 
