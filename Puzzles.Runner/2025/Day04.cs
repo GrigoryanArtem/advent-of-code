@@ -29,8 +29,9 @@ public partial class Day04(ILinesInputReader input) : IPuzzleSolver
     public string SolvePart1()
     {
         Array.Clear(_removed);
-        return _data.WithIndex()            
-            .Count(d => IsAccessible(_data, d.index, _removed))
+        return Enumerable.Range(0, _data.Data.Length) 
+            .Where(idx => _data[idx] == ROLL)
+            .Count(IsAccessible)
             .ToString();
     }
 
@@ -38,6 +39,10 @@ public partial class Day04(ILinesInputReader input) : IPuzzleSolver
     {
         Array.Clear(_removed);
 
+        var rolls = new Queue<int>(_data.WithIndex()            
+            .Where(d => d.item == ROLL)
+            .Select(d => d.index));
+        var next = new Queue<int>();
 
         var total = 0;
         var sum = 0;
@@ -45,15 +50,20 @@ public partial class Day04(ILinesInputReader input) : IPuzzleSolver
         {
             sum = 0;
 
-            foreach (var (item, pos) in _data.WithIndex())
-            {
-                if (IsAccessible(_data, pos, _removed))
+            while(rolls.TryDequeue(out var pos))
+            {                
+                if (IsAccessible(pos))
                 {
                     _removed[pos] = true;
-                    sum++;
+                    sum++;                    
+                }
+                else
+                {
+                    next.Enqueue(pos);
                 }
             }
 
+            (rolls, next) = (next, rolls);
             total += sum;
         }
         while (sum > 0);
@@ -61,20 +71,16 @@ public partial class Day04(ILinesInputReader input) : IPuzzleSolver
         return total.ToString();
     }
 
-    private bool IsAccessible(Mat mat, int pos, bool[] removed)
+    private bool IsAccessible(int pos)
     {
-        if (mat[pos] != ROLL || removed[pos])
-            return false;
-
         var count = 0;
         for (int i = 0; i < _moore.Length && count < 4; i++)
         {
             var n = pos + _moore[i];
-            if (!removed[n] && mat[n] == ROLL)
+            if (!_removed[n] & _data[n] == ROLL)
                 count++;
         }
 
         return count < 4;
     }
-
 }
