@@ -1,7 +1,7 @@
 ﻿namespace Puzzles.Runner._2025;
 
 [Puzzle("Cafeteria", 5, 2025)]
-internal class Day05(IFullInputReader input) : IPuzzleSolver
+public class Day05(IFullInputReader input) : IPuzzleSolver
 {
     private readonly record struct Range(ulong Start, ulong End) 
     {
