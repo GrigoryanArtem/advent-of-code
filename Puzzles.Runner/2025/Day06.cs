@@ -1,32 +1,48 @@
 ﻿namespace Puzzles.Runner._2025;
 
-using Mat64 = Mat2<ulong>;
-
 [Puzzle("Trash Compactor", 6, 2025)]
 public class Day06(ILinesInputReader input) : IPuzzleSolver
 {
     public string SolvePart1()
-    {
-        var _operations = input.Lines.Last()
-            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-            .Select(s => s.First())
-            .ToArray();
-
-        var mat = new Mat64([.. input.Lines[..^1].SelectMany(line => line
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(UInt32.Parse))], _operations.Length);
-
-        return _operations.WithIndex()
-            .UInt64Sum(d => d.item == '*'
-                ? mat.Column(d.index).UInt64Mul(a => a)
-                : mat.Column(d.index).UInt64Sum(a => a))
-            .ToString();
-    }
+        => CalculateSumH(input.Lines[..^1], input.Lines.Last()).ToString();
 
     public string SolvePart2()
-        => CalculateSum(input.Lines[..^1], input.Lines.Last()).ToString();
+        => CalculateSumV(input.Lines[..^1], input.Lines.Last()).ToString();
 
-    private static ulong CalculateSum(string[] numbers, string operations)
+    private static ulong CalculateSumH(string[] numbers, string operations)
+    {
+        var func = Add;
+
+        var sum = 0UL;
+        var acc = 0UL;
+
+        var indecies = new int[numbers.Length];
+
+        for (int i = 0; i < operations.Length; i++)
+        {
+            if (operations[i] == ' ')
+                continue;
+
+            func = operations[i] == '*' ? Mul : Add;
+            acc = operations[i] == '*' ? 1UL : 0UL;
+
+            for (int nidx = 0; nidx < indecies.Length; nidx++)
+            {
+                var num = 0U;
+                for (; indecies[nidx] < numbers[nidx].Length && numbers[nidx][indecies[nidx]] == ' '; indecies[nidx]++);
+                for (; indecies[nidx] < numbers[nidx].Length && numbers[nidx][indecies[nidx]] != ' '; indecies[nidx]++)
+                    num = num * 10 + C2D(numbers[nidx][indecies[nidx]]);
+
+                acc = func(acc, num);
+            }
+
+            sum += acc;
+        }
+
+        return sum;
+    }
+
+    private static ulong CalculateSumV(string[] numbers, string operations)
     {
         var func = Add;
 
