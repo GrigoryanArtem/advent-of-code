@@ -1,6 +1,8 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Puzzles.Runner.Base;
+using Puzzles.Runner.Base.Table;
 using Puzzles.Web;
 using System.Diagnostics;
 using System.Reflection;
@@ -10,6 +12,8 @@ namespace Puzzles.Runner;
 internal class Program
 {
     private const string TOKEN_FILE_NAME = "token";
+    private const int TIME_THRESHOLD_SEC = 10;
+    private const int PERFORMANCE_MODE_ITERATIONS = 10000;
 
     private static IHost? App { get; set; }
     private static State? State { get; set; }
@@ -21,7 +25,7 @@ internal class Program
             ParseArgs(args);
             Init();
             ResolveInput();
-            Run(App!.Services.GetRequiredService<IPuzzleSolver>(), State!.PerformanceMode ? 10000 : 1);
+            Run(App!.Services.GetRequiredService<IPuzzleSolver>(), State!.PerformanceMode ? PERFORMANCE_MODE_ITERATIONS : 1);
         }
         catch (PuzzlesException ex)
         {
@@ -30,54 +34,71 @@ internal class Program
     }
 
     private static void Run(IPuzzleSolver solver, int count)
-    {        
-        if (count > 1)
+    {   
+        var init = RunWithTime(solver.Init, count);
+        var p1 = RunWithTime(solver.SolvePart1, count);
+        var p2 = RunWithTime(solver.SolvePart2, count);
+
+        var answerTable = TableBuilder.Create(TableOptions.All)
+            .SetMargin(1)
+            .AddColumn(new() { Header = "#" })
+            .AddColumn(new() { Header = "Answer", Align = Align.Right })
+            .AddRow("1", p1.Result)
+            .AddRow("2", p2.Result)
+            .Build();
+
+        Console.WriteLine(answerTable);
+
+        Dictionary<string, BaseRunResult> results = new()
         {
-            Console.WriteLine($"Number of iterations: {count}");
-            Console.WriteLine();
+            ["Init"] = init,
+            ["Part 1"] = p1,
+            ["Part 2"] = p2
+        };
+
+        var timeTable = TableBuilder.Create(TableOptions.All)
+            .SetMargin(1)
+            .AddColumn(new() { Header = "" })
+            .AddColumn(new() { Header = "Iterations", Align = Align.Right })
+            .AddColumn(new() { Header = "Time, ms", Align = Align.Right, Format = "{0:f3}" });
+
+        foreach (var (name, result) in results)        
+            timeTable.AddRow(name, result.Iterations, result.TimeMs);
+
+        timeTable.AddRow("Total", String.Empty, results.Values.Sum(v => v.TimeMs));            
+
+        Console.WriteLine(timeTable.Build());
+    }
+
+    public static BaseRunResult RunWithTime(Action action, int count)
+    {
+        var sw = new Stopwatch();
+
+        var iteration = 0;
+        for (; iteration < count && sw.Elapsed.Seconds < TIME_THRESHOLD_SEC; iteration++)
+        {
+            sw.Start();
+            action();
+            sw.Stop();
         }
 
-        PrintResult("Init", RunWithTime(solver.Init, count));        
-        PrintResult("Part 1", RunWithTime(solver.SolvePart1, count));
-        PrintResult("Part 2", RunWithTime(solver.SolvePart2, count));
+        return new(sw.Elapsed.TotalMilliseconds / iteration, iteration);
     }
 
-    private static void PrintResult<T>(string title, (double, T) data)
+    public static RunResult<T> RunWithTime<T>(Func<T> func, int count)
     {
-        var(timeMs, result) = data;
-
-        Console.WriteLine(title);
-        Console.WriteLine($"Time: {timeMs:f3} ms.");
-        Console.WriteLine($"> Answer: {result}");
-        Console.WriteLine();
-    }
-
-    private static void PrintResult(string title, double timeMs)
-    {
-        Console.WriteLine(title);
-        Console.WriteLine($"Time: {timeMs:f3} ms.");
-        Console.WriteLine();
-    }
-
-    public static double RunWithTime(Action acton, int count)
-    {
-        Stopwatch sw = Stopwatch.StartNew();
-
-        for (int i = 0; i < count; i++)
-            acton();
-
-        return (sw.Elapsed.TotalMilliseconds / count);
-    }
-
-    public static (double timeMs, T result) RunWithTime<T>(Func<T> func, int count)
-    {
-        Stopwatch sw = Stopwatch.StartNew();
+        var sw = new Stopwatch();
         T result = default!;
 
-        for (int i = 0; i < count; i++)
+        var iteration = 0;
+        for (; iteration < count && sw.Elapsed.Seconds < TIME_THRESHOLD_SEC; iteration++)
+        {
+            sw.Start();
             result = func();
+            sw.Stop();
+        }
 
-        return (sw.Elapsed.TotalMilliseconds / count, result);
+        return new(sw.Elapsed.TotalMilliseconds / iteration, iteration, result);
     }    
 
     private static void Init()
