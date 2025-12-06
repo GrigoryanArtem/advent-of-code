@@ -1,104 +1,64 @@
 ﻿namespace Puzzles.Runner._2025;
 
 using Mat64 = Mat2<ulong>;
-using MatS = Mat2<string>;
 
 [Puzzle("Trash Compactor", 6, 2025)]
 public class Day06(ILinesInputReader input) : IPuzzleSolver
 {
-    private record struct Operation(char Op, int Len);
-    
-    private Operation[] _operations = [];
-
-    public void Init()
-        => _operations = GetOperations(input.Lines.Last());
-    
-
     public string SolvePart1()
     {
+        var _operations = input.Lines.Last()
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.First())
+            .ToArray();
+
         var mat = new Mat64([.. input.Lines[..^1].SelectMany(line => line
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(UInt32.Parse))], _operations.Length);
 
         return _operations.WithIndex()
-            .UInt64Sum(d => d.item.Op == '*'
+            .UInt64Sum(d => d.item == '*'
                 ? mat.Column(d.index).UInt64Mul(a => a)
                 : mat.Column(d.index).UInt64Sum(a => a))
             .ToString();
     }
 
     public string SolvePart2()
-    {        
-        var mat = new MatS([..input.Lines[..^1].SelectMany(s => 
-            S2OpS(s, _operations))], _operations.Length);
+        => CalculateSum(input.Lines[..^1], input.Lines.Last()).ToString();
 
-        return _operations.WithIndex()
-            .UInt64Sum(d => d.item.Op == '*' 
-                ? ToRtL(mat, d.index).UInt64Mul(x => x)
-                : ToRtL(mat, d.index).UInt64Sum(x => x))
-            .ToString();
-    }
-
-    private static IEnumerable<ulong> ToRtL(MatS mat, int idx)
+    private static ulong CalculateSum(string[] numbers, string operations)
     {
-        var length = mat.Column(idx).First().Length;
+        var func = Add;
 
-        for (int i = 0; i < length; i++)
+        var sum = 0UL;
+        var acc = 0UL;
+
+        for (int i = 0; i < operations.Length; i++)
         {
-            var num = 0UL;
-            foreach (var ss in mat.Column(idx))
+            if (operations[i] != ' ')
             {
-                if (Char.IsWhiteSpace(ss[i]))
-                    continue;
+                sum += acc;
 
-                num = num * 10 + ss[i] - '0';
+                func = operations[i] == '*' ? Mul : Add;
+                acc = operations[i] == '*' ? 1UL : 0UL;
             }
 
-            yield return num;
+            var num = 0U;
+            foreach (var d in numbers)
+                num = d[i] == ' ' ? num : num * 10 + C2D(d[i]);
+
+            acc = func(acc, num);
         }
 
+        return sum + acc;
     }
 
-    private static Operation[] GetOperations(string s)
-    {
-        List<Operation> operations = [];
+    private static uint C2D(char ch)
+        => (uint)ch - '0';
 
-        char? op = null;
-        var count = 0;
+    private static ulong Add(ulong acc, uint val)
+        => acc + val;
 
-        for (int i = 0; i < s.Length; i++)
-        {
-            if (Char.IsWhiteSpace(s[i]))
-            {
-                count++;
-            }
-            else
-            {
-                if (op.HasValue)
-                    operations.Add(new(op.Value, count - 1));
-
-                op = s[i];
-                count = 1;
-            }
-        }
-
-        if (op.HasValue)
-            operations.Add(new(op.Value, count));
-
-        return [.. operations];
-    }
-
-    private static string[] S2OpS(string s, Operation[] operations)
-    {
-        var cur = 0;
-        List<string> str = [];
-
-        foreach (var op in operations)
-        {
-            str.Add(s[cur..(cur + op.Len)]);
-            cur = cur + op.Len + 1;
-        }
-
-        return [.. str];
-    }
+    private static ulong Mul(ulong acc, uint val)
+        => acc * Math.Max(val, 1U);
 }
