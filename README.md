@@ -32,8 +32,8 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **158** |
-| [2025](#2025) |      10 |
+| Total         | **160** |
+| [2025](#2025) |      12 |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
@@ -54,7 +54,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   03 | [Lobby](https://adventofcode.com/2025/day/3)               |            0.129 |            0.205 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day03.cs) |
 | 🟩   |   04 | [Printing Department](https://adventofcode.com/2025/day/4) |            0.332 |            3.578 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day04.cs) |
 | 🟩   |   05 | [Cafeteria](https://adventofcode.com/2025/day/5)           |            0.141 |            0.002 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day05.cs) |
-| 🟩   |   06 | [Trash Compactor](https://adventofcode.com/2025/day/6)     |            0.309 |            0.029 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day06.cs) |
+| 🟩   |   06 | [Trash Compactor](https://adventofcode.com/2025/day/6)     |            0.044 |            0.029 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day06.cs) |
 
 ### 2024
 
