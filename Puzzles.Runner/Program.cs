@@ -21,7 +21,7 @@ internal class Program
             ParseArgs(args);
             Init();
             ResolveInput();
-            Run(App!.Services.GetRequiredService<IPuzzleSolver>(), State!.PerformanceMode ? 1000 : 1);
+            Run(App!.Services.GetRequiredService<IPuzzleSolver>(), State!.PerformanceMode ? 10000 : 1);
         }
         catch (PuzzlesException ex)
         {
