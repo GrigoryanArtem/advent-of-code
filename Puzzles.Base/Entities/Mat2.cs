@@ -123,6 +123,12 @@ public class Mat2<T> : IEnumerable<T>
             yield return this[start + i];
     }
 
+    public Span<T> RowSpan(int row)
+    {
+        var start = D2toD1(0, row);
+        return Data.AsSpan()[start..(start+Columns)];
+    }
+
     public IEnumerable<T> Column(int column)
     {
         var start = D2toD1(column, 0);
