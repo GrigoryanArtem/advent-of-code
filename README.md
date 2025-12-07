@@ -55,7 +55,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   04 | [Printing Department](https://adventofcode.com/2025/day/4) |            0.332 |            3.578 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day04.cs) |
 | 🟩   |   05 | [Cafeteria](https://adventofcode.com/2025/day/5)           |            0.141 |            0.002 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day05.cs) |
 | 🟩   |   06 | [Trash Compactor](https://adventofcode.com/2025/day/6)     |            0.024 |            0.021 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day06.cs) |
-| 🟩   |   07 | [Laboratories](https://adventofcode.com/2025/day/7)        |            0.112 |            0.019 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day07.cs) |
+| 🟩   |   07 | [Laboratories](https://adventofcode.com/2025/day/7)        |            0.013 |            0.019 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day07.cs) |
 
 ### 2024
 
