@@ -137,8 +137,17 @@ public class Mat2<T> : IEnumerable<T>
     }
 
     public static Mat2<T> Null => new();
+
     public static Mat2<T> Empty(int columns, int rows)
         => new(new T[rows * columns], columns);
+
+    public static Mat2<T> Fill(int columns, int rows, T value)
+    {
+        var mat = new Mat2<T>(new T[rows * columns], columns);
+        Array.Fill(mat.Data, value);
+
+        return mat;
+    }
 
     public static Mat2<T> WithBorders(T[] data, int columns, T borderValue)
     {

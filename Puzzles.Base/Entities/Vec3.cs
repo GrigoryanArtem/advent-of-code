@@ -13,6 +13,20 @@ public record struct Vec3 : IEnumerable<int>
         Z = z;
     }
 
+    public Vec3(IEnumerable<int> values)
+    {
+        var enumerator = values.GetEnumerator();
+
+        enumerator.MoveNext();
+        X = enumerator.Current;
+
+        enumerator.MoveNext();
+        Y = enumerator.Current;
+
+        enumerator.MoveNext();
+        Z = enumerator.Current;
+    }
+
     public int X { get; set; }
     public int Y { get; set; }
     public int Z { get; set; }
@@ -41,4 +55,7 @@ public record struct Vec3 : IEnumerable<int>
         => new(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
 
     public static Vec3 Zero => new(0, 0, 0);
+
+    public override string ToString()
+        => $"{X} {Y} {Z}";
 }

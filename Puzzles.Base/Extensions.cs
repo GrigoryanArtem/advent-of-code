@@ -88,6 +88,17 @@ public static class Extensions
         return counter;
     }
 
+    public static int IndexOfMin<T, V>(this Span<T> source, Func<T, V> selector)
+        where V : IComparable<V>
+    {
+        int min = 0;
+        for (int i = 1; i < source.Length; i++)
+            if (selector(source[i]).CompareTo(selector(source[min])) < 0)
+                min = i;
+
+        return min;
+    }
+
     public static int IndexOfMin<T, V>(this T[] source, Func<T, V> selector)
         where V : IComparable<V>
     {

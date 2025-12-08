@@ -113,11 +113,23 @@ public static class AOC
     public static double Angle(int ax, int ay, int bx, int by)
         => Math.Atan2(by - ay, bx - ax);
 
+    public static double EuclideanDistance(Vec3 from, Vec3 to)
+        => EuclideanDistance(from.X, from.Y, from.Z, to.X, to.Y, to.Z);
+
+    public static ulong SqrEuclideanDistance(Vec3 from, Vec3 to)
+        => SqrEuclideanDistance((ulong)from.X, (ulong)from.Y, (ulong)from.Z, (ulong)to.X, (ulong)to.Y, (ulong)to.Z);
+
     public static double EuclideanDistance(Vec2 from, Vec2 to)
         => EuclideanDistance(from.X, from.Y, to.X, to.Y);
 
     public static double EuclideanDistance(int ax, int ay, int bx, int by)
         => Math.Sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
+
+    public static double EuclideanDistance(long ax, long ay, long az, long bx, long by, long bz)
+        => Math.Sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by) + (az - bz) * (az - bz));
+
+    public static ulong SqrEuclideanDistance(ulong ax, ulong ay, ulong az, ulong bx, ulong by, ulong bz)
+        => (ax - bx) * (ax - bx) + (ay - by) * (ay - by) + (az - bz) * (az - bz);
 
     public static int ManhattanDistance(int ax, int ay, int bx, int by)
         => Math.Abs(ax - bx) + Math.Abs(ay - by);

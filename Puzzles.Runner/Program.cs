@@ -105,6 +105,9 @@ internal class Program
     {        
         var builder = Host.CreateApplicationBuilder();
 
+        var runInfo = new RunInfo() { IsExample = State!.Input == State.InputMode.Examples };
+        builder.Services.AddSingleton<IRunInfo>(runInfo);
+
         var puzzlesServices = new PuzzlesServices(State!.InputPath);
         puzzlesServices.Register(builder.Services);
 
@@ -127,7 +130,7 @@ internal class Program
 
         if (File.Exists(State.InputPath))
             return;
-
+        
         Console.Error.WriteLine($"Load input for {State.Year}/{State.Day}...");
 
         var loader = App!.Services.GetRequiredService<PuzzleLoader>();
@@ -139,7 +142,7 @@ internal class Program
     }
 
     private static string RegisterSolver(IServiceCollection services)
-    {
+    {        
         var solverInterface = typeof(IPuzzleSolver);
         var (solver, attribute) = Assembly.GetEntryAssembly()!.GetTypes()
             .Where(solverInterface.IsAssignableFrom)
