@@ -52,7 +52,9 @@ public ref struct SpanHeap<T> where T : IComparable<T>
                 return;
 
             int right = left + 1;
-            int smallest = right < Count && _data[right].CompareTo(_data[left]) < 0 ? right : left;
+            int smallest = right < Count && _data[right].CompareTo(_data[left]) < 0 
+                ? right
+                : left;
 
             if (_data[i].CompareTo(_data[smallest]) <= 0)
                 return;

@@ -17,9 +17,7 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
     }
 
     private class Mct(int size)
-    {
-        private readonly int[] _buffer = new int[size];
-
+    {        
         public int Size { get; private set; } = size;
         public int[] Tree { get; } = [.. Enumerable.Range(0, size)];
 
@@ -46,10 +44,16 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
             return Tree[v] = Get(Tree[v]);
         }
 
-        public int[] Sizes()
+        public int[] TopSizes(int n)
         {
-            Tree.ForEach(a => _buffer[Get(a)]++);
-            return _buffer;
+            Span<int> sizes = stackalloc int[Tree.Length];
+
+            foreach (var a in Tree)
+                sizes[Get(a)]++;
+
+            sizes.Sort();
+
+            return sizes[^n..].ToArray();
         }
     }
 
@@ -61,9 +65,7 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
     public string SolvePart1()
     {
         var mct = FindMCT(ITERATIONS);
-        return mct.Sizes()
-            .OrderByDescending(x => x)
-            .Take(3)
+        return mct.TopSizes(3)
             .Mul(x => x)
             .ToString();
     }
@@ -76,7 +78,7 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
         return ((long)_points[from].X * _points[to].X).ToString();
     }
 
-    private Mct FindMCT(int iterations = -1)
+    private Mct FindMCT(int iterations)
     {
         var queue = PrepareHeap();
         var mct = new Mct(_points.Length);
