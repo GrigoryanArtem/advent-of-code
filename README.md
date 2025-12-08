@@ -32,8 +32,8 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |       ⭐ |
 | ------------- | ------: |
-| Total         | **162** |
-| [2025](#2025) |      14 |
+| Total         | **164** |
+| [2025](#2025) |      16 |
 | [2024](#2024) |      50 |
 | [2023](#2023) |       6 |
 | [2022](#2022) |      26 |
