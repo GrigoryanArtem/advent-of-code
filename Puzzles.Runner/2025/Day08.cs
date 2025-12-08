@@ -16,7 +16,7 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
             => (from, to) = (From, To);
     }
 
-    private class Mct(int size)
+    private class UnionFind(int size)
     {        
         public int Size { get; private set; } = size;
         public int[] Tree { get; } = [.. Enumerable.Range(0, size)];
@@ -64,7 +64,7 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
 
     public string SolvePart1()
     {
-        var mct = FindMCT(ITERATIONS);
+        var mct = RunUnionFind(ITERATIONS);
         return mct.TopSizes(3)
             .Mul(x => x)
             .ToString();
@@ -72,16 +72,16 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
 
     public string SolvePart2()
     {
-        var mct = FindMCT(int.MaxValue);
+        var mct = RunUnionFind(int.MaxValue);
 
         var (from, to) = mct.LastConnection;
         return ((long)_points[from].X * _points[to].X).ToString();
     }
 
-    private Mct FindMCT(int iterations)
+    private UnionFind RunUnionFind(int iterations)
     {
         var queue = PrepareHeap();
-        var mct = new Mct(_points.Length);
+        var mct = new UnionFind(_points.Length);
 
         for (int i = 0; i < iterations && mct.Size > 1; i++)
             mct.Union(queue.Pop());
