@@ -7,8 +7,11 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
 {
     private readonly int ITERATIONS = run.IsExample ? 10 : 1000;
 
-    private record struct Connection(int From, int To)
+    private record struct Connection(int From, int To, ulong SqrD) : IComparable<Connection>
     {
+        public readonly int CompareTo(Connection other)
+            => SqrD.CompareTo(other.SqrD);
+
         public readonly void Deconstruct(out int from, out int to)
             => (from, to) = (From, To);
     }
@@ -75,23 +78,27 @@ public class Day08(ILinesInputReader input, IRunInfo run) : IPuzzleSolver
 
     private Mct FindMCT(int iterations = -1)
     {
-        var queue = PrepareQueue();
+        var queue = PrepareHeap();
         var mct = new Mct(_points.Length);
 
         for (int i = 0; i < iterations && mct.Size > 1; i++)
-            mct.Union(queue.Dequeue());
+            mct.Union(queue.Pop());
 
         return mct;
     }
 
-    private PriorityQueue<Connection, double> PrepareQueue()
+    private SpanHeap<Connection> PrepareHeap()
     {
-        var queue = new PriorityQueue<Connection, double>();
+        int n = _points.Length;
+        int connections = n * (n - 1) / 2;
+        
+        var buffer = new Connection[connections].AsSpan();        
 
+        int idx = 0;
         for (int i = 0; i < _points.Length; i++)
             for (int k = i + 1; k < _points.Length; k++)
-                queue.Enqueue(new(i, k), AOC.SqrEuclideanDistance(_points[i], _points[k]));
-
-        return queue;
+                buffer[idx++] = new Connection(i, k, AOC.SqrEuclideanDistance(_points[i], _points[k]));
+        
+        return new SpanHeap<Connection>(buffer[..idx]);
     }
 }
