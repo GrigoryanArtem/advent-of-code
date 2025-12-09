@@ -36,6 +36,9 @@ public record struct Vec2 : IEnumerable<int>
     public readonly Vec2 Clamp(int val)
         => new(Math.Clamp(X, -val, val), Math.Clamp(Y, -val, val));
 
+    public readonly Vec2 Abs()
+        => new(Math.Abs(X), Math.Abs(Y));
+
     readonly IEnumerator IEnumerable.GetEnumerator() 
         => GetEnumerator();
 
@@ -44,6 +47,9 @@ public record struct Vec2 : IEnumerable<int>
 
     public static Vec2 operator +(Vec2 a, Vec2 b)
         => new(a.X + b.X, a.Y + b.Y);
+
+    public static Vec2 operator *(Vec2 a, int b)
+        => new(a.X * b, a.Y * b);
 
     public static Vec2 Zero => new(0, 0);
 }
