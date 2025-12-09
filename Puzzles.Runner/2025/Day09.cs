@@ -26,24 +26,30 @@ public class Day09(ILinesInputReader input) : IPuzzleSolver
         => FindInternalMaxArea(_points, _lines).ToString();
 
     private static ulong FindInternalMaxArea(Vec2[] points, Line[] lines)
-    {        
+    {
+        var @lock = new Lock();
         var max = 0UL;
-        for (int i = 0; i < points.Length; i++)
+
+        Parallel.For(0, points.Length, i =>
         {
+            var localMax = 0UL;
             for (int k = i + 1; k < points.Length; k++)
             {
                 var probe = Area((points[i] - points[k]).Abs());
 
-                if (probe > max)
+                if (probe > localMax)
                 {
                     var hasIntersection = false;
                     for (int lidx = 0; lidx < lines.Length && !hasIntersection; lidx++)
                         hasIntersection |= Intersects(lines[lidx].A, lines[lidx].B, points[i], points[k]);
-                    
-                    max = hasIntersection ? max : probe;
+
+                    localMax = hasIntersection ? localMax : probe;
                 }
             }
-        }
+
+            lock (@lock)
+                max = Math.Max(localMax, max);
+        });
 
         return max;
     }
