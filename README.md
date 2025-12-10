@@ -58,7 +58,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   07 | [Laboratories](https://adventofcode.com/2025/day/7)        |            0.013 |            0.019 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day07.cs) |
 | 🟨   |   08 | [Playground](https://adventofcode.com/2025/day/8)          |            4.860 |            5.404 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day08.cs) |
 | 🟨   |   09 | [Movie Theater](https://adventofcode.com/2025/day/9)       |            0.112 |            3.304 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day09.cs) |
-| 🟥   |   10 | [Movie Theater](https://adventofcode.com/2025/day/10)      |          264.587 |          821.660 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day10.cs) |
+| 🟥   |   10 | [Factory](https://adventofcode.com/2025/day/10)            |          264.587 |          821.660 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day10.cs) |
 
 ### 2024
 

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Puzzles.Runner._2025;
 
-[Puzzle("Movie Theater", 10, 2025)]
+[Puzzle("Factory", 10, 2025)]
 public partial class Day10(ILinesInputReader input) : IPuzzleSolver
 {
     private const char ON = '#';
