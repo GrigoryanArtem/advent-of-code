@@ -20,34 +20,31 @@ internal class Day11(ILinesInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => PathsCount("you", "out", []).ToString();
+        => PathsCount("you", "out").ToString();
 
     public string SolvePart2()
-    {
-        Dictionary<(int, int), int> mem = [];
+    {        
         var count = 1L;
 
-        count *= PathsCount("svr", "fft", mem);
-        count *= PathsCount("fft", "dac", mem);
-        count *= PathsCount("dac", "out", mem);
+        count *= PathsCount("svr", "fft");
+        count *= PathsCount("fft", "dac");
+        count *= PathsCount("dac", "out");
 
         return count.ToString();
     }
 
-    public int PathsCount(string start, string end, Dictionary<(int, int), int> mem)
-        => PathsCount(_id[start], _id[end], mem);
+    public int PathsCount(string start, string end)
+        => PathsCount(_id[start], _id[end], []);
 
-    public int PathsCount(int start, int end, Dictionary<(int, int), int> mem)
+    public int PathsCount(int start, int end, Dictionary<int, int> mem)
     {        
-        var path = (start, end);
-
-        if (mem.TryGetValue(path, out var count))
+        if (mem.TryGetValue(start, out var count))
             return count;
 
         if (start == end)
-            return mem.AddAndReturn(path, 1);
+            return mem.AddAndReturn(start, 1);
         
-        return mem.AddAndReturn(path, _connections.GetValueOrDefault(start, [])
+        return mem.AddAndReturn(start, _connections.GetValueOrDefault(start, [])
             .Sum(x => PathsCount(x, end, mem)));
     }
 
