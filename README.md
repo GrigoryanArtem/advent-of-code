@@ -30,20 +30,20 @@ Place your examples to
 Time was measured by running each part n times and finding the average result. The i9-13900K was used for testing.
 
 ## Events
-| Year          |       ⭐ |
-| ------------- | ------: |
-| Total         | **166** |
-| [2025](#2025) |      18 |
-| [2024](#2024) |      50 |
-| [2023](#2023) |       6 |
-| [2022](#2022) |      26 |
-| [2021](#2021) |      20 |
-| [2020](#2020) |      18 |
-| [2019](#2019) |      28 |
-| 2018          |       0 |
-| 2017          |       0 |
-| 2016          |       0 |
-| 2015          |       0 |
+| Year          |         ⭐ |
+| ------------- | --------: |
+| Total         |   **170** |
+| [2025](#2025) | **22**/24 |
+| [2024](#2024) | **50**/50 |
+| [2023](#2023) |  **6**/50 |
+| [2022](#2022) | **26**/50 |
+| [2021](#2021) | **20**/50 |
+| [2020](#2020) | **18**/50 |
+| [2019](#2019) | **28**/50 |
+| 2018          |  **0**/50 |
+| 2017          |  **0**/50 |
+| 2016          |  **0**/50 |
+| 2015          |  **0**/50 |
 
 ### 2025
 
@@ -59,7 +59,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟨   |   08 | [Playground](https://adventofcode.com/2025/day/8)          |            4.860 |            5.404 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day08.cs) |
 | 🟨   |   09 | [Movie Theater](https://adventofcode.com/2025/day/9)       |            0.112 |            3.304 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day09.cs) |
 | 🟥   |   10 | [Factory](https://adventofcode.com/2025/day/10)            |          264.587 |          821.660 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day10.cs) |
-| 🟩   |   11 | [Reactor](https://adventofcode.com/2025/day/11)            |            0.020 |            0.080 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day11.cs) |
+| 🟩   |   11 | [Reactor](https://adventofcode.com/2025/day/11)            |            0.001 |            0.013 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2025/Day11.cs) |
 
 ### 2024
 
