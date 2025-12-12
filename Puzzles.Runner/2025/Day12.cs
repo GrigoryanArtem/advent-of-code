@@ -29,8 +29,10 @@ public partial class Day12(IFullInputReader input) : IPuzzleSolver
     }
 
     public string SolvePart1()
-        => _regions.Count(r => r.Shapes.Zip(_shapes, (rs, s) => rs * s)
-            .Sum() <= (r.Width * r.Height)).ToString();
+        => _regions
+            .Count(r => r.Shapes.Zip(_shapes, (rs, s) => rs * s)
+                .Sum() <= (r.Width * r.Height))
+            .ToString();
 
     [GeneratedRegex(@"\d+")]
     private static partial Regex NumRegex();
