@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **172** |
+| Total         |   **174** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **6**/50 |
@@ -40,7 +40,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2021](#2021) | **20**/50 |
 | [2020](#2020) | **18**/50 |
 | [2019](#2019) | **28**/50 |
-| 2018          |  **0**/50 |
+| [2018](#2018) |  **2**/50 |
 | 2017          |  **0**/50 |
 | 2016          |  **0**/50 |
 | 2015          |  **0**/50 |
@@ -165,3 +165,9 @@ Time was measured by running each part n times and finding the average result. T
 | 🟨   |   12 | [The N-Body Problem](https://adventofcode.com/2019/day/12)                |             0.16 |              5.7 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day12.cs) |
 | 🟩   |   13 | [Care Package](https://adventofcode.com/2019/day/13)                      |             0.21 |              5.1 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day13.cs) |
 | 🟩   |   14 | [Space Stoichiometry](https://adventofcode.com/2019/day/14)               |             0.02 |             0.13 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2019/Day14.cs) |
+
+### 2018
+
+| #   |  Day | Problem                                                                   | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ------------------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Chronal Calibration](https://adventofcode.com/2018/day/1) |           0.003* |            6.344* | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2018/Day01.cs) |
