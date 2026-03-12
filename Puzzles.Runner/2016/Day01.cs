@@ -11,50 +11,41 @@ public class Day01(IFullInputReader input) : IPuzzleSolver
         new(-1,0)
     ];
 
-    private (bool isLeft, int distance)[] _instructions = [];
+    private (int offset, int distance)[] _instructions = [];
 
     public void Init()
         => _instructions = [.. input.Text
             .Split(", ", StringSplitOptions.RemoveEmptyEntries)
-            .Select(s => (s[0] == 'L', Convert.ToInt32(s[1..])))];
+            .Select(s => (s[0] == 'L' ? 1 : 3, Convert.ToInt32(s[1..])))];
 
     public string SolvePart1()
-    {
-        var pos = Vec2.Zero;
-        var didx = 0;
-
-        foreach (var instr in _instructions)
-        {
-            didx = (didx + (instr.isLeft ? 1 : 3)) & 3;            
-            pos += DIRS[didx] * instr.distance;
-        }
-
-        return AOC.ManhattanDistance(Vec2.Zero, pos).ToString();
-    }
+        => AOC.ManhattanDistance(Vec2.Zero, Simulate().Last()).ToString();
 
     public string SolvePart2()
     {
-        var pos = Vec2.Zero;
+        var positions = new HashSet<Vec2>();
+        foreach (var pos in Simulate())
+            if (!positions.Add(pos))
+                return AOC.ManhattanDistance(Vec2.Zero, pos).ToString();
+
+        return "NO ANSWER";
+    }
+
+    private IEnumerable<Vec2> Simulate()
+    {
         var didx = 0;
+        var pos = Vec2.Zero;
 
+        yield return pos;
 
-        HashSet<Vec2> positions = [pos];
         foreach (var instr in _instructions)
         {
-            didx = (didx + (instr.isLeft ? 1 : 3)) & 3;
-            var dir = DIRS[didx];
-
+            didx = (didx + instr.offset) & 3;
             for (int i = 0; i < instr.distance; i++)
             {
-                pos += dir;
-
-                if (positions.Contains(pos))
-                    return AOC.ManhattanDistance(Vec2.Zero, pos).ToString();
-
-                positions.Add(pos);
+                pos += DIRS[didx];
+                yield return pos;
             }
         }
-
-        return AOC.ManhattanDistance(Vec2.Zero, pos).ToString();
     }
 }

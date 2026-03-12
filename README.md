@@ -184,4 +184,4 @@ Time was measured by running each part n times and finding the average result. T
 
 | #   |  Day | Problem                                                      | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
 | --- | ---: | ------------------------------------------------------------ | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [No Time for a Taxicab](https://adventofcode.com/2016/day/1) |            0.004 |            0.025 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day01.cs) |
+| 🟩   |   01 | [No Time for a Taxicab](https://adventofcode.com/2016/day/1) |            0.024 |            0.024 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day01.cs) |
