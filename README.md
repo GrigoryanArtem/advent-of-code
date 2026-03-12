@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **180** |
+| Total         |   **182** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **6**/50 |
@@ -42,7 +42,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2019](#2019) | **28**/50 |
 | [2018](#2018) |  **4**/50 |
 | [2017](#2017) |  **4**/50 |
-| 2016          |  **0**/50 |
+| [2016](#2016) |  **2**/50 |
 | 2015          |  **0**/50 |
 
 ### 2025
@@ -180,4 +180,8 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   01 | [Inverse Captcha](https://adventofcode.com/2017/day/1)     |            0.009 |            0.009 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day01.cs) |
 | 🟩   |   02 | [Corruption Checksum](https://adventofcode.com/2017/day/2) |            0.009 |            0.006 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day02.cs) |
 
+### 2016
 
+| #   |  Day | Problem                                                      | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ------------------------------------------------------------ | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [No Time for a Taxicab](https://adventofcode.com/2016/day/1) |            0.004 |            0.025 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day01.cs) |
