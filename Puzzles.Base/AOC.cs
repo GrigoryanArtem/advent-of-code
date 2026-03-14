@@ -87,6 +87,12 @@ public static class AOC
     public static long LCM(long a, long b)
         => a / GCD(a, b) * b;
 
+    public static int Min3(int a, int b, int c)
+        => Math.Min(a, Math.Min(b, c));
+
+    public static int Max3(int a, int b, int c)
+        => Math.Max(a, Math.Max(b, c));
+
     #endregion
 
     #region Sort
