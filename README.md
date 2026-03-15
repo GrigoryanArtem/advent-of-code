@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **186** |
+| Total         |   **188** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **6**/50 |
@@ -43,7 +43,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2018](#2018) |  **4**/50 |
 | [2017](#2017) |  **4**/50 |
 | [2016](#2016) |  **2**/50 |
-| [2015](#2015) |  **4**/50 |
+| [2015](#2015) |  **6**/50 |
 
 ### 2025
 
@@ -188,7 +188,8 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2015
 
-| #   |  Day | Problem                                                                  | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | ------------------------------------------------------------------------ | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Not Quite Lisp](https://adventofcode.com/2015/day/1)                    |            0.034 |            0.030 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day01.cs) |
-| 🟩   |   02 | [I Was Told There Would Be No Math](https://adventofcode.com/2015/day/2) |            0.020 |            0.018 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day02.cs) |
+| #   |  Day | Problem                                                                       | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ----------------------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Not Quite Lisp](https://adventofcode.com/2015/day/1)                         |            0.034 |            0.030 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day01.cs) |
+| 🟩   |   02 | [I Was Told There Would Be No Math](https://adventofcode.com/2015/day/2)      |            0.020 |            0.018 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day02.cs) |
+| 🟩   |   03 | [Perfectly Spherical Houses in a Vacuum](https://adventofcode.com/2015/day/2) |            0.042 |            0.131 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day03.cs) |
