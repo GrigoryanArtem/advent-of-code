@@ -34,7 +34,7 @@ internal class Program
     }
 
     private static void Run(IPuzzleSolver solver, int count)
-    {   
+    {
         var init = RunWithTime(solver.Init, count);
         var p1 = RunWithTime(solver.SolvePart1, count);
         var p2 = RunWithTime(solver.SolvePart2, count);
@@ -43,13 +43,13 @@ internal class Program
             .SetMargin(1)
             .AddColumn(new() { Header = "#" })
             .AddColumn(new() { Header = "Answer", Align = Align.Right })
-            .AddRow("1", p1.Result)
-            .AddRow("2", p2.Result)
+            .AddRow("1", p1.Answer!)
+            .AddRow("2", p2.Answer!)
             .Build();
 
         Console.WriteLine(answerTable);
 
-        Dictionary<string, BaseRunResult> results = new()
+        Dictionary<string, IPuzzleStatistic> results = new()
         {
             ["Init"] = init,
             ["Part 1"] = p1,
@@ -58,51 +58,86 @@ internal class Program
 
         var timeTable = TableBuilder.Create(TableOptions.All)
             .SetMargin(1)
-            .AddColumn(new() { Header = "" })
-            .AddColumn(new() { Header = "Iterations", Align = Align.Right })
-            .AddColumn(new() { Header = "Time, ms", Align = Align.Right, Format = "{0:f3}" });
+            .AddColumn(new() { Header = String.Empty })
+            .AddColumn(new() { Header = "ITER", Align = Align.Right })
+            .AddColumn(new() { Header = "P90", Align = Align.Right, Format = "{0:f3}" })
+            .AddColumn(new() { Header = "P95", Align = Align.Right, Format = "{0:f3}" })
+            .AddColumn(new() { Header = "P99", Align = Align.Right, Format = "{0:f3}" })
+            .AddColumn(new() { Header = "STDDEV", Align = Align.Right, Format = "{0:f3}" })
+            .AddColumn(new() { Header = "MEAN", Align = Align.Right, Format = "{0:f3}" })
+            .AddColumn(new() { Header = "MEDIAN", Align = Align.Right, Format = "{0:f3}" });
 
-        foreach (var (name, result) in results)        
-            timeTable.AddRow(name, result.Iterations, result.TimeMs);
-
-        timeTable.AddRow("Total", String.Empty, results.Values.Sum(v => v.TimeMs));            
+        foreach (var (name, result) in results)
+            timeTable.AddRow(name, result.Iterations, result.P90, result.P95, result.P99, result.StdDev, result.Mean, result.Median);
+        
+        timeTable.AddRow(
+            "Total", 
+            String.Empty,
+            String.Empty, 
+            String.Empty, 
+            String.Empty,
+            String.Empty, 
+            results.Values.Sum(v => v.Mean),
+            results.Values.Sum(v => v.Median)
+        );
 
         Console.WriteLine(timeTable.Build());
+
+        ConsoleHistogram ch = new(70, 10, 2, "ms.");
+
+        Console.WriteLine("> PART 1 HISTOGRAM");
+        Console.WriteLine();
+        ch.Draw(p1.Data);
+        Console.WriteLine();
+
+        Console.WriteLine("> PART 2 HISTOGRAM");
+        Console.WriteLine();
+        ch.Draw(p2.Data);
+        Console.WriteLine();
     }
 
-    public static BaseRunResult RunWithTime(Action action, int count)
+    public static PuzzleStatistic<object> RunWithTime(Action action, int count)
     {
-        var sw = new Stopwatch();
+        var times = new List<double>(count);
 
-        var iteration = 0;
-        for (; iteration < count && sw.Elapsed.Seconds < TIME_THRESHOLD_SEC; iteration++)
+        var sw = Stopwatch.StartNew();
+        var total = Stopwatch.StartNew();
+
+        for (int i = 0; i < count && total.Elapsed.Seconds < TIME_THRESHOLD_SEC; i++)
         {
-            sw.Start();
+            sw.Restart();
             action();
             sw.Stop();
-        }
 
-        return new(sw.Elapsed.TotalMilliseconds / iteration, iteration);
+            times.Add(sw.Elapsed.TotalMilliseconds);
+        }
+                
+        return PuzzleStatistic<object>.Create(times);
     }
 
-    public static RunResult<T> RunWithTime<T>(Func<T> func, int count)
+    public static PuzzleStatistic<T> RunWithTime<T>(Func<T> func, int count)
     {
-        var sw = new Stopwatch();
-        T result = default!;
+        var times = new List<double>(count);
 
-        var iteration = 0;
-        for (; iteration < count && sw.Elapsed.Seconds < TIME_THRESHOLD_SEC; iteration++)
+        var sw = Stopwatch.StartNew();
+        var total = Stopwatch.StartNew();
+
+        T answer = default!;
+
+        for (int i = 0; i < count && total.Elapsed.Seconds < TIME_THRESHOLD_SEC; i++)
         {
-            sw.Start();
-            result = func();
+            sw.Restart();
+            answer = func();
             sw.Stop();
+
+            times.Add(sw.Elapsed.TotalMilliseconds);
         }
 
-        return new(sw.Elapsed.TotalMilliseconds / iteration, iteration, result);
-    }    
+        return PuzzleStatistic<T>.Create(times, answer);
+    }
 
     private static void Init()
-    {        
+    {
         var builder = Host.CreateApplicationBuilder();
 
         var runInfo = new RunInfo() { IsExample = State!.Input == State.InputMode.Examples };
@@ -130,7 +165,7 @@ internal class Program
 
         if (File.Exists(State.InputPath))
             return;
-        
+
         Console.Error.WriteLine($"Load input for {State.Year}/{State.Day}...");
 
         var loader = App!.Services.GetRequiredService<PuzzleLoader>();
@@ -142,20 +177,19 @@ internal class Program
     }
 
     private static string RegisterSolver(IServiceCollection services)
-    {        
+    {
         var solverInterface = typeof(IPuzzleSolver);
         var (solver, attribute) = Assembly.GetEntryAssembly()!.GetTypes()
             .Where(solverInterface.IsAssignableFrom)
-            .Select(t => 
+            .Select(t =>
             (
-                type: t, 
+                type: t,
                 attribute: t.GetCustomAttributes(typeof(PuzzleAttribute), false)
                     .Cast<PuzzleAttribute>()
                     .FirstOrDefault())
             )
-            .Where(d => d.attribute is not null && 
-                d.attribute.Year == State!.Year && d.attribute.Day == State.Day)
-            .Single();
+            .Single(d => d.attribute is not null &&
+                d.attribute.Year == State!.Year && d.attribute.Day == State.Day);
 
         services.AddTransient(solverInterface, solver);
         return attribute!.Name;

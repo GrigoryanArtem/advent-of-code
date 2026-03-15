@@ -10,7 +10,7 @@
     },
     "Performance": {
       "commandName": "Project",
-      "commandLineArgs": "-p -d 2 -y 2015"
+      "commandLineArgs": "-p -d 06 -y 2025"
     }
   }
 }
