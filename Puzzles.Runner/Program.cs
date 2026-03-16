@@ -12,7 +12,7 @@ namespace Puzzles.Runner;
 internal class Program
 {
     private const string TOKEN_FILE_NAME = "token";
-    private const int TIME_THRESHOLD_SEC = 10;
+    private const int TIME_THRESHOLD_SEC = 15;
     private const int PERFORMANCE_MODE_ITERATIONS = 10000;
 
     private static IHost? App { get; set; }
