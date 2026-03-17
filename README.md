@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **190** |
+| Total         |   **192** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **6**/50 |
@@ -43,7 +43,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2018](#2018) |  **4**/50 |
 | [2017](#2017) |  **4**/50 |
 | [2016](#2016) |  **2**/50 |
-| [2015](#2015) |  **8**/50 |
+| [2015](#2015) | **10**/50 |
 
 ### 2025
 
@@ -194,3 +194,4 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   02 | [I Was Told There Would Be No Math](https://adventofcode.com/2015/day/2)      |            0.020 |            0.018 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day02.cs) |
 | 🟩   |   03 | [Perfectly Spherical Houses in a Vacuum](https://adventofcode.com/2015/day/3) |            0.042 |            0.131 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day03.cs) |
 | 🟩   |   04 | [The Ideal Stocking Stuffer](https://adventofcode.com/2015/day/4)             |           23.517 |          621.499 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day04.cs) |
+| 🟩   |   05 | [Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5) |            0.074 |            0.059 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2015/Day05.cs) |
