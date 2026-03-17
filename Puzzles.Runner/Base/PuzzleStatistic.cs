@@ -28,24 +28,24 @@ public record PuzzleStatistic<TAnswer> : IPuzzleStatistic
         var p95 = Percentile(span, 0.95);
         var p99 = Percentile(span, 0.99);
 
-        var idx99 = PercentileIndex(span.Length, 0.99);
-        var times99 = span[..(idx99 + 1)];
+        var idx95 = PercentileIndex(span.Length, 0.95);
+        var times95 = span[..(idx95 + 1)];
 
         var sum = 0D;
-        foreach (var t in times99)
+        foreach (var t in times95)
             sum += t;
 
-        var mean = sum / times99.Length;
-        var median = Percentile(times99, 0.5);
+        var mean = sum / times95.Length;
+        var median = Percentile(times95, 0.5);
 
         sum = 0;
-        foreach (var t in times99)
+        foreach (var t in times95)
         {
             var tmp = t - mean;
             sum += tmp * tmp;
         }
 
-        var variance = sum / times99.Length;
+        var variance = sum / times95.Length;
         var stdDev = Math.Sqrt(variance);
 
         return new()

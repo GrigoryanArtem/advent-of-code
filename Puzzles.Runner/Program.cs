@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Puzzles.Runner.Base;
+using Puzzles.Runner.Base.Histogram;
 using Puzzles.Runner.Base.Table;
 using Puzzles.Web;
 using System.Diagnostics;
