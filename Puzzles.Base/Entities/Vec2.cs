@@ -33,6 +33,9 @@ public record struct Vec2 : IEnumerable<int>
         Y += dir.Y;
     }
 
+    public readonly Vec2 Clamp(int min, int max)
+        => new(Math.Clamp(X, min, max), Math.Clamp(Y, min, max));
+
     public readonly Vec2 Clamp(int val)
         => new(Math.Clamp(X, -val, val), Math.Clamp(Y, -val, val));
 
