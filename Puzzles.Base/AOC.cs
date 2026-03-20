@@ -93,6 +93,9 @@ public static class AOC
     public static int Max3(int a, int b, int c)
         => Math.Max(a, Math.Max(b, c));
 
+    public static long Sqr(int a)
+        => a > 0 ? 1L << (a - 1) : 0L;
+
     #endregion
 
     #region Sort

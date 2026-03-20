@@ -32,10 +32,10 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **196** |
+| Total         |   **198** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
-| [2023](#2023) |  **6**/50 |
+| [2023](#2023) |  **8**/50 |
 | [2022](#2022) | **26**/50 |
 | [2021](#2021) | **20**/50 |
 | [2020](#2020) | **18**/50 |
@@ -99,6 +99,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   01 | [Trebuchet?!](https://adventofcode.com/2023/day/1)    |              0.2 |              0.3 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day01.cs) |
 | 🟩   |   02 | [Cube Conundrum](https://adventofcode.com/2023/day/2) |            0.225 |            0.278 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day02.cs) |
 | 🟩   |   03 | [Gear Ratios](https://adventofcode.com/2023/day/3)    |            0.884 |            3.105 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day03.cs) |
+| 🟩   |   04 | [Scratchcards](https://adventofcode.com/2023/day/4)   |            0.070 |            0.073 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2023/Day04.cs) |
 
 ### 2022
 
