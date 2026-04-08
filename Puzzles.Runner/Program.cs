@@ -65,19 +65,34 @@ internal class Program
             .AddColumn(new() { Header = "P95", Align = Align.Right, Format = "{0:f3}" })
             .AddColumn(new() { Header = "P99", Align = Align.Right, Format = "{0:f3}" })
             .AddColumn(new() { Header = "STDDEV", Align = Align.Right, Format = "{0:f3}" })
+            .AddColumn(new() { Header = "RATIO", Align = Align.Right, Format = "{0:f3}" })
             .AddColumn(new() { Header = "MEAN", Align = Align.Right, Format = "{0:f3}" })
             .AddColumn(new() { Header = "MEDIAN", Align = Align.Right, Format = "{0:f3}" });
 
         foreach (var (name, result) in results)
-            timeTable.AddRow(name, result.Iterations, result.P90, result.P95, result.P99, result.StdDev, result.Mean, result.Median);
-        
+        {
+            timeTable.AddRow
+            (
+                name,
+                result.Iterations,
+                result.P90,
+                result.P95,
+                result.P99,
+                result.StdDev,
+                result.StdDevRatio,
+                result.Mean,
+                result.Median
+            );
+        }
+
         timeTable.AddRow(
-            "Total", 
+            "Total",
             String.Empty,
-            String.Empty, 
-            String.Empty, 
             String.Empty,
-            String.Empty, 
+            String.Empty,
+            String.Empty,
+            String.Empty,
+            String.Empty,
             results.Values.Sum(v => v.Mean),
             results.Values.Sum(v => v.Median)
         );
@@ -112,7 +127,7 @@ internal class Program
 
             times.Add(sw.Elapsed.TotalMilliseconds);
         }
-                
+
         return PuzzleStatistic<object>.Create(times);
     }
 

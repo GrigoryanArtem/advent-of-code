@@ -7,6 +7,7 @@ public interface IPuzzleStatistic
     double Mean { get; }
     double Median { get; }
     double StdDev { get; }
+    double StdDevRatio => StdDev / Median;
     double P90 { get; }
     double P95 { get; }
     double P99 { get; }
