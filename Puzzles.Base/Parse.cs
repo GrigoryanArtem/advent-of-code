@@ -2,6 +2,9 @@
 
 public static class Parse
 {
+    public static IEnumerable<int> StringToNumbers(string str)
+        => StringToNumbers(str, 0, str.Length);
+
     public static IEnumerable<int> StringToNumbers(string str, int start, int end)
     {
         var curr = 0;

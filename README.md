@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **204** |
+| Total         |   **206** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **8**/50 |
@@ -40,7 +40,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2021](#2021) | **20**/50 |
 | [2020](#2020) | **18**/50 |
 | [2019](#2019) | **28**/50 |
-| [2018](#2018) | **10**/50 |
+| [2018](#2018) | **12**/50 |
 | [2017](#2017) |  **4**/50 |
 | [2016](#2016) |  **6**/50 |
 | [2015](#2015) | **10**/50 |
@@ -176,6 +176,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   03 | [No Matter How You Slice It](https://adventofcode.com/2017/day/3)  |            2.441 |            1.495 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day03.cs) |
 | 🟩   |   04 | [Repose Record](https://adventofcode.com/2017/day/4)               |            0.028 |            0.020 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day04.cs) |
 | 🟩   |   05 | [Alchemical Reduction](https://adventofcode.com/2017/day/5)        |            0.112 |            3.271 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day05.cs) |
+| 🟩   |   06 | [Chronal Coordinates](https://adventofcode.com/2017/day/6)         |            1.410 |            2.451 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day06.cs) |
 
 
 ### 2017
