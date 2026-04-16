@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **208** |
+| Total         |   **210** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **8**/50 |
@@ -42,7 +42,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2019](#2019) | **28**/50 |
 | [2018](#2018) | **12**/50 |
 | [2017](#2017) |  **4**/50 |
-| [2016](#2016) |  **8**/50 |
+| [2016](#2016) |  **10**/50 |
 | [2015](#2015) | **10**/50 |
 
 ### 2025
@@ -188,12 +188,13 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2016
 
-| #   |  Day | Problem                                                           | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | ----------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [No Time for a Taxicab](https://adventofcode.com/2016/day/1)      |            0.024 |            0.024 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day01.cs) |
-| 🟩   |   02 | [Bathroom Security](https://adventofcode.com/2016/day/2)          |            0.006 |            0.005 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day02.cs) |
-| 🟩   |   03 | [Squares With Three Sides](https://adventofcode.com/2016/day/3)   |            0.048 |            0.074 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day03.cs) |
-| 🟩   |   04 | [Security Through Obscurity](https://adventofcode.com/2016/day/4) |            1.268 |            0.086 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day04.cs) |
+| #   |  Day | Problem                                                                | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | ---------------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [No Time for a Taxicab](https://adventofcode.com/2016/day/1)           |            0.024 |            0.024 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day01.cs) |
+| 🟩   |   02 | [Bathroom Security](https://adventofcode.com/2016/day/2)               |            0.006 |            0.005 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day02.cs) |
+| 🟩   |   03 | [Squares With Three Sides](https://adventofcode.com/2016/day/3)        |            0.048 |            0.074 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day03.cs) |
+| 🟩   |   04 | [Security Through Obscurity](https://adventofcode.com/2016/day/4)      |            1.268 |            0.086 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day04.cs) |
+| 🟩   |   05 | [How About a Nice Game of Chess?](https://adventofcode.com/2016/day/5) |         1584.932 |         4706.664 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day05.cs) |
 
 ### 2015
 
