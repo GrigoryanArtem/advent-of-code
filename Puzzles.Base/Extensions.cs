@@ -92,7 +92,7 @@ public static class Extensions
         where V : IComparable<V>
     {
         int min = 0;
-        for (int i = 1; i < source.Length; i++)
+        for (int i = 0; i < source.Length; i++)
             if (selector(source[i]).CompareTo(selector(source[min])) < 0)
                 min = i;
 
@@ -114,7 +114,7 @@ public static class Extensions
         where V : IComparable<V>
     {
         int max = 0;
-        for (int i = 1; i < source.Length; i++)
+        for (int i = 0; i < source.Length; i++)
             if (selector(source[i]).CompareTo(selector(source[max])) > 0)
                 max = i;
 
@@ -125,7 +125,7 @@ public static class Extensions
         where V : IComparable<V>
     {
         int max = 0;
-        for (int i = 1; i < source.Length; i++)
+        for (int i = 0; i < source.Length; i++)
             if (selector(source[i]).CompareTo(selector(source[max])) > 0)
                 max = i;
 
@@ -136,7 +136,7 @@ public static class Extensions
         where T : IComparable<T>
     {
         int max = 0;
-        for (int i = 1; i < source.Length; i++)
+        for (int i = 0; i < source.Length; i++)
             if (source[i].CompareTo(source[max]) > 0)
                 max = i;
 
