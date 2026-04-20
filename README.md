@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **212** |
+| Total         |   **214** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **8**/50 |
@@ -42,7 +42,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2019](#2019) | **28**/50 |
 | [2018](#2018) | **12**/50 |
 | [2017](#2017) |  **4**/50 |
-| [2016](#2016) | **12**/50 |
+| [2016](#2016) | **14**/50 |
 | [2015](#2015) | **10**/50 |
 
 ### 2025
@@ -196,6 +196,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   04 | [Security Through Obscurity](https://adventofcode.com/2016/day/4)      |            1.268 |            0.086 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day04.cs) |
 | 🟩   |   05 | [How About a Nice Game of Chess?](https://adventofcode.com/2016/day/5) |         1584.932 |         4706.664 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day05.cs) |
 | 🟩   |   06 | [Signals and Noise](https://adventofcode.com/2016/day/6)               |            0.001 |            0.004 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day06.cs) |
+| 🟩   |   07 | [Internet Protocol Version 7](https://adventofcode.com/2016/day/7)     |            0.171 |            0.296 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2016/Day07.cs) |
 
 ### 2015
 

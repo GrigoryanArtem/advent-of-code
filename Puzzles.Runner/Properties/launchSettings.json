@@ -2,15 +2,15 @@
   "profiles": {
     "Examples": {
       "commandName": "Project",
-      "commandLineArgs": "-e -d 6 -y 2016"
+      "commandLineArgs": "-e -d 7 -y 2016"
     },
     "Input": {
       "commandName": "Project",
-      "commandLineArgs": "-d 6 -y 2016"
+      "commandLineArgs": "-d 7 -y 2016"
     },
     "Performance": {
       "commandName": "Project",
-      "commandLineArgs": "-p -d 6 -y 2016"
+      "commandLineArgs": "-p -d 7 -y 2016"
     }
   }
 }
