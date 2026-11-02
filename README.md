@@ -32,7 +32,7 @@ Time was measured by running each part n times and finding the average result. T
 ## Events
 | Year          |         ⭐ |
 | ------------- | --------: |
-| Total         |   **214** |
+| Total         |   **218** |
 | [2025](#2025) | **24**/24 |
 | [2024](#2024) | **50**/50 |
 | [2023](#2023) |  **8**/50 |
@@ -41,7 +41,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2020](#2020) | **18**/50 |
 | [2019](#2019) | **28**/50 |
 | [2018](#2018) | **12**/50 |
-| [2017](#2017) |  **6**/50 |
+| [2017](#2017) |  **8**/50 |
 | [2016](#2016) | **14**/50 |
 | [2015](#2015) | **10**/50 |
 
@@ -181,11 +181,12 @@ Time was measured by running each part n times and finding the average result. T
 
 ### 2017
 
-| #   |  Day | Problem                                                    | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
-| --- | ---: | ---------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
-| 🟩   |   01 | [Inverse Captcha](https://adventofcode.com/2017/day/1)     |            0.009 |            0.009 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day01.cs) |
-| 🟩   |   02 | [Corruption Checksum](https://adventofcode.com/2017/day/2) |            0.009 |            0.006 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day02.cs) |
-| 🟩   |   03 | [Spiral Memory](https://adventofcode.com/2017/day/3)       |            0.000 |            0.044 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day03.cs) |
+| #   |  Day | Problem                                                         | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
+| --- | ---: | --------------------------------------------------------------- | ---------------: | ---------------: | ------------------------------------------------------------------------------------------------- |
+| 🟩   |   01 | [Inverse Captcha](https://adventofcode.com/2017/day/1)          |            0.009 |            0.009 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day01.cs) |
+| 🟩   |   02 | [Corruption Checksum](https://adventofcode.com/2017/day/2)      |            0.009 |            0.006 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day02.cs) |
+| 🟩   |   03 | [Spiral Memory](https://adventofcode.com/2017/day/3)            |            0.000 |            0.044 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day03.cs) |
+| 🟩   |   04 | [High-Entropy Passphrases](https://adventofcode.com/2017/day/4) |            0.036 |            0.065 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day04.cs) |
 
 ### 2016
 
