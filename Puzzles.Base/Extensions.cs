@@ -172,4 +172,7 @@ public static class Extensions
         source.TryAdd(key, func());
         return source[key];
     }
+
+    public static TBuffer[] CreateBuffer<TBuffer>(this Array source)
+        => new TBuffer[source.Length];
 }

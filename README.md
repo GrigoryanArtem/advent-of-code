@@ -189,6 +189,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   04 | [High-Entropy Passphrases](https://adventofcode.com/2017/day/4)                |            0.036 |            0.065 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day04.cs) |
 | 🟩   |   05 | [A Maze of Twisty Trampolines, All Alike](https://adventofcode.com/2017/day/5) |            0.396 |           69.611 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day05.cs) |
 | 🟩   |   06 | [Memory Reallocation](https://adventofcode.com/2017/day/6)                     |            0.418 |            0.418 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day06.cs) |
+| 🟩   |   07 | [Recursive Circus](https://adventofcode.com/2017/day/7)                        |            0.004 |            0.029 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day07.cs) |
 
 ### 2016
 

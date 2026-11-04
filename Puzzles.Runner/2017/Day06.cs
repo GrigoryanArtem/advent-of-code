@@ -3,7 +3,7 @@
 namespace Puzzles.Runner._2017;
 
 [Puzzle("Memory Reallocation", 6, 2017)]
-public class Day06(IFullInputReader input, IRunInfo info) : IPuzzleSolver
+public class Day06(IFullInputReader input) : IPuzzleSolver
 {
     private static readonly UInt128 UINT128_ONES =
         ((UInt128)0x0101010101010101UL << 64) | 0x0101010101010101UL;
