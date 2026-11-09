@@ -41,7 +41,7 @@ Time was measured by running each part n times and finding the average result. T
 | [2020](#2020) | **18**/50 |
 | [2019](#2019) | **28**/50 |
 | [2018](#2018) | **12**/50 |
-| [2017](#2017) | **16**/50 |
+| [2017](#2017) | **18**/50 |
 | [2016](#2016) | **14**/50 |
 | [2015](#2015) | **10**/50 |
 
@@ -192,7 +192,8 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   07 | [Recursive Circus](https://adventofcode.com/2017/day/7)                        |            0.004 |            0.029 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day07.cs) |
 | 🟩   |   08 | [I Heard You Like Registers](https://adventofcode.com/2017/day/8)              |            0.068 |            0.068 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day08.cs) |
 | 🟩   |   09 | [Stream Processing](https://adventofcode.com/2017/day/9)                       |            0.010 |            0.010 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day09.cs) |
-
+|      |   10 |                        |         |           |  |
+| 🟩   |   11 | [Hex Ed](https://adventofcode.com/2017/day/11)                       |         |           | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day11.cs) |
 ### 2016
 
 | #   |  Day | Problem                                                                | Part 1 time, ms. | Part 2 time, ms. | Code                                                                                              |
