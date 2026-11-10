@@ -194,6 +194,7 @@ Time was measured by running each part n times and finding the average result. T
 | 🟩   |   09 | [Stream Processing](https://adventofcode.com/2017/day/9)                       |            0.010 |            0.010 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day09.cs) |
 | 🟨   |   10 | [Knot Hash](https://adventofcode.com/2017/day/10)                              |            0.005 |            0.065 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day10.cs) |
 | 🟩   |   11 | [Hex Ed](https://adventofcode.com/2017/day/11)                                 |            0.410 |            0.410 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day11.cs) |
+| 🟩   |   12 | [Digital Plumber](https://adventofcode.com/2017/day/12)                        |            0.019 |            0.019 | [Code](https://github.com/GrigoryanArtem/advent-of-code/blob/master/Puzzles.Runner/2017/Day12.cs) |
 
 ### 2016
 
