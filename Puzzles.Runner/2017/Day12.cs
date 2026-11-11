@@ -73,7 +73,7 @@ public class Day12(ILinesInputReader input) : IPuzzleSolver
             _doors[i] = new
             (
                 Int32.Parse(tokens[0]),
-                [.. tokens[1].Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(Int32.Parse)]
+                [.. Parse.StringToNumbers(tokens[1])]
             );
         }
     }
